@@ -1,0 +1,173 @@
+@charset "UTF-8";
+/* 회색 : rgb(210, 214, 211) */
+* {
+    box-sizing: border-box;
+    margin : 0;
+    padding : 0;
+
+}
+
+div {
+    /* border: 1px solid red; */
+}
+
+/* body부분 전체 흐리게 만드는 모달. */
+.all_area_modal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 3;
+    background-color: rgba(49, 51, 49, 0.7);
+    top: 0;
+    left: 0;
+    display: block;
+    padding-top: 10%;
+    /* visibility: hidden; */
+    box-sizing: border-box;
+}
+
+/* ID 찾기 창 바탕*/
+.pwd_search_area{
+    background-color: white;
+    width: 400px;
+    height: 520px;
+    /* top: 100px; */
+    left: 35%;
+    padding: 0;
+    border-radius: 5px;
+    padding: 30px 30px 30px 30px;
+
+}
+
+#pwd_search_header{
+    color: black;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+/* ID 찾기 정보 영역*/
+#pwd_search_form{
+    width: 100%;
+    height: 70%;
+    box-sizing: border-box;
+}
+
+/* id_search_form 영역의 input 레이블 설정 */
+.pwd_search_label {
+    display: inline-block;
+    margin-bottom : 20px;
+    color : gray;
+    font-weight : bold;
+}
+
+/* input 영역 설정 */
+.input_area {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+
+}
+
+/* id, pwd, pwdChk 인풋의 크기, 형태 설정 */
+.info{
+    box-sizing: border-box;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+    background-color: lightgray;
+    padding-left: 5px; 
+    border : 0;
+    outline : 0;
+}
+
+#verify_area {
+    width: 100%;
+    height: 40px;
+    margin-bottom : 20px;
+}
+/* email, nickName 인풋의 크기, 형태 설정 */
+.verify {
+    padding-left: 5px; 
+    width: 70%;
+    height: 100%;
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+}
+
+/* 인증메시지 */
+#pwd_search_form .msg{
+    display: inline-block;
+    font-size: 1em;
+    font-weight: bold;
+    color: green; 
+    margin-right: 20%;
+}
+
+/* 이메일 전송 버튼 */
+#send_mail{
+    width: 25%;
+    height: 100%;
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+    border-radius: 5px;
+    color : dimgray;
+    font-weight : bold;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+/* 로그인 버튼 영역 */
+#pwd_search_footer {
+    width: 100%;
+    height: 90px;
+    padding-top: 15px;
+}
+
+/* 구분선 영역 */
+#middle_line {
+    display: block;
+    padding: 0 0 30px 0;
+}
+
+#middle_line hr{
+    border-top : 1px solid gray;
+}
+
+/* 로그인 버튼 */
+.login_btn {
+    width: 100%;
+    height: 40px;
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+    border-radius: 5px;
+    color : dimgray;
+    font-weight : bold;
+    font-size: 1.2em;
+}
+
+/* 버튼에 마우스 갖다대면 포인터로 변경 */
+.join_form button:hover {
+    cursor: pointer;
+}
+
+/* 모달 공통적인 기능 */
+.animate_top{
+    position: relative;
+    animation: animatetop 0.5s;
+}
+
+@keyframes animatetop{
+    from{
+        opacity: 0;
+    }
+    to{
+        top: 0;
+        opacity: 1;
+    }
+}
+/* 모달 설정 종료--------------------------------------------- */
+
