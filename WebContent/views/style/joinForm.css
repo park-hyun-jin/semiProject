@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+    margin : 0;
+    padding : 0;
+
+}
+
+div {
+    /* border: 1px solid red; */
+}
+
+/* 회원가입 창 바탕*/
+#join_form{
+    background-color: white;
+    width: 400px;
+    height: 520px;
+    /* top: 100px; */
+    left: 35%;
+    padding: 0;
+    border-radius: 5px;
+    padding: 25px 30px 25px 30px;
+
+}
+
+/* 버튼에 마우스 갖다대면 포인터로 변경 */
+#join_form button:hover {
+    cursor: pointer;
+}
+
+
+/* 회원가입 창의 아이디, 비밀번호 입력 폼 영역*/
+#join_input_info{
+    width: 100%;
+    height: 90%;
+    box-sizing: border-box;
+}
+
+/* join form 영역의 input 레이블 설정 */
+.join_label {
+    display: inline-block;
+    margin-bottom : 7px;
+    color : gray;
+    font-weight : bold;
+}
+
+/* input 영역 설정 */
+.join_input_area {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+
+}
+
+/* id, pwd, pwdChk 인풋의 크기, 형태 설정 */
+.info{
+    box-sizing: border-box;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+    padding-left: 5px; 
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+}
+
+/* 확인 및 인증 메시지 span */
+#join_form .chkMsg {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: green;
+}
+
+/* email, nickName 인풋의 크기, 형태 설정 */
+.verify {
+    padding-left: 5px; 
+    width: 70%;
+    height: 100%;
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+}
+
+/* 이메일, 닉네임 확인 버튼 */
+.chkBtn{
+    width: 25%;
+    height: 100%;
+    right: 0;
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+    border-radius: 5px;
+    color : dimgray;
+    font-weight : bold;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+#join_btn_area {
+    width: 100%;
+    height: 70px;
+    padding-top : 0;
+}
+
+#join_form #middle_line {
+    display: block;
+    
+}
+
+#join_form #middle_line hr{
+    border-top : 1px solid gray;
+}
+
+#go_join {
+    width: 100%;
+    height: 40px;
+    background-color: lightgray;
+    border : 0;
+    outline : 0;
+    border-radius: 5px;
+    color : dimgray;
+    font-weight : bold;
+    font-size: 1.2em;
+}
+
+/* 모달 공통적인 기능 */
+.animate_top{
+    position: relative;
+    animation: animatetop 0.5s;
+}
+
+@keyframes animatetop{
+    from{
+        opacity: 0;
+    }
+    to{
+        top: 0;
+        opacity: 1;
+    }
+}
+/* 모달 설정 종료--------------------------------------------- */
+
