@@ -10,9 +10,7 @@
 
     <link rel="stylesheet" href="<%=request.getContextPath() %>/views/style/bootstrap.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-    <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <style>
         html{
             resize: both;
