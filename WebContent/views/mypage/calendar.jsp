@@ -295,7 +295,7 @@ aside {
 							for (int j = 1; j <= last_day; j++) {
 						%>
 
-						<td><span id="<%=j%>"><%=j%><div class="cake"></div></span>
+						<td><span><%=j%><div id="<%=j%>" class="cake"></div></span>
 
 							<%
 								if ((yo + j - 1) % 7 == 0) {
@@ -324,8 +324,9 @@ aside {
 
 	<script>
 		$(document).ready(function(){
-			$("#<%=d%>").children().css({"pointer-events":"auto","cursor":"pointer"});
-
+			$("#<%=d%>").css({"pointer-events":"auto","cursor":"pointer"});
+			$("#<%=d%>").parent().parent().css("background-color","rgb(241, 196, 15,0.25)");
+			
 		});
 		$(".cake").click(function() {
 			alert("우효~ 50포인트 겟또다제!");
