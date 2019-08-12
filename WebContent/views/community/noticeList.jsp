@@ -24,10 +24,8 @@
 <body>
 
 	<%@ include file="../common/nav.jsp" %>
-	
-	
-	
-	        <!-- 본문 영역 -->
+
+	    <!-- 본문 영역 -->
         <section class="community_content">
             <!-- 커뮤니티 게시판 -->
             <div class= "community_wrap">

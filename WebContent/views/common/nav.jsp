@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="user.model.vo.User"%>
+    
+<%
+
+	// 로그인했을 경우 유저정보
+	User loginUser = (User)session.getAttribute("loginUser");
+	
+	String msg = (String)session.getAttribute("msg"); 
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,13 +39,15 @@
             top: 0;
         }
         
-        .sign_in_btndiv{
+        .sign_in_btndiv {
+        	width: 10%;
             float: right;
-            margin-right: 2rem;
+            /* margin-right: 2rem; */
+            
         }
 
         .sign_in_btn{
-            
+            margin: 0 auto;
             display: inline-block;
             font-weight: 600;
             color: #919aa1;
@@ -54,6 +65,23 @@
             border-color: #fff;
             
         }
+        
+        .userFuncArea {
+			width: 50px;
+			height: 50px;
+			float: left;
+			margin-left: 10%;
+			
+		}
+		
+		.userFuncArea img {
+			width: 100%;
+			height: 100%;
+		}
+		
+		.userFuncArea img: hover {
+			cursor: pointer;
+		}
 
         footer{
             background-color: rgb(1,11,20);
@@ -131,7 +159,7 @@
             margin-right: 3rem;
         }
 
-
+	
 
 
         </style>
@@ -156,6 +184,14 @@
 	
 
 
+<script>
+	var msg = "<%= msg%>";
+	
+	if(msg != "null") { // msg 값이 있을 경우
+		alert(msg);	
+		<% session.removeAttribute("msg"); %>
+	}
+</script>
 
 
 
@@ -208,10 +244,25 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
+                    <div class="sign_in_btndiv">
+        	<!-- 로그인 안했을 경우 -->
+        	<% if(loginUser == null) { %>
+            	<button class="sign_in_btn">sign in</button>
+            <% } else { %>
+            	<!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
+            	<div id="mypageDiv" class="userFuncArea" 
+            		onclick="location.href='<%=request.getContextPath()%>/views/mypage/calendar.jsp'">
+            		<img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>	
+            	</div>
+            	<div id="logoutDiv" class="userFuncArea" 
+            		onclick="logout();">
+            		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
+            	</div>
+            
+            <% } %>
         </div>
-        <div class="sign_in_btndiv">
-            <button class="sign_in_btn">sign in</button>
         </div>
+
     </nav>
 
 
@@ -232,23 +283,25 @@
 		<!-- 로그인 창 -->
 	    <div id="login-form" class= "animate-top">
 	        
-	        <div id="login-input-id-pwd">
-	            <form method="get" id="login-form-input">
-	                <div id="id_label" class="login_input_label">ID</div>
-	                <div id="login-input-id">
-	                    <input type="text" id="input-id"
-	                        name="inputId">
-	                </div>
-	                <di id="pwd_label" class="login_input_label">PASSWORD</di>
-	                <div id="login-input-pwd">
-	                    <input type="password" id="input-pwd"
-	                        name="inputPwd">
-	                </div>
-	                <div id="login-input-btn" class="login_btn_area">
-	                    <button type="submit" id="go-login" class="center login_btn" onclick="exitModalLogin()">로그인</button>
-	                </div>
-	            </form>
-	        </div>
+	        <div id="login-input-email-pwd">
+               <form method="post" id="login-form-input" action="<%=request.getContextPath() %>/loginUser.us">
+               		<!-- 이메일로 로그인. loginWay -->
+               		<input type="hidden" name="loginWay" value="E"></input>
+                   <div id="email_label" class="login_input_label">EMAIL</div>
+                   <div id="login-input-email">
+                       <input type="text" id="input-email"
+                           name="inputEmail">
+                   </div>
+                   <di id="pwd_label" class="login_input_label">PASSWORD</di>
+                   <div id="login-input-pwd">
+                       <input type="password" id="input-pwd"
+                           name="inputPwd">
+                   </div>
+                   <div id="login-input-btn" class="login_btn_area">
+                       <button type="submit" id="go-login" class="center login_btn" onclick="exitModalLogin()">로그인</button>
+                   </div>
+               </form>
+           </div>
 	        
 			<!-- 소셜로그인 영역. 카카오, 네이버 -->
 	        <div id="social_login">
@@ -309,33 +362,34 @@
         
         
         <!-- (이메일로) 회원가입 모달 -->
-                <div id="join_form" class="animate_top">
+        <div id="join_form" class="animate_top">
             
-            <form method="get" id="join_form_input">
+            <form method="post" action="<%=request.getContextPath() %>/emailJoin.do" id="join_form_input">
                 
                 <div id="join_input_info">
-                    <span id="id_label" class="join_label">ID</span>
-                    <div id="join_input_id" class="join_input_area">
-                        <input type="text" class="info" id="id" name="id">
+                    <span id="email_label" class="join_label">EMAIL</span>
+                    <span class="chkMsg" id="emailChkMsg"></span>
+                    <div id="join_input_pwd" class="join_input_area">
+                        <input type="email" class="verify" id="joinEmail" name="joinEmail">
+                        <button type="button" id="emailChk" class="chkBtn" disabled>인증</button>
                     </div>
                     
                     <span id="pwd_label" class="join_label">PASSWORD</span>
                     <div id="join-input-pwd" class="join_input_area">
-                        <input type="password" class="info" id="pwd" name="pwd">
+                        <input type="password" class="info" id="joinPwd" name="joinPwd">
                     </div>
                     
                     <span id="pwd_chk_label" class="join_label">PASSWORD 확인</span>
-                    <span class="chkMsg">일치합니다.</span>
+                    <span class="chkMsg" id="pwdChkMsg">일치합니다.</span>
                     <div id="join-input-pwd" class="join_input_area">
                         <input type="password" class="info" id="pwdChk" name="pwdChk">
                     </div>
                     
-                    <span id="email_label" class="join_label">EMAIL 인증</span>
-                    <span class="chkMsg">인증되었습니다.</span>
-                    <div id="join_input_pwd" class="join_input_area">
-                        <input type="email"  class="verify" id="email" name="email">
-                        <button id="emailChk" class="chkBtn">인증</button>
+                    <span id="name_label" class="join_label">이름</span>
+                    <div id="join_input_name" class="join_input_area">
+                        <input type="text" class="info" id="joinName" name="joinName">
                     </div>
+                    
                     
                     <span id="nickName_label" class="join_label">닉네임</span>
                     <div id="join_input_nickName" class="join_input_area">
@@ -417,6 +471,16 @@
 	<script>
 	$(function() {
 		
+		// 로그아웃 함수
+		function logout() {
+			
+			<% request.getSession().removeAttribute("loginUser");%>
+			
+			location.href="<%=request.getContextPath()%>/views/main/main.jsp";
+		}
+		
+
+		
 	    // 로그인 버튼 누르면 모달 실행. 
 /* 	    function clickActionLogin() { */
 		$(".sign_in_btn").click(function() {
@@ -458,13 +522,46 @@
 		    $(".id_pwd_search_area").css("display", "none"); 
 	    });
    
+	    // 카카오로그인 이미지 누르면 카카오 api 실행
     	$("#kakaoCreateBtn").click(function() {
     		$("#kakao-login-btn img").click();
     	});
     	
+	    // 네이버로그인 이미지 누르면 네이버 api 실행
     	$("#naverCreateBtn").click(function() {
     		$("#naverIdLogin_loginButton img").click();
     	});
+    	
+    	// 이메일 입력하면 ajax로 체크 실행.
+   		$("#joinEmail").on("input", function() {
+   			$("#emailChk").attr("disabled", true);
+   			// 이메일 형식검사
+   			regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+			var joinEmail = $("#joinEmail").val().trim();
+		
+			if(regExp.test(joinEmail)) {
+				
+				$.ajax({
+					url: "<%=request.getContextPath()%>/joinEmailVerify.do",
+	    			data: {joinEmail : email},
+	    			type: "POST",
+					success : function(result) {
+						if(result == 0) {
+							$("#emailChkMsg").text("사용가능한 아이디입니다.").css({"color":"green", "font-weight":"bold"});
+							$("#emailChk").attr("disabled", false);
+						} else {
+							$("#emailChkMsg").text("중복되었습니다.").css({"color":"red", "font-weight":"bold"});
+						}
+					},
+					error : function() {
+						console.log("aJax 통신 오류");
+					}
+				});
+			} else {
+				$("#emailChkMsg").text("이메일을 올바르게 기입해주세요.").css({"color":"red", "font-weight":"bold"});
+			}
+		});
  
 	});
 </script>
