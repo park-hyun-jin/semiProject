@@ -6,14 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-    <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <title>Insert title here</title>
 
 
 
-<link rel="stylesheet" href="<%=request.getContextPath() %>/views/style/bootstrap.css">
 <link rel="stylesheet" href="../style/navNcommunity.css">
 <style>
 	* {
