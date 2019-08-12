@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>mainPage</title>
 <style>
+	.detailList>li a{
+            color: white !important;
+        }
+
 	.main-img{
         width: 100%;
         height: 100%;

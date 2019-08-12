@@ -14,7 +14,7 @@
     <style>
         html{
             resize: both;
-            width: 1920px;            
+            width: 1910px;            
         }
 
         .navbar{
@@ -25,7 +25,7 @@
         .bg-primary{
             z-index: 2;
             position: fixed !important;
-            width: 1920px;
+            width: 1910px;
             background-color: rgb(1,11,20) !important;
             top: 0;
         }
