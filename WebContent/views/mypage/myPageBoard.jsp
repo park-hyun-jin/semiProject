@@ -1,5 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="board.model.vo.PageInfo"%>
+	<%@page import="board.model.vo.Board"%>
+	<%@page import="java.util.ArrayList"%>  
+     <%
+    	ArrayList<Board> list =(ArrayList<Board>)request.getAttribute("list"); // 그냥 게시물에 대한 정보
+     
+
+    
+    
+    PageInfo pInf = (PageInfo)request.getAttribute("pInf");
+    
+    int boardCount = pInf.getBoardCount();
+    int currentPage = pInf.getCurrentPage();
+    int maxPage = pInf.getMaxPage();
+    int startPage = pInf.getStartPage();
+    int endPage = pInf.getEndPage();
+    int limit = pInf.getLimit();
+    int pagingBarSize = pInf.getPagingBarSize();
+    
+    
+    %>
+    
+    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -386,6 +411,49 @@ section{
                                 
                             </table>
                         </div>
+                        
+                        <!------- 페이징 바 ------->
+		<!-- 페이징 처리 시작! -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로(<<) -->
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=1'">&lt;&lt;</span>
+		
+			<!-- 이전 페이지로(<) -->
+			<% if(currentPage <= 1) { %>
+				<span class="pagingBtn">&lt;</span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage-1 %>'">&lt;</span>
+			<% } %>
+			
+			<!-- 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage) { %>
+					<span class="pagingBtn selectBtn"><%= p %></span>
+				<% } else{ %>
+					<span class="pagingBtn clickBtn" 
+						onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= p %>'"><%=p%></span>
+				<% } %>
+			<%} %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage >= maxPage){ %>
+				<span class="pagingBtn"> &gt; </span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage+1 %>'">&gt;</span>
+			<% } %>
+			
+			<!-- 맨 끝으로(>>) -->
+			<span class="pagingBtn clickBtn"
+				onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+		</div>
+		
+                        
+                        
+                        
+                        
+                        
                         
                         <span id="tab-2" class="tab-btn"></span>
                         <a href="#tab-2" class="tab-link tab2">내가 작성한 댓글 보기</a>

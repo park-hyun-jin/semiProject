@@ -46,7 +46,7 @@ public class LoginEmailUserServlet extends HttpServlet {
 			
 		} else {
 			request.setAttribute("msg", "로그인 실패");
-			response.sendRedirect(request.getContextPath()+"/main/main.jsp");
+			response.sendRedirect(request.getContextPath()+"/views/common/errorPage.jsp");
 			
 		}
 	
