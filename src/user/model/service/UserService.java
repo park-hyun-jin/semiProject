@@ -68,7 +68,14 @@ public class UserService {
 		return loginUser;
 	}
 
-	
+	public User selectUser(String email) {
+		Connection conn = getConnection();
+		
+		User user = new UserDao().selectUser(conn, email);
+
+		return user;
+	}
+
    
    
 }

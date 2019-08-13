@@ -164,5 +164,42 @@ public class UserDao {
 	}
 
 
+	public User selectUser(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		User user = null;
+		
+		String query = prop.getProperty("selectUser");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user = new User(email, 
+						rset.getString(1), 
+						rset.getString(2), 
+						rset.getString(3), 
+						rset.getString(4).charAt(0), 
+						rset.getInt(5), 
+						rset.getInt(6));
+			}
+			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return user;
+	}
+
 
 }
