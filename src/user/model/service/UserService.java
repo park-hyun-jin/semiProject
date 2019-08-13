@@ -37,6 +37,14 @@ public class UserService {
 		return loginUser;
 	}
 
+	public User selectUser(String userId) {
+		Connection conn = getConnection();
+		
+		User user = new UserDao().selectUser(conn, userId);
+
+		return user;
+	}
+
    
    
 }

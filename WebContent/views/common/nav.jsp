@@ -195,7 +195,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">로고자리</a>
+        <a class="navbar-brand" href="<%=request.getContextPath()%>">로고자리</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -248,7 +248,7 @@
             <% } else { %>
             	<!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
             	<div id="mypageDiv" class="userFuncArea" 
-            		onclick="location.href='<%=request.getContextPath()%>/views/mypage/calendar.jsp'">
+            		onclick="location.href='<%=request.getContextPath()%>/myPage.me'">
             		<img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>	
             	</div>
             	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
