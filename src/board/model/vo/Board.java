@@ -16,38 +16,38 @@ public class Board {
 	private int header;
 	private int writer;
 
-}
+
 	
 	// int cid; 아니고  조인 결과 값인 String cateogry;로 함
-	// int bWriter; 아니고 조인 결과 값이 String bWriter;로 함
+	// int writer; 아니고 조인 결과 값이 int writer;로 함
 	
 	public Board() {}
 
-	public Board(int bId, int bType, String category, String bTitle, String bContent, String bWriter, int bCount,
-			Date createDate, Date modifyDate, String status) {
+	public Board(int bNo, int bType, int header, String bTitle, String bContent, int writer, int bCount,
+			Date createDate, Date modifyDate, String bStatus) {
 		super();
-		this.bId = bId;
+		this.bNo = bNo;
 		this.bType = bType;
-		this.category = category;
+		this.header = header;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
-		this.bWriter = bWriter;
+		this.writer = writer;
 		this.bCount = bCount;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
-		this.status = status;
+		this.bStatus = bStatus;
 	}
 
 	
 
-	public Board(int bId, String category, String bTitle, String bContent, String bWriter, int bCount, Date createDate,
+	public Board(int bNo, int header, String bTitle, String bContent, int writer, int bCount, Date createDate,
 			Date modifyDate) {
 		super();
-		this.bId = bId;
-		this.category = category;
+		this.bNo = bNo;
+		this.header = header;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
-		this.bWriter = bWriter;
+		this.writer = writer;
 		this.bCount = bCount;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
@@ -58,21 +58,21 @@ public class Board {
 			int rpCount, int bType, int header, int writer) {
 
 		super();
-		this.bId = bId;
-		this.category = category;
+		this.bNo = bNo;
+		this.header = header;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
-		this.bWriter = bWriter;
+		this.writer = writer;
 		this.bCount = bCount;
 		this.createDate = createDate;
 	}
 
-	public int getbId() {
-		return bId;
+	public int getbNo() {
+		return bNo;
 	}
 
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setbNo(int bNo) {
+		this.bNo = bNo;
 	}
 
 	public int getbType() {
@@ -83,12 +83,12 @@ public class Board {
 		this.bType = bType;
 	}
 
-	public String getCategory() {
-		return category;
+	public int getheader() {
+		return header;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setheader(int header) {
+		this.header = header;
 	}
 
 	public String getbTitle() {
@@ -107,12 +107,12 @@ public class Board {
 		this.bContent = bContent;
 	}
 
-	public String getbWriter() {
-		return bWriter;
+	public int getwriter() {
+		return writer;
 	}
 
-	public void setbWriter(String bWriter) {
-		this.bWriter = bWriter;
+	public void setwriter(int writer) {
+		this.writer = writer;
 	}
 
 	public int getbCount() {
@@ -151,9 +151,9 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bId=" + bId + ", bType=" + bType + ", category=" + category + ", bTitle=" + bTitle
-				+ ", bContent=" + bContent + ", bWriter=" + bWriter + ", bCount=" + bCount
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+		return "Board [bNo=" + bNo + ", bType=" + bType + ", header=" + header + ", bTitle=" + bTitle
+				+ ", bContent=" + bContent + ", writer=" + writer + ", bCount=" + bCount
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + bStatus + "]";
 	}
 
 	

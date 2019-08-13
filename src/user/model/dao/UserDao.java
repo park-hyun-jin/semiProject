@@ -264,19 +264,8 @@ public class UserDao {
 			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
-				Board b = new Board(
-						      rset.getInt("BID"),
-						      rset.getString("CNAME"),
-						      rset.getString("BTITLE"),
-						      rset.getString("BCONTENT"),
-						      rset.getString("USER_NAME"),
-						      rset.getInt("BCOUNT"),
-						      rset.getDate("CREATE_DATE"),
-						      rset.getDate("MODIFY_DATE")
-						 
-						      );
 				
-				list.add(b);
+
 			}		
 			
 			
@@ -288,10 +277,14 @@ public class UserDao {
 		}
 		
 		
-
 		return list;
 	}
-	}
+	
+	
+	
+	
+	
+}
 
 
 	
