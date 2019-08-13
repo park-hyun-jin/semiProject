@@ -10,17 +10,17 @@ public class User {
    private String userName;
    private String nickName;
    private Date enrollDate;
-   private char artist;
-   private char uStatus;
+   private String artist;
+   private String uStatus;
    private int userPoint;
    private int userCash;
-   private char sign;
+   private String sign;
    
    public User() {   }
    
    
    
-   public User(String email, String userPwd, String userName, String nickName, char artist, int userPoint, int userCash) {
+   public User(String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
 	super();
 	this.email = email;
 	this.userPwd = userPwd;
@@ -33,7 +33,7 @@ public class User {
 
 
 
-public User(String email, String userPwd, char sign) {
+public User(String email, String userPwd, String sign) {
 		super();
 		this.email = email;
 		this.userPwd = userPwd;
@@ -41,7 +41,7 @@ public User(String email, String userPwd, char sign) {
 	}
 
 
-   public User(String email, String userPwd, String userName, String nickName, char sign) {
+   public User(String email, String userPwd, String userName, String nickName, String sign) {
       super();
       this.email = email;
       this.userPwd = userPwd;
@@ -50,7 +50,7 @@ public User(String email, String userPwd, char sign) {
       this.sign = sign;
    }
    
-   public User(int uNo, String email, String userName, String nickName, char artist, char sign) {
+   public User(int uNo, String email, String userName, String nickName, String artist, String sign) {
 	super();
 	this.uNo = uNo;
 	this.email = email;
@@ -62,7 +62,7 @@ public User(String email, String userPwd, char sign) {
 
 
 public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
-         char artist, int userPoint, int userCash, char sign) {
+         String artist, int userPoint, int userCash, String sign) {
       super();
       this.uNo = uNo;
       this.email = email;
@@ -77,7 +77,7 @@ public User(int uNo, String email, String userPwd, String userName, String nickN
    }
 
    public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
-         char artist, char uStatus, int userPoint, int userCash, char sign) {
+         String artist, String uStatus, int userPoint, int userCash, String sign) {
       super();
       this.uNo = uNo;
       this.email = email;
@@ -153,22 +153,22 @@ public User(int uNo, String email, String userPwd, String userName, String nickN
    }
 
 
-   public char getArtist() {
+   public String getArtist() {
       return artist;
    }
 
 
-   public void setArtist(char artist) {
+   public void setArtist(String artist) {
       this.artist = artist;
    }
 
 
-   public char getuStatus() {
+   public String getuStatus() {
       return uStatus;
    }
 
 
-   public void setuStatus(char uStatus) {
+   public void setuStatus(String uStatus) {
       this.uStatus = uStatus;
    }
 
@@ -193,12 +193,12 @@ public User(int uNo, String email, String userPwd, String userName, String nickN
    }
 
 
-   public char getSign() {
+   public String getSign() {
       return sign;
    }
 
 
-   public void setSign(char sign) {
+   public void setSign(String sign) {
       this.sign = sign;
    }
 

@@ -24,7 +24,7 @@ public class EmailJoinUserServlet extends HttpServlet {
 	
     	request.setCharacterEncoding("UTF-8");
 	      
-    	char sign = 'E';
+    	String sign = "E";
 	    String email = request.getParameter("joinEmail");
 	    String userPwd = request.getParameter("joinPwd");
 	    String userName = request.getParameter("joinName");

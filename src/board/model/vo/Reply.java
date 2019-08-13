@@ -7,7 +7,7 @@ public class Reply {
 	private String rContent;
 	private Date rCreateDate;
 	private Date rModifyDate;
-	private char rStatus;
+	private String rStatus;
 	private int bNo;
 	private int userNo;
 	
@@ -15,7 +15,7 @@ public class Reply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(int rNo, String rContent, Date rCreateDate, Date rModifyDate, char rStatus, int bNo, int userNo) {
+	public Reply(int rNo, String rContent, Date rCreateDate, Date rModifyDate, String rStatus, int bNo, int userNo) {
 		super();
 		this.rNo = rNo;
 		this.rContent = rContent;
@@ -58,11 +58,11 @@ public class Reply {
 		this.rModifyDate = rModifyDate;
 	}
 
-	public char getrStatus() {
+	public String getrStatus() {
 		return rStatus;
 	}
 
-	public void setrStatus(char rStatus) {
+	public void setrStatus(String rStatus) {
 		this.rStatus = rStatus;
 	}
 

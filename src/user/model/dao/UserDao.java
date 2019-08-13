@@ -107,7 +107,7 @@ public class UserDao {
 			pstmt.setString(2, joinUser.getUserPwd());
 			pstmt.setString(3, joinUser.getUserName());
 			pstmt.setString(4, joinUser.getNickName());
-			pstmt.setString(5, joinUser.getSign()+"");
+			pstmt.setString(5, joinUser.getSign());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -138,7 +138,7 @@ public class UserDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getUserPwd());
-			pstmt.setString(3, user.getSign()+"");
+			pstmt.setString(3, user.getSign());
 			
 			rset = pstmt.executeQuery();
 			
@@ -148,8 +148,8 @@ public class UserDao {
 						rset.getString(2),
 						rset.getString(3), 
 						rset.getString(4),
-						rset.getString(5).charAt(0),
-						rset.getString(6).charAt(0)	
+						rset.getString(5),
+						rset.getString(6)	
 					);
 						
 			}
@@ -184,7 +184,7 @@ public class UserDao {
 						rset.getString(1), 
 						rset.getString(2), 
 						rset.getString(3), 
-						rset.getString(4).charAt(0), 
+						rset.getString(4), 
 						rset.getInt(5), 
 						rset.getInt(6));
 			}
