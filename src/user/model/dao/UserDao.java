@@ -29,14 +29,19 @@ public class UserDao {
    }
 
 
+	/**
+	 * 이메일 중복 체크
+	 * @param conn
+	 * @param joinEmail
+	 * @return result
+	 */
 	public int checkEmail(Connection conn, String joinEmail) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("checkEmail");
+		String query = prop.getProperty("emailCheck");
 		
 		int result = 0;
-		System.out.println(query);
-		System.out.println(joinEmail);
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, joinEmail);
@@ -55,7 +60,42 @@ public class UserDao {
 		
 		return result;
 	}
+	
+	/**
+	 * 닉네임 중복체크
+	 * @param conn
+	 * @param nickName
+	 * @return result
+	 */
+	public int nickNameCheck(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("nickNameCheck");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, nickName);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 
+	/**
+	 * 이메일로 회원가입
+	 * @param conn
+	 * @param joinUser
+	 * @return result
+	 */
 	public int emailJoin(Connection conn, User joinUser) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("emailJoin");
@@ -63,11 +103,11 @@ public class UserDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, joinUser.getUserNo());
-			pstmt.setString(2,  joinUser.getEmail());
-			pstmt.setString(3, joinUser.getUserPwd());
-			pstmt.setString(4, joinUser.getUserName());
-			pstmt.setString(5, joinUser.getNickName());
+			pstmt.setString(1,  joinUser.getEmail());
+			pstmt.setString(2, joinUser.getUserPwd());
+			pstmt.setString(3, joinUser.getUserName());
+			pstmt.setString(4, joinUser.getNickName());
+			pstmt.setString(5, joinUser.getSign()+"");
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -80,6 +120,12 @@ public class UserDao {
 	}
 
 
+	/**
+	 * 로그인하고 로그인 유저 정보 반환
+	 * @param conn
+	 * @param user
+	 * @return user : loginUser
+	 */
 	public User loginUser(Connection conn, User user) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -114,7 +160,9 @@ public class UserDao {
 			close(pstmt);
 		}
 		
-		
 		return loginUser;
 	}
+
+
+
 }
