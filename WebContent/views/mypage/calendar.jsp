@@ -329,7 +329,7 @@ aside {
 			
 		});
 		$(".cake").click(function() {
-			alert("우효~ 50포인트 겟또다제!");
+			alert("아아, 이것은 포인트라는것이다. 이걸로 악보를 구매할수 있지(웃음)");
 			$(this).css({
 				"background-image" : "url('../image/red-cake.png')",
 				"opacity" : "1",

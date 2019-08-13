@@ -127,12 +127,12 @@
 	<%@ include file="../common/nav.jsp" %>
 	
 	<div class="main-div">
-            <div class="main-img"><img src="../image/cosmos.jpg"></div>
+            <div class="main-img"><img src="<%=request.getContextPath()%>/views/image/cosmos.jpg"></div>
             <div class="star-box">
-                <img src="../image/star.png">
-                <img src="../image/star.png"><br><br><br>
-                <img src="../image/star.png">
-                <img src="../image/star.png">
+                <img src="<%=request.getContextPath()%>/views/image/star.png">
+                <img src="<%=request.getContextPath()%>/views/image/star.png"><br><br><br>
+                <img src="<%=request.getContextPath()%>/views/image/star.png">
+                <img src="<%=request.getContextPath()%>/views/image/star.png">
             </div>
             <div class="main-text"> 
                 <span>NOTE&nbsp;</span>
@@ -140,7 +140,7 @@
                 <span>REST</span>
                 <br>
                 <span>일상을 채워줄 악보공간</span><br><br>
-                <button onclick="location.href='../community/noticeList.jsp'">GET STARTED</button>
+                <button onclick="location.href='<%=request.getContextPath()%>/views/community/noticeList.jsp'">GET STARTED</button>
             </div>
             
         </div>
