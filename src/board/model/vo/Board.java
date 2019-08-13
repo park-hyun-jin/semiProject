@@ -9,7 +9,7 @@ public class Board {
 	private int bCount;
 	private Date createDate;
 	private Date modifyDate;
-	private char bStatus;
+	private String bStatus;
 	private int rpCount;
 	private int bType;
 	private int header;
@@ -41,7 +41,7 @@ public class Board {
 		this.writer = writer;
 	}
 
-	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, char bStatus,
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
 			int rpCount, int bType, int header, int writer) {
 		super();
 		this.bNo = bNo;
@@ -105,11 +105,11 @@ public class Board {
 		this.modifyDate = modifyDate;
 	}
 
-	public char getbStatus() {
+	public String getbStatus() {
 		return bStatus;
 	}
 
-	public void setStatus(char bStatus) {
+	public void setStatus(String bStatus) {
 		this.bStatus = bStatus;
 	}
 

@@ -27,7 +27,7 @@ public class LoginEmailUserServlet extends HttpServlet {
 		
 		String inputEmail = request.getParameter("inputEmail");
 		String inputPwd = request.getParameter("inputPwd");
-		char loginWay = request.getParameter("loginWay").charAt(0);
+		String loginWay = request.getParameter("loginWay");
 		
 		User loginUser = new User(inputEmail, inputPwd, loginWay);
 	
@@ -46,7 +46,7 @@ public class LoginEmailUserServlet extends HttpServlet {
 			
 		} else {
 			request.setAttribute("msg", "로그인 실패");
-			response.sendRedirect(request.getContextPath());
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		}
 	
