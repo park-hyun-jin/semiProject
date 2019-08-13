@@ -31,14 +31,25 @@ public class MyPageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loginUser = (User)session.getAttribute("loginUser");
 		
-		String userId = loginUser.getEmail();
+		String email = loginUser.getEmail();
 		
 		// DB에서 아이디가 일치하는 회원 정보 읽어오기
-		User user = new UserService().selectUser(userId);
+		User user = new UserService().selectUser(email);
 		
 		// DB 조회 결과에 따라 view 연결 처리
 		RequestDispatcher view = null;	
 
+		if(user != null) {
+			view = request.getRequestDispatcher("views/mypage/calendar.jsp");
+			
+			request.setAttribute("user", user);
+		}else {
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg", "회원 정보 조회 실패");
+			
+		}
+		
+		view.forward(request, response);
 		
 	}
 
