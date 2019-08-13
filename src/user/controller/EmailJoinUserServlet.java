@@ -20,21 +20,29 @@ public class EmailJoinUserServlet extends HttpServlet {
     	
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	      request.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("UTF-8");
 	      
-	      char sign = 'E';
-	      String email = request.getParameter("joinEmail");
-	      String userPwd = request.getParameter("joinPwd");
-	      String userName = request.getParameter("joinName");
-	      String nickName = request.getParameter("nickName");
+    	char sign = 'E';
+	    String email = request.getParameter("joinEmail");
+	    String userPwd = request.getParameter("joinPwd");
+	    String userName = request.getParameter("joinName");
+	    String nickName = request.getParameter("nickName");
 	   
-	      User joinUser = new User(email, userPwd, userName, nickName, sign);
-	      joinUser.setUserNo(1);
-	      int result = new UserService().emailJoin(joinUser);
+	    User joinUser = new User(email, userPwd, userName, nickName, sign);
+
+	    int result = new UserService().emailJoin(joinUser);
+	    
+	    if(result > 0) {
+	    	request.getSession().setAttribute("msg", "회원가입성공");
+	    } else {
+	    	request.getSession().setAttribute("msg",  "가입실패. 다시 시도해주세요.");
+	    }
+	    
+	    response.sendRedirect(request.getContextPath());
+	    	
 	      
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

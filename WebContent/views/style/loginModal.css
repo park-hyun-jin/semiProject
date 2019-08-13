@@ -95,7 +95,7 @@ div {
 }
 
 /* 로그인 창의 로그인 버튼 */
-.login_btn{
+.login_btn, .join_btn{
     width: 100%;
     height: 100%;
     background-color: lightgray;
@@ -140,7 +140,7 @@ div {
     height : 80%;
     position: relative;
     font-size : small;
-    padding-left : 20%;
+    margin-left: 15%;
 
 }
 
@@ -155,7 +155,7 @@ div {
     text-align: center;
     font-size : small;
     font-weight : bold;
-    
+    padding : 5px 5px;
 }
 
 /* 모달 공통적인 기능 */

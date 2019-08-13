@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class User {
    
-   private int userNo;
+   private int uNo;
    private String email;
    private String userPwd;
    private String userName;
@@ -50,9 +50,9 @@ public User(String email, String userPwd, char sign) {
       this.sign = sign;
    }
    
-   public User(int userNo, String email, String userName, String nickName, char artist, char sign) {
+   public User(int uNo, String email, String userName, String nickName, char artist, char sign) {
 	super();
-	this.userNo = userNo;
+	this.uNo = uNo;
 	this.email = email;
 	this.userName = userName;
 	this.nickName = nickName;
@@ -61,10 +61,10 @@ public User(String email, String userPwd, char sign) {
 }
 
 
-public User(int userNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
+public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
          char artist, int userPoint, int userCash, char sign) {
       super();
-      this.userNo = userNo;
+      this.uNo = uNo;
       this.email = email;
       this.userPwd = userPwd;
       this.userName = userName;
@@ -76,10 +76,10 @@ public User(int userNo, String email, String userPwd, String userName, String ni
       this.sign = sign;
    }
 
-   public User(int userNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
+   public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
          char artist, char uStatus, int userPoint, int userCash, char sign) {
       super();
-      this.userNo = userNo;
+      this.uNo = uNo;
       this.email = email;
       this.userPwd = userPwd;
       this.userName = userName;
@@ -92,20 +92,20 @@ public User(int userNo, String email, String userPwd, String userName, String ni
       this.sign = sign;
    }
 
+   
+	public int getuNo() {
+		return uNo;
+	}
+	
+	
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
+	}
 
-   public int getUserNo() {
-      return userNo;
-   }
 
-
-   public void setUserNo(int userNo) {
-      this.userNo = userNo;
-   }
-
-
-   public String getEmail() {
-      return email;
-   }
+	public String getEmail() {
+		return email;
+	}
 
 
    public void setEmail(String email) {
@@ -205,7 +205,7 @@ public User(int userNo, String email, String userPwd, String userName, String ni
 
    @Override
    public String toString() {
-      return "User [userNo=" + userNo + ", email=" + email + ", userPwd=" + userPwd + ", userName=" + userName
+      return "User [uNo=" + uNo + ", email=" + email + ", userPwd=" + userPwd + ", userName=" + userName
             + ", nickName=" + nickName + ", enrollDate=" + enrollDate + ", artist=" + artist + ", uStatus="
             + uStatus + ", userPoint=" + userPoint + ", userCash=" + userCash + ", sign=" + sign + "]";
    }

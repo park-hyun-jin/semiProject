@@ -285,16 +285,14 @@
                		<input type="hidden" name="loginWay" value="E"></input>
                    <div id="email_label" class="login_input_label">EMAIL</div>
                    <div id="login-input-email">
-                       <input type="text" id="input-email"
-                           name="inputEmail">
+                       <input type="text" id="input-email" name="inputEmail" required>
                    </div>
                    <di id="pwd_label" class="login_input_label">PASSWORD</di>
                    <div id="login-input-pwd">
-                       <input type="password" id="input-pwd"
-                           name="inputPwd">
+                       <input type="password" id="input-pwd" name="inputPwd" required>
                    </div>
                    <div id="login-input-btn" class="login_btn_area">
-                       <button type="submit" id="go-login" class="center login_btn" onclick="exitModalLogin()">로그인</button>
+                       <button type="submit" id="go-login" class="center login_btn">로그인</button>
                    </div>
                </form>
            </div>
@@ -357,7 +355,7 @@
         </div>
         
         
-        <!-- (이메일로) 회원가입 모달 -->
+		<!-- (이메일로) 회원가입 모달 -->
         <div id="join_form" class="animate_top">
             
             <form method="post" action="<%=request.getContextPath() %>/emailJoin.do" id="join_form_input">
@@ -366,36 +364,38 @@
                     <span id="email_label" class="join_label">EMAIL</span>
                     <span class="chkMsg" id="emailChkMsg"></span>
                     <div id="join_input_pwd" class="join_input_area">
-                        <input type="email" class="verify" id="joinEmail" name="joinEmail">
+                        <input type="email" class="verify" id="joinEmail" name="joinEmail" required>
                         <button type="button" id="emailChk" class="chkBtn" disabled>인증</button>
                     </div>
                     
                     <span id="pwd_label" class="join_label">PASSWORD</span>
+                    <span class="chkMsg" id="pwdRegMsg"></span>
                     <div id="join-input-pwd" class="join_input_area">
-                        <input type="password" class="info" id="joinPwd" name="joinPwd">
+                        <input type="password" class="info" id="joinPwd" name="joinPwd" required>
                     </div>
                     
                     <span id="pwd_chk_label" class="join_label">PASSWORD 확인</span>
-                    <span class="chkMsg" id="pwdChkMsg">일치합니다.</span>
+                    <span class="chkMsg" id="pwdChkMsg"></span>
                     <div id="join-input-pwd" class="join_input_area">
-                        <input type="password" class="info" id="pwdChk" name="pwdChk">
+                        <input type="password" class="info" id="pwdChk" name="pwdChk" required>
                     </div>
                     
                     <span id="name_label" class="join_label">이름</span>
                     <div id="join_input_name" class="join_input_area">
-                        <input type="text" class="info" id="joinName" name="joinName">
+                        <input type="text" class="info" id="joinName" name="joinName" required>
                     </div>
                     
                     
                     <span id="nickName_label" class="join_label">닉네임</span>
+                    <span class="chkMsg" id="nickNameChkMsg"></span>
                     <div id="join_input_nickName" class="join_input_area">
-                        <input type="text" class="verify" id="nickName" name="nickName">
-                        <button id="nickNameChk" class="chkBtn">중복확인</button>
+                        <input type="text" class="verify" id="nickName" name="nickName" required>
+                        <button type="button" id="nickNameChk" class="chkBtn">중복확인</button>
                     </div>
 
                     <div id="join_btn_area" class="login_btn_area">
                         <span id="middle_line"><hr></span>
-                        <button type="submit" id="go_join" class="login_btn" onclick="exitModalLogin()">가입하기</button>
+                        <button type="submit" id="go_join" class="join_btn">가입하기</button>
                     </div>
                 </div>
             
@@ -476,40 +476,53 @@
         document.getElementById('login-modal').style.display = 'none';
     }
 	
+	
 	$(function() {
 		
-
-		
-	    // 로그인 버튼 누르면 모달 실행. 
-/* 	    function clickActionLogin() { */
+		// 로그인 버튼 누르면 모달 실행. 
 		$(".sign_in_btn").click(function() {
 		   	$("#login-modal").css("display", "block");
 		   	$("#login-form").css("display", "block");
 		    $("#agree-form").css("display", "none");
 		    $("#join_form").css("display", "none");
 		    $(".id_pwd_search_area").css("display", "none");
-	        
+		    $("#login-modal form").each(function() {
+				this.reset();
+			});
+		    $(".chkMsg, .msg").text("");
 	    });
-	 
-	    /* 모달 실행시 모달폼 이외의 영역 클릭하면 폼 닫기 */
+	    
+		 // 모달 실행시 모달폼 이외의 영역 클릭하면 폼 닫기. 폼 데이터 리셋 
 		$(document).on("click", function(e) {
 			if($("#login-modal").is(e.target)) {
 				$("#login-modal").css("display","none");
+				$("#login-modal form").each(function() {
+					this.reset();
+				});
+				$(".chkMsg, .msg").text("");
 			}
 		});
 		 
-	
-	    
+		 
 	    // 회원가입 버튼 누르면 로그인 화면 사라지고 동의창 나옴. 
 	    $("#btn-join").click(function() {
 	    	$("#login-form").css("display", "none");
 	    	$("#agree-form").css("display", "block");
+	    	$("#tos_agree_area").css("color", "gray");
 	    });
 	    
 	    // 이메일로 회원가입 버튼 누르면 동의창 사라지고 이메일 회원가입창 나옴.
 	    $("#join_email").click(function() {
-	    	$("#agree-form").css("display", "none");
-	    	$("#join_form").css("display", "block");
+	    	var doAgree = $("#tos_agree_area input").is(':checked');
+	    			
+	    	if(doAgree) {
+		    	$("#agree-form").css("display", "none");
+		    	$("#join_form").css("display", "block");
+		    	$("#emailChk").attr("disabled", true).css("border-style", "none");
+
+	    	} else {
+	    		$("#tos_agree_area").css("color", "red");
+	    	}
 	    });
 	    
 	    //id/pwd찾기 버튼 눌렀을 때 로그인 창 사라지고 id/pwd 찾기 모달 나옴.
@@ -533,9 +546,18 @@
     	$("#naverCreateBtn").click(function() {
     		$("#naverIdLogin_loginButton img").click();
     	});
+	    
+	    
+	/* ---------- 이메일로 회원가입 시 필요한 function ----------- */
+	    // 회원가입시 필요한 플래그 변수
+    	var emailC = false;
+		var pwdC = false;
+		var pwd2C = false;
+		var nickNameC = false;
     	
-    	// 이메일 입력하면 ajax로 체크 실행.
-   		$("#joinEmail").on("input", function() {
+		// 이메일 입력하면 ajax로 체크 실행.
+   		$("#join_form input[name=joinEmail]").on("input", function() {
+   			
    			$("#emailChk").attr("disabled", true);
    			// 이메일 형식검사
    			regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -545,15 +567,18 @@
 			if(regExp.test(joinEmail)) {
 				
 				$.ajax({
-					url: "<%=request.getContextPath()%>/joinEmailVerify.do",
-	    			data: {joinEmail : email},
-	    			type: "POST",
+					url: "<%=request.getContextPath()%>/emailCheck.do",
+	    			data: {joinEmail : joinEmail},
+	    			type: "get",
 					success : function(result) {
 						if(result == 0) {
 							$("#emailChkMsg").text("사용가능한 아이디입니다.").css({"color":"green", "font-weight":"bold"});
-							$("#emailChk").attr("disabled", false);
+							$("#emailChk").attr("disabled", false).css("border","1px solid yellowgreen");
+							emailC = true;
 						} else {
+							$("#emailChk").attr("disabled", true).css("border-style", "none");
 							$("#emailChkMsg").text("중복되었습니다.").css({"color":"red", "font-weight":"bold"});
+							emailC = false;
 						}
 					},
 					error : function() {
@@ -561,10 +586,94 @@
 					}
 				});
 			} else {
+				emailC = false;
 				$("#emailChkMsg").text("이메일을 올바르게 기입해주세요.").css({"color":"red", "font-weight":"bold"});
 			}
 		});
- 
+	
+   		// 비밀번호 형식 검사
+		$("#join_form input[name=joinPwd]").keyup(function() {
+			var value = $("#joinPwd").val().trim();
+		
+			// 숫자, 문자(영어) 포함 형태
+			// 6~12 자리 이내
+			var regExp = /^[A-Za-z0-9]{6,12}$/;
+			
+			if(regExp.test(value)) {
+				$("#pwdRegMsg").text("비밀번호 형식 O").css("color", "green");
+				pwdC = true;
+			} else {
+				$("#pwdRegMsg").text("비밀번호 형식 X").css("color", "red");
+				pwdC = false;
+			}
+		
+		});
+	    
+   		// 비밀번호 일치 여부 검사
+		$("#join_form input[name=joinPwd], input[name=pwdChk]").keyup(function() {
+			var pwd = $("#joinPwd").val().trim();
+			var pwd2 = $("#pwdChk").val().trim();
+			pwd2C = false;
+			if(pwd == pwd2) {
+				$("#pwdChkMsg").text("비밀번호 일치").css({"color":"green", "font-weight":"bold"});
+				pwd2C = true;
+			} else {
+				$("#pwdChkMsg").text("비밀번호 불일치").css({"color":"red", "font-weight":"bold"});
+				pwd2C = false;
+			}
+		});
+   		
+   		// 닉네임 중복확인 검사 
+   		$("#nickName").keyup(function() {
+   			nickNameC = false;
+   			$("#nickNameChk").click(function() {
+	   			nickNameC = false;
+	   			
+	   			var value = $("#nickName").val().trim();
+	   			
+	   			$.ajax({
+					url : "<%=request.getContextPath()%>/nickNameCheck.do",
+					type : "get",
+					data : {nickName : value},
+					success : function(result) {
+						if(result == 0) {
+							$("#nickNameChkMsg").text("사용가능한 닉네임입니다.").css({"color":"green", "font-weight":"bold"});
+							nickNameC = true;
+						} else {
+							$("#nickNameChkMsg").text("중복되었습니다.").css({"color":"red", "font-weight":"bold"});
+							nickNameC = false;
+						}
+					},
+					error : function(e) {
+						console.log("Ajax 통신 실패");
+					}
+				});
+	   		});
+   		});
+   		
+   		// 회원가입 버튼 클릭시 검사
+		$("#go_join").click(function() {
+			
+			// 아이디 형식 검사
+			if(!emailC) {
+				$("#joinEmail").focus();
+				return false;
+			}
+			if(!pwdC) {
+				alert("비밀번호 형식에 맞게 입력해주세요.");
+				$("#joinPwd").focus();
+				return false;
+			}
+			if(!pwd2C) {
+				$("#pwdChk").focus();
+				return false;
+			}
+			if(!nickNameC) {
+				$("#nickName").focus();
+				return false;
+			}
+		});
+   		
 	});
 </script>
 

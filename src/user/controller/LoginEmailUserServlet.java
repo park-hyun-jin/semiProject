@@ -42,11 +42,11 @@ public class LoginEmailUserServlet extends HttpServlet {
 			
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(request.getContextPath()+"/views/main/main.jsp");
+			response.sendRedirect(request.getContextPath());
 			
 		} else {
 			request.setAttribute("msg", "로그인 실패");
-			response.sendRedirect(request.getContextPath()+"/main/main.jsp");
+			response.sendRedirect(request.getContextPath());
 			
 		}
 	
