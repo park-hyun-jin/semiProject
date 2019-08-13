@@ -46,6 +46,7 @@ public class LoginEmailUserServlet extends HttpServlet {
 			
 		} else {
 			request.setAttribute("msg", "로그인 실패");
+
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		}

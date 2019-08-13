@@ -3,6 +3,7 @@ package board.model.vo;
 import java.sql.Date;
 
 public class Board {
+
 	private int bNo;
 	private String bTitle;
 	private String bContent;
@@ -14,55 +15,80 @@ public class Board {
 	private int bType;
 	private int header;
 	private int writer;
+
+}
 	
-	public Board() { }
+	// int cid; 아니고  조인 결과 값인 String cateogry;로 함
+	// int bWriter; 아니고 조인 결과 값이 String bWriter;로 함
+	
+	public Board() {}
 
-	public Board(String bTitle, String bContent, int bType, int header, int writer) {
+	public Board(int bId, int bType, String category, String bTitle, String bContent, String bWriter, int bCount,
+			Date createDate, Date modifyDate, String status) {
 		super();
-		this.bTitle = bTitle;
-		this.bContent = bContent;
+		this.bId = bId;
 		this.bType = bType;
-		this.header = header;
-		this.writer = writer;
-	}
-
-	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, int rpCount,
-			int bType, int header, int writer) {
-		super();
-		this.bNo = bNo;
+		this.category = category;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
+		this.bWriter = bWriter;
 		this.bCount = bCount;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
-		this.rpCount = rpCount;
-		this.bType = bType;
-		this.header = header;
-		this.writer = writer;
+		this.status = status;
 	}
+
+	
+
+	public Board(int bId, String category, String bTitle, String bContent, String bWriter, int bCount, Date createDate,
+			Date modifyDate) {
+		super();
+		this.bId = bId;
+		this.category = category;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bWriter = bWriter;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+	}
+
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
 			int rpCount, int bType, int header, int writer) {
+
 		super();
-		this.bNo = bNo;
+		this.bId = bId;
+		this.category = category;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
+		this.bWriter = bWriter;
 		this.bCount = bCount;
 		this.createDate = createDate;
-		this.modifyDate = modifyDate;
-		this.bStatus = bStatus;
-		this.rpCount = rpCount;
+	}
+
+	public int getbId() {
+		return bId;
+	}
+
+	public void setbId(int bId) {
+		this.bId = bId;
+	}
+
+	public int getbType() {
+		return bType;
+	}
+
+	public void setbType(int bType) {
 		this.bType = bType;
-		this.header = header;
-		this.writer = writer;
 	}
 
-	public int getbNo() {
-		return bNo;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setbNo(int bNo) {
-		this.bNo = bNo;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getbTitle() {
@@ -79,6 +105,14 @@ public class Board {
 
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
+	}
+
+	public String getbWriter() {
+		return bWriter;
+	}
+
+	public void setbWriter(String bWriter) {
+		this.bWriter = bWriter;
 	}
 
 	public int getbCount() {
@@ -105,6 +139,7 @@ public class Board {
 		this.modifyDate = modifyDate;
 	}
 
+
 	public String getbStatus() {
 		return bStatus;
 	}
@@ -113,38 +148,13 @@ public class Board {
 		this.bStatus = bStatus;
 	}
 
-	public int getRpCount() {
-		return rpCount;
+
+	@Override
+	public String toString() {
+		return "Board [bId=" + bId + ", bType=" + bType + ", category=" + category + ", bTitle=" + bTitle
+				+ ", bContent=" + bContent + ", bWriter=" + bWriter + ", bCount=" + bCount
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 
-	public void setRpCount(int rpCount) {
-		this.rpCount = rpCount;
-	}
-
-	public int getbType() {
-		return bType;
-	}
-
-	public void setbType(int bType) {
-		this.bType = bType;
-	}
-
-	public int getHeader() {
-		return header;
-	}
-
-	public void setHeader(int header) {
-		this.header = header;
-	}
-
-	public int getWriter() {
-		return writer;
-	}
-
-	public void setWriter(int writer) {
-		this.writer = writer;
-	}
 	
-	
-
 }

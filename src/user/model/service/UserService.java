@@ -5,7 +5,9 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import board.model.vo.Board;
 import user.model.dao.UserDao;
 import user.model.vo.User;
 
@@ -75,6 +77,28 @@ public class UserService {
 
 		return user;
 	}
+
+	public int getBoardCount() {
+		Connection conn = getConnection();
+		
+		int boardCount = new UserDao().getBoardCount(conn);
+		
+		
+		
+		return boardCount;
+	}
+
+	public ArrayList<Board> selectList(int currentPage, int limit) {
+		
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new UserDao().selectList(conn, currentPage, limit);
+		
+		
+		return list;
+	}
+
 
    
    
