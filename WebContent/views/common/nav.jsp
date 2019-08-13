@@ -484,13 +484,20 @@
 /* 	    function clickActionLogin() { */
 		$(".sign_in_btn").click(function() {
 		   	$("#login-modal").css("display", "block");
+		   	$("#login-form").css("display", "block");
 		    $("#agree-form").css("display", "none");
 		    $("#join_form").css("display", "none");
 		    $(".id_pwd_search_area").css("display", "none");
-	/*         document.getElementById("login-modal").style.display = "block";
-	        document.getElementById("agree-form").style.display = "none"; */
 	        
 	    });
+	 
+	    /* 모달 실행시 모달폼 이외의 영역 클릭하면 폼 닫기 */
+		$(document).on("click", function(e) {
+			if($("#login-modal").is(e.target)) {
+				$("#login-modal").css("display","none");
+			}
+		});
+		 
 	
 	    
 	    // 회원가입 버튼 누르면 로그인 화면 사라지고 동의창 나옴. 
