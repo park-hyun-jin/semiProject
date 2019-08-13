@@ -174,17 +174,23 @@ aside {
 			</div>
 		</header>
 
-		<aside>
-			<div class="vertical-menu">
-				<a href="#" class="active">출석체크</a> <a href="#">내가 쓴 글 확인</a> <a href="#">다운로드 악보/찜한 악보</a> <a href="#">업로드 악보</a> <a href="#">캐시 충전</a> <a href="#">인증하기</a> <a href="#">탈퇴</a>
-			</div>
-		</aside>
+	<aside>
+		<div class="vertical-menu">
+			<a href="#" class="active">출석체크</a> 
+			<a href="#">내가 쓴 글 확인</a> 
+			<a href="#">다운로드 악보/찜한 악보</a> 
+			<a href="#">업로드 악보</a> 
+			<a href="#">캐시 충전</a> 
+			<a href="#">인증하기</a> 
+			<a href="#">탈퇴</a>
+		</div>
+	</aside>
 
-		
 
 
 
-	
+
+
 
 </body>
 </html>
