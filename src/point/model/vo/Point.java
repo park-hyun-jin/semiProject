@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class Point {
 	private int pNo;
-	private char pSummary;
+	private String pSummary;
 	private int point;
 	private Date pDate;
 	private int userNo;
 	
 	public Point() {}
 
-	public Point(int pNo, char pSummary, int point, Date pDate, int userNo) {
+	public Point(int pNo, String pSummary, int point, Date pDate, int userNo) {
 		super();
 		this.pNo = pNo;
 		this.pSummary = pSummary;
@@ -28,11 +28,11 @@ public class Point {
 		this.pNo = pNo;
 	}
 
-	public char getpSummary() {
+	public String getpSummary() {
 		return pSummary;
 	}
 
-	public void setpSummary(char pSummary) {
+	public void setpSummary(String pSummary) {
 		this.pSummary = pSummary;
 	}
 

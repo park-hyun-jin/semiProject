@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import user.model.service.UserService;
 
-@WebServlet("/joinEmailVerify.do")
-public class JoinEmaillVerifyServlet extends HttpServlet {
+@WebServlet("/emailCheck.do")
+public class JoinEmailCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public JoinEmaillVerifyServlet() {
+    public JoinEmailCheckServlet() {
         super();
     }
 
@@ -24,12 +24,8 @@ public class JoinEmaillVerifyServlet extends HttpServlet {
 		int result = new UserService().checkEmail(joinEmail);
 		System.out.println(joinEmail);
 		
-		if(result>0) {
-			response.getWriter().print(result);
-		} else {
-			
-		}
-	
+		response.getWriter().print(result);
+
 	}
 	
 	

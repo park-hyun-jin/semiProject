@@ -5,14 +5,14 @@ public class Note {
 	private int nNo;
 	private String nCountent;
 	private String nVideo;
-	private char nDivide;
+	private String nDivide;
 	private int nPrice;
 	private int bNo;
 	private int fNo;
 	
 	public Note() {	}
 	
-	public Note(String nCountent, String nVideo, char nDivide, int nPrice, int bNo, int fNo) {
+	public Note(String nCountent, String nVideo, String nDivide, int nPrice, int bNo, int fNo) {
 		super();
 		this.nCountent = nCountent;
 		this.nVideo = nVideo;
@@ -22,7 +22,7 @@ public class Note {
 		this.fNo = fNo;
 	}
 
-	public Note(int nNo, String nCountent, String nVideo, char nDivide, int nPrice, int bNo, int fNo) {
+	public Note(int nNo, String nCountent, String nVideo, String nDivide, int nPrice, int bNo, int fNo) {
 		super();
 		this.nNo = nNo;
 		this.nCountent = nCountent;
@@ -57,11 +57,11 @@ public class Note {
 		this.nVideo = nVideo;
 	}
 
-	public char getnDivide() {
+	public String getnDivide() {
 		return nDivide;
 	}
 
-	public void setnDivide(char nDivide) {
+	public void setnDivide(String nDivide) {
 		this.nDivide = nDivide;
 	}
 

@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class Cash {
 	private int cNo;
-	private char cSummary;
+	private String cSummary;
 	private int cash;
 	private Date cDate;
 	private int userNo;
 	
 	public Cash() {}
 
-	public Cash(int cNo, char cSummary, int cash, Date cDate, int userNo) {
+	public Cash(int cNo, String cSummary, int cash, Date cDate, int userNo) {
 		super();
 		this.cNo = cNo;
 		this.cSummary = cSummary;
@@ -28,11 +28,11 @@ public class Cash {
 		this.cNo = cNo;
 	}
 
-	public char getcSummary() {
+	public String getcSummary() {
 		return cSummary;
 	}
 
-	public void setcSummary(char cSummary) {
+	public void setcSummary(String cSummary) {
 		this.cSummary = cSummary;
 	}
 

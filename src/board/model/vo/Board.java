@@ -3,17 +3,20 @@ package board.model.vo;
 import java.sql.Date;
 
 public class Board {
-		
-	private int bId;			// 게시판 고유 번호
-	private int bType;			// 게시판 타입
-	private String category; 	// 게시판 카테고리 구분(공통, 운동, 등산, 게임, 낚시, 요리, 기타)
-	private String bTitle;		// 게시판 제목
-	private String bContent;	// 게시판 내용
-	private String bWriter;		// 게시판 작성자 이름
-	private int bCount;			// 게시판 조회수
-	private Date createDate;	// 게시판 작성일
-	private Date modifyDate;	// 게시판 수정일
-	private String status;		// 게시판 상태 (Y,N)
+
+	private int bNo;
+	private String bTitle;
+	private String bContent;
+	private int bCount;
+	private Date createDate;
+	private Date modifyDate;
+	private String bStatus;
+	private int rpCount;
+	private int bType;
+	private int header;
+	private int writer;
+
+}
 	
 	// int cid; 아니고  조인 결과 값인 String cateogry;로 함
 	// int bWriter; 아니고 조인 결과 값이 String bWriter;로 함
@@ -50,8 +53,10 @@ public class Board {
 		this.modifyDate = modifyDate;
 	}
 
-	public Board(int bId, String category, String bTitle, String bContent, String bWriter, int bCount,
-			Date createDate) {
+
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
+			int rpCount, int bType, int header, int writer) {
+
 		super();
 		this.bId = bId;
 		this.category = category;
@@ -134,12 +139,13 @@ public class Board {
 		this.modifyDate = modifyDate;
 	}
 
-	public String getStatus() {
-		return status;
+
+	public String getbStatus() {
+		return bStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(String bStatus) {
+		this.bStatus = bStatus;
 	}
 
 

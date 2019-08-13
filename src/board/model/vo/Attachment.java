@@ -10,7 +10,7 @@ public class Attachment {
 	private String filePath;
 	private Date uploadDate;
 	private int downloadCount;
-	private char aStatus;
+	private String aStatus;
 	private int bNo;
 	
 	public Attachment() {}
@@ -36,7 +36,7 @@ public class Attachment {
 	}
 
 	public Attachment(int aNo, String originName, String changename, String filePath, Date uploadDate,
-			int downloadCount, char aStatus, int bNo) {
+			int downloadCount, String aStatus, int bNo) {
 		super();
 		this.aNo = aNo;
 		this.originName = originName;
@@ -96,11 +96,11 @@ public class Attachment {
 		this.downloadCount = downloadCount;
 	}
 
-	public char getaStatus() {
+	public String getaStatus() {
 		return aStatus;
 	}
 
-	public void setStatus(char aStatus) {
+	public void setStatus(String aStatus) {
 		this.aStatus = aStatus;
 	}
 
