@@ -77,12 +77,9 @@
 		.userFuncArea img {
 			width: 100%;
 			height: 100%;
+			cursor:pointer;
 		}
 		
-		.userFuncArea img: hover {
-			cursor: pointer;
-		}
-
         footer{
             background-color: rgb(1,11,20);
             width: 100%;
@@ -254,8 +251,7 @@
             		onclick="location.href='<%=request.getContextPath()%>/views/mypage/calendar.jsp'">
             		<img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>	
             	</div>
-            	<div id="logoutDiv" class="userFuncArea" 
-            		onclick="logout();">
+            	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
             		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
             	</div>
             
@@ -469,15 +465,18 @@
 	
 	
 	<script>
+	// 로그아웃 함수
+	function logout() {
+
+		location.href = "<%=request.getContextPath()%>/logout.me";
+	}
+	
+	// 로그인 버튼을 누르거나 x를 누르면 모달 닫기.
+    function exitModalLogin() {
+        document.getElementById('login-modal').style.display = 'none';
+    }
+	
 	$(function() {
-		
-		// 로그아웃 함수
-		function logout() {
-			
-			<% request.getSession().removeAttribute("loginUser");%>
-			
-			location.href="<%=request.getContextPath()%>/views/main/main.jsp";
-		}
 		
 
 		
@@ -493,10 +492,6 @@
 	        
 	    });
 	
-	    // 로그인 버튼을 누르거나 x를 누르면 모달 닫기.
-	    function exitModalLogin() {
-	        document.getElementById('login-modal').style.display = 'none';
-	    }
 	    
 	    // 회원가입 버튼 누르면 로그인 화면 사라지고 동의창 나옴. 
 	    $("#btn-join").click(function() {
