@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import point.model.vo.Point;
 import user.model.vo.User;
 
 public class UserDao {
@@ -278,6 +279,39 @@ public class UserDao {
 		
 		
 		return list;
+	}
+
+
+	public ArrayList<String> getPoint(Connection conn, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<String> pointList = null;
+		String date = null;
+		String query = prop.getProperty("getPoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uNo);
+			
+			rset = pstmt.executeQuery();
+
+			pointList = new ArrayList<>();
+			while(rset.next()) {
+				
+				date = rset.getDate(1).toString().substring(8);
+				
+				pointList.add(date);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return pointList;
 	}
 	
 	

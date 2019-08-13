@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Calendar"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
+	ArrayList<String> pointList = (ArrayList<String>)request.getAttribute("pointList");
+
+	int size = pointList.size();
 
 	Calendar tDay = Calendar.getInstance();
 
@@ -165,7 +169,10 @@
 		$(document).ready(function(){
 			$("#<%=d%>").css({"pointer-events":"auto","cursor":"pointer"});
 			$("#<%=d%>").parent().parent().css("background-color","rgb(241, 196, 15,0.25)");
-			
+
+			for(int i=0; i<size;i++){
+				if(<%=pointList.get%>(i).equals())
+			}
 		});
 		$(".cake").click(function() {
 			alert("아아, 이것은 포인트라는것이다. 이걸로 악보를 구매할수 있지(웃음)");

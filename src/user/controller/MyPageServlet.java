@@ -1,6 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,16 +33,20 @@ public class MyPageServlet extends HttpServlet {
 		User loginUser = (User)session.getAttribute("loginUser");
 		
 		String email = loginUser.getEmail();
+		int uNo = loginUser.getuNo();
 		
 		// DB에서 아이디가 일치하는 회원 정보 읽어오기
-		User user = new UserService().selectUser(email);
+		UserService uService = new UserService();
+		
+		User user = uService.selectUser(email);
+		ArrayList<String> pointList = uService.getPoint(uNo);
 		
 		// DB 조회 결과에 따라 view 연결 처리
-		RequestDispatcher view = null;	
+		RequestDispatcher view = null;
 
 		if(user != null) {
 			view = request.getRequestDispatcher("views/mypage/calendar.jsp");
-			
+			request.setAttribute("pointList", pointList);
 			request.setAttribute("user", user);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");

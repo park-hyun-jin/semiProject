@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
+import point.model.vo.Point;
 import user.model.dao.UserDao;
 import user.model.vo.User;
 
@@ -97,6 +98,14 @@ public class UserService {
 		
 		
 		return list;
+	}
+
+	public ArrayList<String> getPoint(int uNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<String> pointList = new UserDao().getPoint(conn, uNo);
+		
+		return pointList;
 	}
 
 

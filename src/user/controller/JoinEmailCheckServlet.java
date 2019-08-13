@@ -22,7 +22,6 @@ public class JoinEmailCheckServlet extends HttpServlet {
 		
 		String joinEmail = request.getParameter("joinEmail");
 		int result = new UserService().checkEmail(joinEmail);
-		System.out.println(joinEmail);
 		
 		response.getWriter().print(result);
 
