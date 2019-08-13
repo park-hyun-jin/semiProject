@@ -117,4 +117,41 @@ public class UserDao {
 		
 		return loginUser;
 	}
+
+
+	public User selectUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		User user = null;
+		
+		String query = prop.getProperty("selectUser");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user = new User(email, 
+						userPwd, 
+						userName, 
+						nickName, 
+						artist, 
+						userPoint, 
+						userCash);
+			}
+			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+
 }

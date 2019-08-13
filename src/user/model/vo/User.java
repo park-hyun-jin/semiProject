@@ -19,7 +19,21 @@ public class User {
    public User() {   }
    
    
-   public User(String email, String userPwd, char sign) {
+   
+   public User(String email, String userPwd, String userName, String nickName, char artist, int userPoint, int userCash) {
+	super();
+	this.email = email;
+	this.userPwd = userPwd;
+	this.userName = userName;
+	this.nickName = nickName;
+	this.artist = artist;
+	this.userPoint = userPoint;
+	this.userCash = userCash;
+}
+
+
+
+public User(String email, String userPwd, char sign) {
 		super();
 		this.email = email;
 		this.userPwd = userPwd;
