@@ -31,13 +31,7 @@
 
 <style>
 
-.content {
-	position: absolute;
-	top: 14rem;
-	left: 19rem;
-	width: 78.5%;
-	height: 800px;
-}
+
 
 .calendar-month {
 	width: 100%;
@@ -167,6 +161,9 @@
 
 	<script>
 		$(document).ready(function(){
+			
+			$(".absence").addClass("active");
+			
 			$("#<%=d%>").css({"pointer-events":"auto","cursor":"pointer"});
 			$("#<%=d%>").parent().parent().css("background-color","rgb(241, 196, 15,0.25)");
 

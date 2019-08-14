@@ -137,6 +137,13 @@ aside {
 	font-size: 1.2rem;
 }
 
+.content {
+	position: absolute;
+	top: 14rem;
+	left: 19rem;
+	width: 78.5%;
+	height: 800px;
+}
 
 </style>
 </head>
@@ -154,7 +161,7 @@ aside {
 				</div>
 				<div class="header-right">
 					<div>
-						<span><%=userName %><%=uNo %></span>
+						<span><%=userName %></span>
 					</div>
 					<div>
 						<span>
@@ -169,7 +176,7 @@ aside {
 						</span>
 					</div>
 					<div>
-						<span><button class="modified-btn">정보 수정</button></span>
+						<span><button class="modified-btn" onclick="location.href='<%=request.getContextPath()%>/views/mypage/myPageInfo.jsp'">정보 수정</button></span>
 					</div>
 				</div>
 			</div>
@@ -177,13 +184,13 @@ aside {
 
 	<aside>
 		<div class="vertical-menu">
-			<a href="#" class="active">출석체크</a> 
-			<a href="#">내가 쓴 글 확인</a> 
-			<a href="#">다운로드 악보/찜한 악보</a> 
-			<a href="#">업로드 악보</a> 
-			<a href="#">캐시 충전</a> 
-			<a href="#">인증하기</a> 
-			<a href="#">탈퇴</a>
+			<a href="<%=request.getContextPath() %>/myPage.me" class="absence">출석체크</a> 
+			<a href="#" class="myBoard">내가 쓴 글 확인</a> 
+			<a href="#" class="download">다운로드 악보/찜한 악보</a> 
+			<a href="#" class="upload">업로드 악보</a> 
+			<a href="#" class="cashCharge">캐시 충전</a> 
+			<a href="#" class="identify">인증하기</a> 
+			<a href="#" class="quit">탈퇴</a>
 		</div>
 	</aside>
 
