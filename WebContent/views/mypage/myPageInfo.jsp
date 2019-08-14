@@ -71,7 +71,40 @@
 	</section>
 
 	<script>
+	
+	var pwdC = false;
+	var pwd2C = false;
+	// 비밀번호 형식 검사
+	$("#join_form input[name=joinPwd]").keyup(function() {
+		var value = $("#joinPwd").val().trim();
+	
+		// 숫자, 문자(영어) 포함 형태
+		// 6~12 자리 이내
+		var regExp = /^[A-Za-z0-9]{6,12}$/;
 		
+		if(regExp.test(value)) {
+			$("#pwdRegMsg").text("비밀번호 형식 O").css("color", "green");
+			pwdC = true;
+		} else {
+			$("#pwdRegMsg").text("비밀번호 형식 X").css("color", "red");
+			pwdC = false;
+		}
+	
+	});
+    
+		// 비밀번호 일치 여부 검사
+	$("#join_form input[name=joinPwd], input[name=pwdChk]").keyup(function() {
+		var pwd = $("#joinPwd").val().trim();
+		var pwd2 = $("#pwdChk").val().trim();
+		pwd2C = false;
+		if(pwd == pwd2) {
+			$("#pwdChkMsg").text("비밀번호 일치").css({"color":"green", "font-weight":"bold"});
+			pwd2C = true;
+		} else {
+			$("#pwdChkMsg").text("비밀번호 불일치").css({"color":"red", "font-weight":"bold"});
+			pwd2C = false;
+		}
+	});
 	</script>
 
 
