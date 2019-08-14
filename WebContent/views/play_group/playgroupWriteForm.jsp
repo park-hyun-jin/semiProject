@@ -212,13 +212,13 @@
                 
                     <select name="header" id="board_head">
                         <option value="0" selected>말머리</option>
-                        <option>전국</option>
-                        <option>수도권</option>
-                        <option>강원도</option>
-                        <option>전라도</option>
-                        <option>대전/충청</option>
-                        <option>대구/경북</option>
-                        <option>부산/경남</option>
+                        <option value="7">전국</option>
+                        <option value="8">수도권</option>
+                        <option value="9">강원도</option>
+                        <option value="10">전라도</option>
+                        <option value="11">대전/충청</option>
+                        <option value="12">대구/경북</option>
+                        <option value="13">부산/경남</option>
                     </select>
 
                     <input type="text" name="BTITLE" class="board_title" placeholder="제목">
