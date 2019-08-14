@@ -8,6 +8,7 @@
 <%
 
 	User user = (User)request.getAttribute("user");
+	int uNo = user.getuNo();
 	String email = user.getEmail();
 	String userName = user.getUserName();
 	String nickName = user.getNickName();
@@ -153,7 +154,7 @@ aside {
 				</div>
 				<div class="header-right">
 					<div>
-						<span><%=userName %></span>
+						<span><%=userName %><%=uNo %></span>
 					</div>
 					<div>
 						<span>

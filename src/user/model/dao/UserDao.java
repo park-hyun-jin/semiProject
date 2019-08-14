@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import point.model.vo.Point;
 import user.model.vo.User;
 
 public class UserDao {
@@ -168,7 +169,7 @@ public class UserDao {
 	}
 
 
-	public User selectUser(Connection conn, String email) {
+	public User selectUser(Connection conn, int uNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -179,18 +180,19 @@ public class UserDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, email);
+			pstmt.setInt(1, uNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				user = new User(email, 
-						rset.getString(1), 
-						rset.getString(2), 
+				user = new User(rset.getInt(1), 
+						rset.getString(2),
 						rset.getString(3), 
 						rset.getString(4), 
-						rset.getInt(5), 
-						rset.getInt(6));
+						rset.getString(5), 
+						rset.getString(6), 
+						rset.getInt(7), 
+						rset.getInt(8));
 			}
 			
 			
@@ -278,6 +280,63 @@ public class UserDao {
 		
 		
 		return list;
+	}
+
+
+	public ArrayList<Integer> getPoint(Connection conn, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Integer> pointList = null;
+		int num = 0;
+		String query = prop.getProperty("getPoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uNo);
+			
+			rset = pstmt.executeQuery();
+
+			pointList = new ArrayList<>();
+			while(rset.next()) {
+				num = Integer.parseInt(rset.getDate(1).toString().substring(8));
+				
+				pointList.add(num);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return pointList;
+	}
+
+
+	public int updatePoint(Connection conn, int uNo, int point, String summary) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, summary);
+			pstmt.setInt(2, point);
+			pstmt.setInt(3, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	
