@@ -1,0 +1,175 @@
+@charset "UTF-8";
+section{
+     padding-top: 4rem; 
+    letter-spacing: normal;
+    /* height: 1000px; */
+}
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.tab-section {
+    margin: 0 auto;
+    position: relative;
+    margin-top: 50px;
+    width: 1000px;
+    height: 550px;
+    border: 1px solid rgb(241, 196, 15);
+    font-size: 0;
+    top: 2rem;
+}
+.tab-section::before,
+.tab-section::after {
+    display: table;
+    content: "";
+}
+.tab-section::after {
+    clear: both;
+}
+.tab-section .tab-content {
+    font-size: 12px;
+    position: absolute;
+    float: left;
+    padding: 10px;
+
+    color:black;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+}
+.tab-section .tab-link {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    font-size: 15px;
+    background:  rgba(241, 196, 15,0.8);
+    padding: 10px 0;
+    border-bottom: 1px solid #d0d0d0;
+    color: #5b5b5b;
+    overflow: hidden;
+}
+.tab-section .tab-link:after {
+    content: "";
+    left: -75px;
+
+    position: absolute;
+    top: 0;
+    background: #fff;
+    width: 50%;
+    height: 100%;
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 100%);
+    -webkit-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+    -webkit-transition: all .55s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all .55s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.tab-section .tab-link:hover:after {
+    -webkit-animation: shine .75s;
+    animation: shine .75s;
+}
+@-webkit-keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+@keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+
+.tab-btn:target + .tab-link {
+    background: #fff;
+    font-weight: bold;
+    color: #000;
+}
+.tab-btn:target + .tab-link:hover:after {
+    -webkit-animation: -1s;
+    animation: -1s;
+}
+.tab-btn:target + .tab-link + .tab-content {
+    opacity: 1;
+}
+th{
+    border-bottom: 1px solid  rgb(241, 196, 15);
+    padding-bottom: 1%;
+}
+/* tr:hover{
+    background-color:  rgba(241, 196, 15,0.3);
+} */
+td{
+font-size: 15px;
+border-bottom: 1px solid  rgb(241, 196, 15);
+padding-top: 5px;
+color: rgb(99, 96, 96);
+}
+
+.writeBtn{
+    float: right;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px 5px 5px 5px;
+    background-color: rgba(0,0,0,0);
+    width: 100px;
+    height: 40px;
+}
+
+.writeBtn:hover{
+    background-color: rgb(241, 196, 15);
+}
+
+
+.pagWrap{
+    /* border: 1px solid black; */
+    margin: auto;
+    margin-top: 3%;
+    width:1000px;
+    height: 50px;
+    position: relative;
+    text-align: center;
+}
+
+.search{
+    margin: auto;
+    width:1000px;
+    height: 50px;
+    
+    position: relative;
+    text-align: center;
+}
+.searchForm{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+.searchInput{
+    width: 30%;
+    height: 30px;
+    box-sizing: border-box;
+    border: none;
+    background-color:  rgba(241, 196, 15,0.5);
+}
+.searchSubmit{
+    border-radius: 5px 5px 5px 5px;
+    background-color: rgba(0,0,0,0);
+    width: 80px;
+    height: 35px;
+}   
+.searchSubmit:hover{
+    background-color: rgb(241, 196, 15);
+}
