@@ -149,7 +149,6 @@ aside {
 </head>
 <body>
 	
-
 	
 		<header>
 			<div class="content-list">
@@ -195,10 +194,7 @@ aside {
 	</aside>
 
 
-
-
-
-
-
+  
+  
 </body>
 </html>

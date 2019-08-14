@@ -13,7 +13,7 @@ public class Board {
 	private String bStatus;
 	private int rpCount;
 	private int bType;
-	private int header;
+	private String header;
 	private String writer;
 
 
@@ -23,7 +23,7 @@ public class Board {
 	
 	public Board() {}
 
-	public Board(int bNo, int bType, int header, String bTitle, String bContent, String writer, int bCount,
+	public Board(int bNo, int bType, String header, String bTitle, String bContent, String writer, int bCount,
 			Date createDate, Date modifyDate, String bStatus) {
 		super();
 		this.bNo = bNo;
@@ -40,8 +40,8 @@ public class Board {
 
 	
 
-	public Board(int bNo, int header, String bTitle, String bContent, String writer, int bCount, Date createDate,
-			Date modifyDate) {
+	public Board(int bNo, String header, String bTitle, String bContent, String writer, int bCount, Date createDate,
+			Date modifyDate, String bStatus) {
 		super();
 		this.bNo = bNo;
 		this.header = header;
@@ -51,11 +51,12 @@ public class Board {
 		this.bCount = bCount;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
+		this.bStatus = bStatus;
 	}
 
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
-			int rpCount, int bType, int header, String writer) {
+			int rpCount, int bType, String header, String writer) {
 
 		super();
 		this.bNo = bNo;
@@ -83,11 +84,11 @@ public class Board {
 		this.bType = bType;
 	}
 
-	public int getheader() {
+	public String getheader() {
 		return header;
 	}
 
-	public void setheader(int header) {
+	public void setheader(String header) {
 		this.header = header;
 	}
 
