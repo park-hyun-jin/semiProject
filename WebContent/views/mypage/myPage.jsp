@@ -175,7 +175,7 @@ aside {
 						</span>
 					</div>
 					<div>
-						<span><button class="modified-btn" onclick="location.href='<%=request.getContextPath()%>/views/mypage/myPageInfo.jsp'">정보 수정</button></span>
+						<span><button class="modified-btn" onclick="location.href='<%=request.getContextPath()%>/userInfo.me'">정보 수정</button></span>
 					</div>
 				</div>
 			</div>

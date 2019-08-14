@@ -1,11 +1,16 @@
 package user.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import user.model.service.UserService;
+import user.model.vo.User;
 
 
 @WebServlet("/userInfo.me")
@@ -20,7 +25,23 @@ public class UserInfoServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/mypage/myPageInfo.jsp").forward(request, response);
+		
+		User loginUser = (User)request.getSession().getAttribute("loginUser");
+		int uNo = loginUser.getuNo();
+		
+		User user = new UserService().selectUser(uNo);
+		RequestDispatcher view = null;
+
+		if(user != null) {
+			view = request.getRequestDispatcher("views/mypage/myPageInfo.jsp");
+			request.setAttribute("user", user);
+		}else {
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg", "회원 정보 조회 실패");
+			
+		}
+		
+		view.forward(request, response);
 	}
 
 	
