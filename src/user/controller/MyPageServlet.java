@@ -32,14 +32,12 @@ public class MyPageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loginUser = (User)session.getAttribute("loginUser");
 		
-		String email = loginUser.getEmail();
 		int uNo = loginUser.getuNo();
-		
 		// DB에서 아이디가 일치하는 회원 정보 읽어오기
 		UserService uService = new UserService();
 		
-		User user = uService.selectUser(email);
-		ArrayList<String> pointList = uService.getPoint(uNo);
+		User user = uService.selectUser(uNo);
+		ArrayList<Integer> pointList = uService.getPoint(uNo);
 		
 		// DB 조회 결과에 따라 view 연결 처리
 		RequestDispatcher view = null;

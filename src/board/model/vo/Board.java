@@ -14,7 +14,7 @@ public class Board {
 	private int rpCount;
 	private int bType;
 	private int header;
-	private int writer;
+	private String writer;
 
 
 	
@@ -23,7 +23,7 @@ public class Board {
 	
 	public Board() {}
 
-	public Board(int bNo, int bType, int header, String bTitle, String bContent, int writer, int bCount,
+	public Board(int bNo, int bType, int header, String bTitle, String bContent, String writer, int bCount,
 			Date createDate, Date modifyDate, String bStatus) {
 		super();
 		this.bNo = bNo;
@@ -40,7 +40,7 @@ public class Board {
 
 	
 
-	public Board(int bNo, int header, String bTitle, String bContent, int writer, int bCount, Date createDate,
+	public Board(int bNo, int header, String bTitle, String bContent, String writer, int bCount, Date createDate,
 			Date modifyDate) {
 		super();
 		this.bNo = bNo;
@@ -55,7 +55,7 @@ public class Board {
 
 
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
-			int rpCount, int bType, int header, int writer) {
+			int rpCount, int bType, int header, String writer) {
 
 		super();
 		this.bNo = bNo;
@@ -107,11 +107,11 @@ public class Board {
 		this.bContent = bContent;
 	}
 
-	public int getwriter() {
+	public String getwriter() {
 		return writer;
 	}
 
-	public void setwriter(int writer) {
+	public void setwriter(String writer) {
 		this.writer = writer;
 	}
 

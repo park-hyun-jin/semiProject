@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
-	ArrayList<String> pointList = (ArrayList<String>)request.getAttribute("pointList");
+	ArrayList<Integer> pointList = (ArrayList<Integer>)request.getAttribute("pointList");
 
 	int size = pointList.size();
 
@@ -170,17 +170,42 @@
 			$("#<%=d%>").css({"pointer-events":"auto","cursor":"pointer"});
 			$("#<%=d%>").parent().parent().css("background-color","rgb(241, 196, 15,0.25)");
 
-			for(int i=0; i<size;i++){
-				if(<%=pointList.get%>(i).equals())
-			}
+			<% for(int i=0; i<size;i++){ %>
+				$("#<%=pointList.get(i)%>").css({
+					"background-image" : "url('<%=request.getContextPath()%>/views/image/red-cake.png')",
+					"opacity" : "1",
+					"pointer-events" : "none"
+				});
+			<% } %>
 		});
 		$(".cake").click(function() {
-			alert("아아, 이것은 포인트라는것이다. 이걸로 악보를 구매할수 있지(웃음)");
-			$(this).css({
-				"background-image" : "url('<%=request.getContextPath()%>/views/image/red-cake.png')",
-				"opacity" : "1",
-				"pointer-events" : "none"
+			var point = 50;
+			var summary = "A";
+			
+			$.ajax({
+				url : "pointUpdate.me",
+				type : "GET",
+				data : { point : point, summary : summary, uNo : '<%=uNo%>'},
+				success:function(result){
+					if(result>0){
+						alert("아아, 이것은 포인트라는것이다. 이걸로 악보를 구매할수 있지(웃음)");
+						console.log(this);
+						$("#<%=d%>").css({
+							"background-image" : "url('<%=request.getContextPath()%>/views/image/red-cake.png')",
+							"opacity" : "1",
+							"pointer-events" : "none"							
+						});
+					}else{
+						alert("난! 단한번만이라도 적립카고시푼데! 포인트를! 적립할수가! 없어!");
+					}
+				},
+				error: function(){
+					console.log("Ajax 통신실패");
+				}
+				
+				
 			});
+			
 		});
 	</script>
 

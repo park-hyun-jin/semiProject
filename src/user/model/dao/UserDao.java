@@ -169,7 +169,7 @@ public class UserDao {
 	}
 
 
-	public User selectUser(Connection conn, String email) {
+	public User selectUser(Connection conn, int uNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -180,18 +180,19 @@ public class UserDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, email);
+			pstmt.setInt(1, uNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				user = new User(email, 
-						rset.getString(1), 
-						rset.getString(2), 
+				user = new User(rset.getInt(1), 
+						rset.getString(2),
 						rset.getString(3), 
 						rset.getString(4), 
-						rset.getInt(5), 
-						rset.getInt(6));
+						rset.getString(5), 
+						rset.getString(6), 
+						rset.getInt(7), 
+						rset.getInt(8));
 			}
 			
 			
@@ -282,12 +283,12 @@ public class UserDao {
 	}
 
 
-	public ArrayList<String> getPoint(Connection conn, int uNo) {
+	public ArrayList<Integer> getPoint(Connection conn, int uNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<String> pointList = null;
-		String date = null;
+		ArrayList<Integer> pointList = null;
+		int num = 0;
 		String query = prop.getProperty("getPoint");
 		
 		try {
@@ -298,10 +299,9 @@ public class UserDao {
 
 			pointList = new ArrayList<>();
 			while(rset.next()) {
+				num = Integer.parseInt(rset.getDate(1).toString().substring(8));
 				
-				date = rset.getDate(1).toString().substring(8);
-				
-				pointList.add(date);
+				pointList.add(num);
 			}			
 			
 		} catch (SQLException e) {
@@ -312,6 +312,31 @@ public class UserDao {
 		}
 				
 		return pointList;
+	}
+
+
+	public int updatePoint(Connection conn, int uNo, int point, String summary) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, summary);
+			pstmt.setInt(2, point);
+			pstmt.setInt(3, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

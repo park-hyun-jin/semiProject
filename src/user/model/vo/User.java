@@ -20,8 +20,9 @@ public class User {
    
    
    
-   public User(String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
+   public User(int uNo, String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
 	super();
+	this.uNo = uNo;
 	this.email = email;
 	this.userPwd = userPwd;
 	this.userName = userName;
