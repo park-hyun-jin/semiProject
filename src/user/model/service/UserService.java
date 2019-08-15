@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
-import point.model.vo.Point;
 import user.model.dao.UserDao;
 import user.model.vo.User;
 
@@ -79,22 +78,22 @@ public class UserService {
 		return user;
 	}
 
-	public int getBoardCount() {
-		Connection conn = getConnection();
-		
-		int boardCount = new UserDao().getBoardCount(conn);
-		
-		
-		
-		return boardCount;
-	}
+//	public int getBoardCount() {
+//		Connection conn = getConnection();
+//		
+//		int boardCount = new UserDao().getBoardCount(conn);
+//		
+//		
+//		
+//		return boardCount;
+//	}
 
-	public ArrayList<Board> selectList(int currentPage, int limit) {
+	public ArrayList<Board> selectList(int writer, int currentPage, int limit) {
 		
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new UserDao().selectList(conn, currentPage, limit);
+		ArrayList<Board> list = new UserDao().selectList(conn,writer, currentPage, limit);
 		
 		
 		return list;
@@ -122,7 +121,24 @@ public class UserService {
 		return result;
 	}
 
-	public int changePwd(int uNo, String pwd) {
+
+	public String deleteCheck(String deleteBoards) {
+		
+		Connection conn = getConnection();
+		String result = new UserDao().deleteCheck(conn,deleteBoards);
+		
+		return null;
+	}
+
+	public int getWriteBoardCount(int writer) {
+		Connection conn = getConnection();
+		int boardCount =  new UserDao().getWriteBoardCount(conn, writer);
+		
+		return boardCount;
+
+	}
+  
+  public int changePwd(int uNo, String pwd) {
 		Connection conn = getConnection();
 		
 		int result = new UserDao().changePwd(conn, uNo, pwd);
@@ -134,9 +150,9 @@ public class UserService {
 		}
 		
 		return result;
-	}
+    
+  }
+  
+  
 
-
-   
-   
 }
