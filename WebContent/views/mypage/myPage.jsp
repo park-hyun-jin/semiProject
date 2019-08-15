@@ -165,7 +165,7 @@ aside {
 					<div>
 						<span>
 							<p>보유 포인트</p>
-							<p style="color: rgb(37, 223, 161)"><%=userPoint %>p</p>
+							<p style="color: rgb(37, 223, 161)" class="p-userPoint"><%=userPoint %>p</p>
 						</span>
 					</div>
 					<div>
@@ -175,7 +175,7 @@ aside {
 						</span>
 					</div>
 					<div>
-						<span><button class="modified-btn" onclick="location.href='<%=request.getContextPath()%>/views/mypage/myPageInfo.jsp'">정보 수정</button></span>
+						<span><button class="modified-btn" onclick="location.href='<%=request.getContextPath()%>/userInfo.me'">정보 수정</button></span>
 					</div>
 				</div>
 			</div>

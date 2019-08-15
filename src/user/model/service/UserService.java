@@ -121,6 +121,7 @@ public class UserService {
 		return result;
 	}
 
+
 	public String deleteCheck(String deleteBoards) {
 		
 		Connection conn = getConnection();
@@ -134,10 +135,24 @@ public class UserService {
 		int boardCount =  new UserDao().getWriteBoardCount(conn, writer);
 		
 		return boardCount;
-		
-		
+
 	}
+  
+  public int changePwd(int uNo, String pwd) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().changePwd(conn, uNo, pwd);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+    
+  }
+  
+  
 
-
-   
 }

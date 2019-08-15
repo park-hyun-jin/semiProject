@@ -354,7 +354,6 @@ public class UserDao {
 		return result;
 	}
 
-
 	public String deleteCheck(Connection conn, String deleteBoards) {
 		
 		return null;
@@ -383,24 +382,44 @@ public class UserDao {
 			if(rset.next()) {
 				boardCount = rset.getInt(1);
 				System.out.println("bc : " + boardCount);
-			}
-			
+			}			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
-		}
-		
-		
-		
+		}		
+    
 		return boardCount;
 	}
 
 
-
-	
+	public int changePwd(Connection conn, int uNo, String pwd) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, pwd);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();
+						
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+      close(pstmt);
+		}
+    return result;
+  }
+  
+  
+  
+  
 }
 
 
