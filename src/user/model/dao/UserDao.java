@@ -511,8 +511,34 @@ public class UserDao {
 	      
 		return loginUser;
 	      
+	}  
+
+
+	public int quitUser(Connection conn, int uNo) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("quitUser");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
   
   
   
 }
+

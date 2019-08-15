@@ -62,7 +62,7 @@
                 <input type="text" class="password1" value="<%=email%>" readonly>
                 <br><br>
                 <div class="modify">
-                <input type="submit" value="수정"> 
+                <input type="submit" value="수정">
                 </div>
                 </form>
            </div>
