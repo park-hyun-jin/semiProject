@@ -178,6 +178,9 @@
 
 <!-- 아이디/비번 찾기 스타일 -->
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/views/style/idPwdSearch.css"></link>
+
+<!-- 소셜아이디로 로그인시 추가정보 입력폼 스타일-->
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/views/style/addInfoForm.css"></link>
 	
 
 
@@ -300,7 +303,7 @@
 			<!-- 소셜로그인 영역. 카카오, 네이버 -->
 	        <div id="social_login">
 	            <div id="kakao_area" class="login_btn_area">
-	                <img id="kakaoCreateBtn" src="<%=request.getContextPath() %>/views/image/createKakaoBtn_m.png"
+	                <img class="kakaoCreateBtn" src="<%=request.getContextPath() %>/views/image/createKakaoBtn_m.png"
 	                	onmouseover="this.src='<%=request.getContextPath() %>/views/image/createKakaoBtn_p.png'"
 	                		onmouseout="this.src='<%=request.getContextPath() %>/views/image/createKakaoBtn_m.png'">
 	            </div>
@@ -341,7 +344,7 @@
                     <button id="join_email" class="join_btn">이메일</button>
                 </div>
                 <div id="kakao_area" class="join_btn_area">
-                    <img id="kakaoCreateBtn" src="<%=request.getContextPath() %>/views/image/createKakaoBtn_m.png"
+                    <img class="kakaoCreateBtn" src="<%=request.getContextPath() %>/views/image/createKakaoBtn_m.png"
 	                	onmouseover="this.src='<%=request.getContextPath() %>/views/image/createKakaoBtn_p.png'"
 	                		onmouseout="this.src='<%=request.getContextPath() %>/views/image/createKakaoBtn_m.png'">
                 </div>
@@ -464,17 +467,73 @@
 	</div>
 	
 	
+   <div id="addInfoModal" class="all-area-modal2"> 
+    
+       <!-- 소셜로그인시 추가정보 입력 모달 -->
+		<div class="addInfoPositon">
+			<span id="addInfoMsg"> 가입된 카카오 아이디가 없습니다.<br> 정보를 추가로 입력하면 가입이 완료됩니다.</span>
+			<div id="addInfoWrap" class="animate-top">
+				<!-- 추가정보 입력폼 닫기 버튼 -->
+				<div id="addInfoHeader"><span id="addInfoClose" onclick="exitAddInfoModal()">x</span></div>
+				
+				<div id="addInfoForm">
+					<!-- 추가정보 입력폼 -->
+					<form id="addForm" method="post" action="<%=request.getContextPath() %>/kakaoJoin.us">
+						<input type="hidden" name="socialUserId" value=""></input>
+						<input type="hidden" name="socialUserName" value=""></input>
+						<span id="add_email_label" class="addInfoLabel">EMAIL</span>
+						<span class="addChkMsg" id="addEmailChkMsg">중복 x</span>
+						<div id="join_input_pwd" class="add_input_area">
+						   <input type="email" class="verify" id="addJoinEmail" name="addJoinEmail" required>
+						   <button type="button" id="addEmailChk" class="addChkBtn" disabled>인증</button>
+						</div>
+						 
+						<span id="add_nickName_label" class="addInfoLabel">닉네임</span>
+						<span class="addChkMsg" id="addNickNameChkMsg">중복 x</span>
+						<div id="join_input_nickName" class="add_input_area">
+						   <input type="text" class="verify" id="addNickName" name="addNickName" required>
+						   <button type="button" id="addNickNameChk" class="addChkBtn">중복확인</button>
+						</div>
+						
+						<div id="addInfoFooter">
+						   <span id="addMiddleLine"><hr></span>
+						   <button type="submit" class="addJoinBtn">가입하기</button>  
+						</div>
+					</form>
+				</div>
+			  
+
+         </div>
+       </div>
+    
+    </div>
+	
 	<script>
 	// 로그아웃 함수
 	function logout() {
-
-		location.href = "<%=request.getContextPath()%>/logout.me";
+		<% if(loginUser != null) {
+			if(loginUser.getSign().equals("E"))  { %>
+				location.href = "<%=request.getContextPath()%>/logout.me";
+			<% } else if(loginUser.getSign().equals("K")) { %>
+				Kakao.Auth.logout();
+				location.href = "<%=request.getContextPath()%>/logout.me";
+			<% } 
+		} %>
 	}
 	
 	// 로그인 버튼을 누르거나 x를 누르면 모달 닫기.
     function exitModalLogin() {
         document.getElementById('login-modal').style.display = 'none';
     }
+
+	// 소셜로그인시 추가정보 입력 모달. x를 누르면 모달 닫기.
+    function exitAddInfoModal() {
+        document.getElementById('addInfoModal').style.display = 'none';
+        $(".addChkMsg").text("");
+        $("#addInfoModal form").each(function() {
+			this.reset();
+		});
+	}
 	
 	
 	$(function() {
@@ -489,7 +548,7 @@
 		    $("#login-modal form").each(function() {
 				this.reset();
 			});
-		    $(".chkMsg, .msg").text("");
+		    $(".chkMsg, .msg, .addChkMsg").text("");
 	    });
 	    
 		 // 모달 실행시 모달폼 이외의 영역 클릭하면 폼 닫기. 폼 데이터 리셋 
@@ -499,7 +558,7 @@
 				$("#login-modal form").each(function() {
 					this.reset();
 				});
-				$(".chkMsg, .msg").text("");
+				$(".chkMsg, .msg, .addChkMsg").text("");
 			}
 		});
 		 
@@ -538,9 +597,17 @@
 	    });
    
 	    // 카카오로그인 이미지 누르면 카카오 api 실행
-    	$("#kakaoCreateBtn").click(function() {
+    	/* $("#kakaoCreateBtn").click(function() {
     		$("#kakao-login-btn img").click();
-    	});
+    	}); */
+
+    	// 카카오로그인 이미지 누르면 카카오 api 실행
+		$(".kakaoCreateBtn").click(function() {
+			kakaoLogin();
+		});
+    	
+    	
+    	
     	
 	    // 네이버로그인 이미지 누르면 네이버 api 실행
     	$("#naverCreateBtn").click(function() {
@@ -674,7 +741,159 @@
 			}
 		});
    		
+	
+	
+    
+	/* ---------- 소셜아이디로 회원가입 시 필요한 function ----------- */
+	    // 회원가입시 필요한 플래그 변수
+		var addEmailC = false;
+		var addNickNameC = false;
+	    // 이메일 입력하면 ajax로 체크 실행.
+		$("#addForm input[name=addJoinEmail]").on("input", function() {
+	         
+			$("#addEmailChk").attr("disabled", true);
+	         // 이메일 형식검사
+			regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	   
+			var addJoinEmail = $("#addJoinEmail").val().trim();
+	
+			if(regExp.test(addJoinEmail)) {
+				$.ajax({
+					url: "<%=request.getContextPath()%>/emailCheck.do",
+					data: {joinEmail : addJoinEmail},
+					type: "get",
+					success : function(result) {
+						if(result == 0) {
+							$("#addEmailChkMsg").text("사용가능한 이메일입니다.").css({"color":"green", "font-weight":"bold"});
+							$("#addEmailChk").attr("disabled", false).css("border","1px solid yellowgreen");
+							addEmailC = true;
+						} else {
+							$("#addEmailChk").attr("disabled", true).css("border-style", "none");
+							$("#addEmailChkMsg").text("이미 가입된 이메일입니다.").css({"color":"red", "font-weight":"bold"});
+							addEmailC = false;
+						}
+					},
+					error : function() {
+						console.log("aJax 통신 오류");
+					}
+				});
+			} else {
+				addEmailC = false;
+				$("#addEmailChkMsg").text("이메일을 올바르게 기입해주세요.").css({"color":"red", "font-weight":"bold"});
+			}
+		});
+	
+	   // 닉네임 중복확인 검사 
+	   $("#addNickName").keyup(function() {
+	      addNickNameC = false;
+	      $("#addNickNameChkMsg").text("");
+	      
+	      $("#addNickNameChk").click(function() {
+	         
+	         var addValue = $("#addNickName").val().trim();
+	         
+	         $.ajax({
+		         url : "<%=request.getContextPath()%>/nickNameCheck.do",
+		         type : "get",
+		         data : {nickName : addValue},
+		         success : function(result) {
+		            if(result == 0) {
+		               $("#addNickNameChkMsg").text("사용가능한 닉네임입니다.").css({"color":"green", "font-weight":"bold"});
+		               nickNameC = true;
+		            } else {
+		               $("#addNickNameChkMsg").text("중복되었습니다.").css({"color":"red", "font-weight":"bold"});
+		               nickNameC = false;
+		            }
+		         },
+		         error : function(e) {
+		            console.log("Ajax 통신 실패");
+		         }
+		      });
+	      });
+	   });
+	   
+	   // 가입 버튼 클릭시 검사
+		$("#addJoinBtn").click(function() {
+		   
+		   // 이메일 형식 검사
+		   if(!addEmailC) {
+		      $("#addJoinEmail").focus();
+		      return false;
+		   }
+		   
+		   // 닉네임 중복검사
+		   if(!addNickNameC) {
+		      $("#addNickName").focus();
+		      return false;
+		   }
+		});
+		   
+		/* -------------- 카카오로그인, 회원가입시 필요한 스크립트 ----------------- */
+	   //<![CDATA[
+	   // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	   Kakao.init('188493ea165a4a41ea7f70b87d9da98c');
+
+	   function kakaoLogin() {
+		
+		   Kakao.Auth.loginForm({
+		      success : function(authObj) {
+		         // 로그인 성공시, API를 호출합니다.
+		         Kakao.API.request({
+		            url : '/v2/user/me',
+		            success : function(res) {
+		               
+		               var userId = res.id;
+		               var userName = res.properties.nickname
+		               console.log("userId / " + userId);
+		               $.ajax({
+		                  url :'<%=request.getContextPath()%>/isKakaoUser.us',
+		               data : {userId: userId},
+		               type: 'post',
+		               success: function(result) {
+		                  console.log("회원가입여부 / " + result);
+		                  if(result > 0) {
+		                     location.href="<%=request.getContextPath()%>/kakaoLogin.us?userId="+userId;
+		                     } else {
+		                        console.log("모달 나오냐 / " + result);
+		                        $("#addInfoModal").css("display", "block");
+		                        $("input[name=socialUserId]").val(userId);
+		                        $("input[name=socialUserName]").val(userName);
+		                        console.log("userId: " + userId + " / userName: " + userName)
+		                       
+		                        if(res.kakao_account.email_needs_agreement == "true" && 
+		                              res.kakao_account.email.is_email_verified == "true") {
+		                           $("#addJoinEmail").val(res.kakao_account.email).attr("readonly");
+		                        }
+		                        
+		                        
+		                     }
+		                  }, 
+		                  fail: function(err) {
+		                     console.log("카카오유저 확인 실패");
+		                     console.log(err);
+		                  }
+		                  
+		               });
+		               
+		            },
+		            fail: function(err) {
+		               console.log(err);
+		            }
+		         });
+		      },
+		      
+		      fail: function(err) {
+		         console.log(err);
+		      }
+		        
+		   
+		   });
+		}
+	
 	});
+
+
+	
 </script>
 
     
@@ -683,8 +902,8 @@
 			<!-- 네이버 api로 생성한 로그인 버튼. 보이지 않게 설정. -->
 			<div id="naverIdLogin" class="api_login login_btn" style="display:none"></div>
   
-  <script src="<%=request.getContextPath() %>/views/script/login.js"></script>    
-
+  <%-- <script src="<%=request.getContextPath() %>/views/script/login.js"></script>    
+ --%>
 
 </body>
 </html>
