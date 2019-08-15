@@ -12,7 +12,7 @@ public class Board {
 	private Date modifyDate;
 	private String bStatus;
 	private int rpCount;
-	private int bType;
+	private String bType;
 	private String header;
 	private String writer;
 
@@ -23,7 +23,7 @@ public class Board {
 	
 	public Board() {}
 
-	public Board(int bNo, int bType, String header, String bTitle, String bContent, String writer, int bCount,
+	public Board(int bNo, String bType, String header, String bTitle, String bContent, String writer, int bCount,
 			Date createDate, Date modifyDate, String bStatus) {
 		super();
 		this.bNo = bNo;
@@ -40,6 +40,18 @@ public class Board {
 
 	
 
+	public Board(int bNo, String bTitle, int bCount, Date createDate, int rpCount, String header,String writer) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.rpCount = rpCount;
+		this.header = header;
+		this.writer = writer;
+		
+	}
+
 	public Board(int bNo, String header, String bTitle, String bContent, String writer, int bCount, Date createDate,
 			Date modifyDate, String bStatus) {
 		super();
@@ -55,7 +67,7 @@ public class Board {
 	}
 
 
-	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate,
 			int rpCount, int bType, String header, String writer) {
 
 		super();
@@ -67,6 +79,50 @@ public class Board {
 		this.bCount = bCount;
 		this.createDate = createDate;
 	}
+	
+	
+
+	
+	
+	
+
+	public Board(int bNo, String bTitle, int bCount, Date createDate, int rpCount, String bType, String header, String writer) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.rpCount = rpCount;
+		this.bType = bType;
+		this.header = header;
+		this.writer = writer;
+		
+	}
+	
+	
+	
+	
+	
+
+
+
+
+	public Board(String bTitle, Date createDate, int rpCount, String header, String writer) {
+		super();
+		this.bTitle = bTitle;
+		this.createDate = createDate;
+		this.rpCount = rpCount;
+		this.header = header;
+		this.writer = writer;
+	}
+
+	public Board(String bTitle, Date createDate, String header, String writer) {
+		super();
+		this.bTitle = bTitle;
+		this.createDate = createDate;
+		this.header = header;
+		this.writer = writer;
+}
 
 	public int getbNo() {
 		return bNo;
@@ -76,11 +132,11 @@ public class Board {
 		this.bNo = bNo;
 	}
 
-	public int getbType() {
+	public String getbType() {
 		return bType;
 	}
 
-	public void setbType(int bType) {
+	public void setbType(String bType) {
 		this.bType = bType;
 	}
 
