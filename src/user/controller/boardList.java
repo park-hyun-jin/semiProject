@@ -14,7 +14,7 @@ import user.model.service.UserService;
 import board.model.vo.PageInfo;
 
 
-@WebServlet("/list.bo")
+@WebServlet("/myPageList.me")
 public class boardList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
