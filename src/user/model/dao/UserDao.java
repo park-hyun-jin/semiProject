@@ -338,6 +338,35 @@ public class UserDao {
 		
 		return result;
 	}
+
+
+	public int changePwd(Connection conn, int uNo, String pwd) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, pwd);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+
 	
 	
 	

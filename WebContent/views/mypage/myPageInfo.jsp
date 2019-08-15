@@ -48,7 +48,7 @@
 		<%@ include file="myPage.jsp"%>
 		<div class="content">
 			<div class="password">
-                <form action="#" method="post" class="user-form" id="join_form2" onsubmit="return validate();">
+                <form action="<%=request.getContextPath() %>/changePwd.me" method="post" class="user-form" id="join_form2" onsubmit="return validate();">
                 <label>닉네임</label><br>
                 <input type="text" class="password1" value="<%=nickName%>" readonly>
                 <br><br>
@@ -104,7 +104,9 @@
 			$("#pwdChkMsg2").text("비밀번호 불일치").css({"color":"red", "font-weight":"bold"});
 			pwd2C = false;
 		}
+		
 	});
+		
 	function validate(){
 
 		if(!pwdC){
