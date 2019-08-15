@@ -1,14 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@page import="board.model.vo.PageInfo"%>
 	<%@page import="board.model.vo.Board"%>
 	<%@page import="java.util.ArrayList"%>  
      <%
     	ArrayList<Board> list =(ArrayList<Board>)request.getAttribute("list"); // 그냥 게시물에 대한 정보
      
-
-    
-    
     PageInfo pInf = (PageInfo)request.getAttribute("pInf");
     
     int boardCount = pInf.getBoardCount();
@@ -19,6 +15,7 @@
     int limit = pInf.getLimit();
     int pagingBarSize = pInf.getPagingBarSize();
     
+  
     
     %>
     
@@ -82,6 +79,8 @@ section{
             height: 800px;
             
         }
+        
+       
 
         .content-list{
             width: 100%;
@@ -153,6 +152,19 @@ section{
             height: 100%;
             font-size: 1.2rem;
         }
+        
+       .selectBtn{
+		background-color: white;
+		color : blue;
+	}
+	
+	.pagingBtn{
+		text-decoration: none;
+		display : inline-block;
+		width : 25px;
+		height : 25px;
+	}
+	
 
 
 
@@ -385,138 +397,147 @@ section{
         </aside>
 
         <div class="content">
-                <div class="tab-section">
-                        <span id="tab-1" class="tab-btn"></span>
-                        <a href="#tab-1" class="tab-link tab1">내가 작성한 게시글 보기</a>
-                        <div class="tab-content table1">
-                            <table align="center" id ="listArea">
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" class="allcheck"></th>
-                                    <th width="120px">말머리</th>
-                                    <th width="530px">제목</th>
-                                    <th width="100px">작성자</th>
-                                    <th width="100px">조회수</th>
-                                    <th width="150px">작성일</th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td width="120px">[피아노]</td>
-                                    <td width="530px"><a href="https://naver.com">집에가고싶어요</a></td>
-                                    <td width="100px">다우니</td>
-                                    <td width="100px">조회수</td>
-                                    <td width="150px">작성일</td>
-                                </tr>
-                                
-                            </table>
-                        </div>
+			<div class="tab-section">
+				<span id="tab-1" class="tab-btn"></span>
+				<a href="#tab-1" class="tab-link tab1">내가 작성한 게시글 보기</a>
+				<div class="tab-content table1">
+					<table align="center" id ="listArea">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="#ck_all" class="allcheck"></th>
+								<th width="120px">말머리</th>
+								<th width="530px">제목</th>
+								<th width="100px">작성자</th>
+								<th width="100px">조회수</th>
+								<th width="150px">작성일</th>
+							</tr>
+						</thead>
+							<% if(list.isEmpty()){ %>
+						<tr>
+							<td colspan="6">등록된 게시글이 없습니다.</td>
+						</tr>
+						<% }else { %>
+
+							<% for(Board b : list){ %> 
+						<tr>
+							<td> <input type="checkbox" name="isDelete" value="<%=b.getbNo() %>"> </td> 
+							<td><%= b.getheader()%></td> 
+							<td><%= b.getbTitle() %></td>         
+							<td><%= b.getwriter() %></td> 
+							<td><%= b.getbCount() %></td> 
+							<td><%= b.getCreateDate() %></td> 
+						
+							     
+						</tr>
+							<% } %>	
+						<% } %>	
+                          
+                           
+                       
+					</table>
+				</div>
                         
-                        <!------- 페이징 바 ------->
-		<!-- 페이징 처리 시작! -->
-		<div class="pagingArea" align="center">
-			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=1'">&lt;&lt;</span>
+				<span id="tab-2" class="tab-btn"></span>
+				<a href="#tab-2" class="tab-link tab2">내가 작성한 댓글 보기</a>
+				<div class="tab-content table2">
+				<table align="center" id ="listArea">
+				    <thead>
+				    <tr>
+				        <th><input type="checkbox" class="allcheck2"></th>
+				        <th width="100px">말머리</th>
+				        <th width="500px">제목</th>
+				        <th width="100px">작성자</th>
+				        <th width="100px">조회수</th>
+				        <th width="200px">작성일</th>
+				    </tr>
+				    </thead>
+				    <tr>
+					    <td><input type="checkbox"></td>
+					    <td width="100px">[기타]</td>
+					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
+					    <td width="100px">ekdns</td>
+					    <td width="100px">1</td>
+					    <td width="200px">19-08-03</td>
+					</tr>
+                    <tr>
+					    <td><input type="checkbox"></td>
+					    <td width="100px">[기타]</td>
+					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
+					    <td width="100px">ekdns</td>
+					    <td width="100px">2</td>
+					    <td width="200px">sysdate</td>
+					</tr>
+					<tr>
+					    <td><input type="checkbox"></td>
+					    <td width="100px">[기타]</td>
+					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
+					    <td width="100px">ekdns</td>
+					    <td width="100px">3</td>
+					    <td width="200px">sysdate</td>
+					</tr>
+					<tr>
+					    <td><input type="checkbox"></td>
+					    <td width="100px">[기타]</td>
+					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
+					    <td width="100px">ekdns</td>
+					    <td width="100px">4</td>
+					    <td width="200px">sysdate</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="pagWrap">
+		   <!-- <a href="#">페이징 처리</a> -->
+			<button id="writeBtn">선택삭제</button>
 		
-			<!-- 이전 페이지로(<) -->
-			<% if(currentPage <= 1) { %>
-				<span class="pagingBtn">&lt;</span>
-			<% } else{ %>
-				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage-1 %>'">&lt;</span>
-			<% } %>
+		
+	        <!------- 페이징 바 ------->
+			<!-- 페이징 처리 시작! -->
+			<div class="pagingArea" align="center">
+				<!-- 맨 처음으로(<<) -->
+				<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=1'">&lt;&lt;</span>
 			
-			<!-- 페이지 목록 -->
-			<% for(int p = startPage; p <= endPage; p++){ %>
-				<% if(p == currentPage) { %>
-					<span class="pagingBtn selectBtn"><%= p %></span>
+				<!-- 이전 페이지로(<) -->
+				<% if(currentPage <= 1) { %>
+					<span class="pagingBtn">&lt;</span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= p %>'"><%=p%></span>
+						onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= currentPage-1 %>'">&lt;</span>
 				<% } %>
-			<%} %>
-			
-			<!-- 다음 페이지로(>) -->
-			<% if(currentPage >= maxPage){ %>
-				<span class="pagingBtn"> &gt; </span>
-			<% } else{ %>
-				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage+1 %>'">&gt;</span>
-			<% } %>
-			
-			<!-- 맨 끝으로(>>) -->
-			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+				
+				<!-- 페이지 목록 -->
+				<% for(int p = startPage; p <= endPage; p++){ %>
+					<% if(p == currentPage) { %>
+						<span class="pagingBtn selectBtn"><%= p %></span>
+					<% } else{ %>
+						<span class="pagingBtn clickBtn" 
+							onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= p %>'"><%=p%></span>
+					<% } %>
+				<%} %>
+				
+				<!-- 다음 페이지로(>) -->
+				<% if(currentPage >= maxPage){ %>
+					<span class="pagingBtn"> &gt; </span>
+				<% } else{ %>
+					<span class="pagingBtn clickBtn" 
+						onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= currentPage+1 %>'">&gt;</span>
+				<% } %>
+				
+				<!-- 맨 끝으로(>>) -->
+				<span class="pagingBtn clickBtn"
+					onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+			</div>
+	                
 		</div>
-		
-                        
-                        
-                        
-                        
-                        
-                        
-                        <span id="tab-2" class="tab-btn"></span>
-                        <a href="#tab-2" class="tab-link tab2">내가 작성한 댓글 보기</a>
-                        <div class="tab-content table2">
-                            <table align="center" id ="listArea">
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" class="allcheck"></th>
-                                    <th width="100px">말머리</th>
-                                    <th width="500px">제목</th>
-                                    <th width="100px">작성자</th>
-                                    <th width="100px">조회수</th>
-                                    <th width="200px">작성일</th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td width="100px">[기타]</td>
-                                    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-                                    <td width="100px">ekdns</td>
-                                    <td width="100px">1</td>
-                                    <td width="200px">19-08-03</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td width="100px">[기타]</td>
-                                    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-                                    <td width="100px">ekdns</td>
-                                    <td width="100px">2</td>
-                                    <td width="200px">sysdate</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td width="100px">[기타]</td>
-                                    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-                                    <td width="100px">ekdns</td>
-                                    <td width="100px">3</td>
-                                    <td width="200px">sysdate</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td width="100px">[기타]</td>
-                                    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-                                    <td width="100px">ekdns</td>
-                                    <td width="100px">4</td>
-                                    <td width="200px">sysdate</td>
-                                </tr>
-                            </table>
-                        </div>
-                </div>
-            <div id="pagWrap">
-                    <a href="#">페이징 처리</a>
-                <button id="writeBtn">선택삭제</button>        
-            </div>
-        
-            <div id = "search">
-                <form id = "searchForm">
-                    <input type="text" id="searchInput">
-                    <span><button type="submit" id = "searchSubmit">검색</button></span>
-                </form>
-            </div>
-        </div>
-
+	        
+	    <div id = "search">
+	        <form id = "searchForm">
+	            <input type="text" id="searchInput">
+	            <span><button type="submit" id = "searchSubmit">검색</button></span>
+	        </form>
+		</div>
+							
+						
     </section>
     
     <script>
@@ -526,7 +547,7 @@ section{
 
         var link = document.querySelector('.tab-section > .tab-link');
         if (link) link.click();
-    })();
+    });
 
     $(".tab1").click(function(){
         $(".table2").css("display","none");
@@ -542,14 +563,32 @@ section{
 
     $(".allcheck").on('change', function(){
         if($(this).is(":checked")){
-            $("input:checkbox").prop("checked",true);
+            $("input[name=selectBoard]").prop("checked",true);
         }else{
-            $("input:checkbox").prop("checked",false);
+            $("input[name=selectBoard]").prop("checked",false);
         }
 
     });
-
-
+    
+    
+    $('#writeBtn').click(function(){
+        if(confirm("삭제하시겠습니까?")){
+            var list = $("input[name=selectBoard]");
+            var checkedList = "";
+            $.each(list, function(i){
+            	if($(this).prop("checked")) {    
+            		checkedList += $(this).val() +",";
+            	}
+            });
+            checkedList = checkedList.slice(0, -1);
+            console.log(checkedList);
+           location.href="<%= request.getContextPath() %>/deleteMyBoardList.bo?deleteBoards="+checkedList;
+        }else{
+            return false;
+        }
+    });							
+							
+							
     </script>
 
 </body>

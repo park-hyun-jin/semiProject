@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
-import point.model.vo.Point;
 import user.model.dao.UserDao;
 import user.model.vo.User;
 
@@ -26,7 +25,7 @@ public class UserService {
 		Connection conn = getConnection();
 	   
 		int result = new UserDao().checkEmail(conn, joinEmail);
-		return result;
+		return 0;
 	}
 	
 	
@@ -70,35 +69,6 @@ public class UserService {
 		
 		return loginUser;
 	}
-	
-	   /**
-	    * 카카오로그인시 이미 가입된 계정인가.
-	 * @param userId
-	 * @return result
-	 */
-	public int isKakaoUser(String userId) {
-      Connection conn = getConnection();
-      
-      int result = new UserDao().isKakaoUser(conn, userId);
-      
-      return result;
-   }
-
-	   /**
-	    * 카카오로그인시 계정정보 가져오기
-	 * @param userId
-	 * @return loginUser
-	 */
-	public User kakaoLoginUser(String userId) {
-      Connection conn = getConnection();
-      
-      User loginUser = new UserDao().kakaoLoginUser(conn, userId);
-      
-      return loginUser;
-   }
-
-
-	
 
 	public User selectUser(int uNo) {
 		Connection conn = getConnection();
@@ -108,22 +78,22 @@ public class UserService {
 		return user;
 	}
 
-	public int getBoardCount() {
-		Connection conn = getConnection();
-		
-		int boardCount = new UserDao().getBoardCount(conn);
-		
-		
-		
-		return boardCount;
-	}
+//	public int getBoardCount() {
+//		Connection conn = getConnection();
+//		
+//		int boardCount = new UserDao().getBoardCount(conn);
+//		
+//		
+//		
+//		return boardCount;
+//	}
 
-	public ArrayList<Board> selectList(int currentPage, int limit) {
+	public ArrayList<Board> selectList(int writer, int currentPage, int limit) {
 		
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new UserDao().selectList(conn, currentPage, limit);
+		ArrayList<Board> list = new UserDao().selectList(conn,writer, currentPage, limit);
 		
 		
 		return list;
@@ -151,7 +121,40 @@ public class UserService {
 		return result;
 	}
 
-	/**
+
+	public String deleteCheck(String deleteBoards) {
+		
+		Connection conn = getConnection();
+		String result = new UserDao().deleteCheck(conn,deleteBoards);
+		
+		return null;
+	}
+
+	public int getWriteBoardCount(int writer) {
+		Connection conn = getConnection();
+		int boardCount =  new UserDao().getWriteBoardCount(conn, writer);
+		
+		return boardCount;
+
+	}
+  
+  public int changePwd(int uNo, String pwd) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().changePwd(conn, uNo, pwd);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+    
+  }
+  
+  
+  /**
 	 * 카카오로 회원가입
 	 * @param userId
 	 * @param userEmail
@@ -168,8 +171,34 @@ public class UserService {
 		return result;
 		
 	}
+  
+  
+     /**
+	    * 카카오로그인시 이미 가입된 계정인가.
+	 * @param userId
+	 * @return result
+	 */
+	public int isKakaoUser(String userId) {
+      Connection conn = getConnection();
+      
+      int result = new UserDao().isKakaoUser(conn, userId);
+      
+      return result;
+   }
 
+	   /**
+	    * 카카오로그인시 계정정보 가져오기
+	 * @param userId
+	 * @return loginUser
+	 */
+	public User kakaoLoginUser(String userId) {
+      Connection conn = getConnection();
+      
+      User loginUser = new UserDao().kakaoLoginUser(conn, userId);
+      
+      return loginUser;
+   }
+  
+  
 
-   
-   
 }

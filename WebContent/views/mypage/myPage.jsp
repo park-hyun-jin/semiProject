@@ -165,7 +165,7 @@ aside {
 					<div>
 						<span>
 							<p>보유 포인트</p>
-							<p style="color: rgb(37, 223, 161)"><%=userPoint %>p</p>
+							<p style="color: rgb(37, 223, 161)" class="p-userPoint"><%=userPoint %>p</p>
 						</span>
 					</div>
 					<div>
@@ -184,7 +184,7 @@ aside {
 	<aside>
 		<div class="vertical-menu">
 			<a href="<%=request.getContextPath() %>/myPage.me" class="absence">출석체크</a> 
-			<a href="#" class="myBoard">내가 쓴 글 확인</a> 
+			<a href="<%= request.getContextPath() %>/myPageList.me">내가 쓴 글 확인</a>  
 			<a href="#" class="download">다운로드 악보/찜한 악보</a> 
 			<a href="#" class="upload">업로드 악보</a> 
 			<a href="#" class="cashCharge">캐시 충전</a> 
