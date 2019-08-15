@@ -208,41 +208,41 @@ public class UserDao {
 	}
 
 
-	public int getBoardCount(Connection conn) {
-		
-		Statement stmt = null;
-		
-		ResultSet rset = null;
-		
-		int boardCount = 0;
-		
-		String query = prop.getProperty("getBoardCount");
-		
-		try {
-			
-			stmt = conn.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				boardCount = rset.getInt(1);
-		
-			}
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-		
-	
-		return boardCount;
-	}
+//	public int getBoardCount(Connection conn) {
+//		
+//		Statement stmt = null;
+//		
+//		ResultSet rset = null;
+//		
+//		int boardCount = 0;
+//		
+//		String query = prop.getProperty("getBoardCount");
+//		
+//		try {
+//			
+//			stmt = conn.createStatement();
+//			
+//			rset = stmt.executeQuery(query);
+//			
+//			if(rset.next()) {
+//				boardCount = rset.getInt(1);
+//		
+//			}
+//			
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(stmt);
+//		}
+//		
+//	
+//		return boardCount;
+//	}
 
 
-	public ArrayList<Board> selectList(Connection conn, int currentPage, int limit) {
+	public ArrayList<Board> selectList(Connection conn,int writer, int currentPage, int limit) {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		
@@ -251,36 +251,51 @@ public class UserDao {
 		String query = prop.getProperty("selectList");
 		
 		
-		try {
-			pstmt = conn.prepareStatement(query);
-			
-			int startRow = (currentPage-1) * limit +1 ;
-			int endRow = startRow + limit -1 ;
-			
-			pstmt.setInt(1, 1); // 뒤에가 btype 
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Board>();
-			
-			while(rset.next()) {
-				
+		   try {
+		         pstmt = conn.prepareStatement(query);
+		         
+		         int startRow = (currentPage-1) * limit +1 ;
+		         int endRow = startRow + limit -1 ;
+		         
+		         pstmt.setInt(1, writer); // 뒤에가 btype 
+		         pstmt.setInt(2, startRow);
+		         pstmt.setInt(3, endRow);
+		         
+		         rset = pstmt.executeQuery();
+		         
+		         list = new ArrayList<Board>();
+		       
+		         System.out.println(query+"    "+"쿼리");
+		         while(rset.next()) {
+		         System.out.println(rset.getString(3));
+		            Board b = new Board(
+		            		
+		            		rset.getInt(2),
+		            		rset.getString(3),
+		            		rset.getInt(4),
+		            		rset.getDate(5),
+		            		rset.getInt(6),
+		            		rset.getString(7),
+		            		rset.getString(9)
+		            		);
+		           
+		            		
+		            		list.add(b);
 
-			}		
-			
-			
-		} catch (Exception e) {
-			
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		
-		return list;
-	}
+		         }      
+		         
+		         System.out.println("list : " +list);
+		      } catch (Exception e) {
+		         
+		      }finally {
+		         close(rset);
+		         close(pstmt);
+		      }
+		      
+		      
+		      return list;
+		   }
+		   
 
 
 	public ArrayList<Integer> getPoint(Connection conn, int uNo) {
@@ -339,6 +354,46 @@ public class UserDao {
 		return result;
 	}
 
+	public String deleteCheck(Connection conn, String deleteBoards) {
+		
+		return null;
+		
+		
+		
+	}
+
+
+	public int getWriteBoardCount(Connection conn, int writer) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int boardCount = 0;
+		
+		String query = prop.getProperty("getWriteBoardCount");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setInt(1, writer);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				boardCount = rset.getInt(1);
+				System.out.println("bc : " + boardCount);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}		
+    
+		return boardCount;
+	}
+
 
 	public int changePwd(Connection conn, int uNo, String pwd) {
 		PreparedStatement pstmt = null;
@@ -353,9 +408,31 @@ public class UserDao {
 			pstmt.setInt(2, uNo);
 			
 			result = pstmt.executeUpdate();
-			
-			
+						
 		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+      close(pstmt);
+		}
+    return result;
+  }
+  
+  
+  public int kakaoJoin(Connection conn, String userId, String userName, String userEmail, String userNickName) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("kakaoJoin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userEmail);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, userNickName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -364,6 +441,77 @@ public class UserDao {
 		
 		return result;
 	}
+  
+  /**
+	 * 카카오계정으로 가입된 유저인가
+	 * @param conn
+	 * @param userId
+	 * @return result
+	 */
+	public int isKakaoUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("isKakaoUser");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(userId));
+			pstmt.setString(2, "K");
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) result = rset.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 카카오로 로그인한 유저 정보 가져오기
+	 * @param conn
+	 * @param userId
+	 * @return loginUser
+	 */
+	public User kakaoLoginUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+	      
+		String query = prop.getProperty("kakaoLoginUser");
+	      
+		User loginUser = null;
+	      
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+	         
+			rset = pstmt.executeQuery();
+	         
+			if(rset.next()) {
+				loginUser = new User(
+						rset.getInt(1), 
+						rset.getString(2),
+						rset.getString(3), 
+						rset.getString(4),
+						rset.getString(5),
+						rset.getString(6)   
+					);
+	                  
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	      
+		return loginUser;
+	      
+	}  
 
 
 	public int quitUser(Connection conn, int uNo) {
@@ -389,19 +537,8 @@ public class UserDao {
 		
 		return result;
 	}
-
-
-
-	
-	
-	
-	
-	
+  
+  
+  
 }
-
-
-	
-	
-	
-
 

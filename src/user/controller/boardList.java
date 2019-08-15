@@ -3,6 +3,7 @@ package user.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.vo.Board;
-import user.model.service.UserService;
 import board.model.vo.PageInfo;
+import user.model.service.UserService;
+import user.model.vo.User;
 
 
 @WebServlet("/myPageList.me")
@@ -26,13 +28,19 @@ public class boardList extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 		// 서비스 객체 생성
 				UserService uService = new UserService();
 				
 				//--------------- 페이징 처리------------------ 
 				// 전체 게시글 수 구하기 
-				int boardCount = uService.getBoardCount();
 				
+				int writer = ((User)request.getSession().getAttribute("loginUser")).getuNo();
+				
+				System.out.println(writer);
+				
+				int boardCount = uService.getWriteBoardCount(writer);
+				System.out.println(boardCount);
 				// 페이징 처리용 변수 선언 
 				int limit = 10;  				// 한 페이지에 보여질 게시글 수 
 				int pagingBarSize = 10;			// 보여질 페이징바의 페이지 개수 
@@ -47,7 +55,7 @@ public class boardList extends HttpServlet {
 				if(request.getParameter("currentPage") == null) {
 					// 처음 게시판 목록으로 화면 전환 시 1페이지가 보이도록 함.
 					
-					currentPage = 1;
+					currentPage = 1; 
 				}else {
 					// 아닌 경우, 현재 currentPage값을 전달 받음.
 					currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -64,6 +72,7 @@ public class boardList extends HttpServlet {
 																	   // double 붙이고 올림 ceil 사용 ceil도 더블형이기에 
 																		// int형으로 형변환
 				
+				maxPage = (maxPage == 0) ? 1 : maxPage;
 				// startpage - 페이징바 시작 페이지 번호
 				// 페이징바에 숫자가 10개씩 표시되는 경우 
 				// 1, 11, 21, 31... → 10(n-1) + 1
@@ -87,13 +96,16 @@ public class boardList extends HttpServlet {
 				// ---------- 페이징바 처리 끝 ------------
 				
 				//--------- 게시글 목록 조회 시작---------------
-				ArrayList<Board> list = uService.selectList(currentPage, limit);// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
-		
-		
+				ArrayList<Board> list = uService.selectList(writer, currentPage,limit);// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
+				
+				System.out.println("작성 게시글 수 : " +list.size());
+				RequestDispatcher view = null;
+				
 				// 게시글 목록 조회 결과에 따른 view 연결 처리 
 				String page = "";
 				if(list !=null) {
-					page="views/mypage/myPageBoard.jsp";
+				page="views/mypage/myPageBoard.jsp";
+//					page="views/mypage/myPageBoard.jsp";
 					request.setAttribute("list", list);
 					request.setAttribute("pInf", pInf);
 					
@@ -101,11 +113,11 @@ public class boardList extends HttpServlet {
 					page = "views/common/errorPage.jsp";
 					request.setAttribute("msg", "게시판 목록 조회 실패");
 				}
-				
-				request.getRequestDispatcher(page).forward(request, response);
-				
-		
-		
+				view=request.getRequestDispatcher(page);
+				view.forward(request, response);
+						
+	
+						
 	}
 
 	
