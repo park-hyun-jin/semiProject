@@ -165,7 +165,7 @@ aside {
 					<div>
 						<span>
 							<p>보유 포인트</p>
-							<p style="color: rgb(37, 223, 161)"><%=userPoint %>p</p>
+							<p style="color: rgb(37, 223, 161)" class="p-userPoint"><%=userPoint %>p</p>
 						</span>
 					</div>
 					<div>
