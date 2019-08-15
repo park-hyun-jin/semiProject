@@ -418,13 +418,101 @@ public class UserDao {
   }
   
   
+  public int kakaoJoin(Connection conn, String userId, String userName, String userEmail, String userNickName) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("kakaoJoin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userEmail);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, userNickName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+  
+  /**
+	 * 카카오계정으로 가입된 유저인가
+	 * @param conn
+	 * @param userId
+	 * @return result
+	 */
+	public int isKakaoUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("isKakaoUser");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(userId));
+			pstmt.setString(2, "K");
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) result = rset.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 카카오로 로그인한 유저 정보 가져오기
+	 * @param conn
+	 * @param userId
+	 * @return loginUser
+	 */
+	public User kakaoLoginUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+	      
+		String query = prop.getProperty("kakaoLoginUser");
+	      
+		User loginUser = null;
+	      
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+	         
+			rset = pstmt.executeQuery();
+	         
+			if(rset.next()) {
+				loginUser = new User(
+						rset.getInt(1), 
+						rset.getString(2),
+						rset.getString(3), 
+						rset.getString(4),
+						rset.getString(5),
+						rset.getString(6)   
+					);
+	                  
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	      
+		return loginUser;
+	      
+	}
+  
   
   
 }
-
-
-	
-	
-	
-
-

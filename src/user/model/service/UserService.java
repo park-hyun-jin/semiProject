@@ -154,5 +154,51 @@ public class UserService {
   }
   
   
+  /**
+	 * 카카오로 회원가입
+	 * @param userId
+	 * @param userEmail
+	 * @param userNickName
+	 * @return result
+	 */
+	public int kakaoJoin(String userId, String userName, String userEmail, String userNickName) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().kakaoJoin(conn, userId, userName, userEmail, userNickName);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		return result;
+		
+	}
+  
+  
+     /**
+	    * 카카오로그인시 이미 가입된 계정인가.
+	 * @param userId
+	 * @return result
+	 */
+	public int isKakaoUser(String userId) {
+      Connection conn = getConnection();
+      
+      int result = new UserDao().isKakaoUser(conn, userId);
+      
+      return result;
+   }
+
+	   /**
+	    * 카카오로그인시 계정정보 가져오기
+	 * @param userId
+	 * @return loginUser
+	 */
+	public User kakaoLoginUser(String userId) {
+      Connection conn = getConnection();
+      
+      User loginUser = new UserDao().kakaoLoginUser(conn, userId);
+      
+      return loginUser;
+   }
+  
+  
 
 }

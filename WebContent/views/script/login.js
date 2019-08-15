@@ -4,25 +4,55 @@
 Kakao.init('188493ea165a4a41ea7f70b87d9da98c');
 // 카카오 로그인 버튼을 생성합니다.
 Kakao.Auth.createLoginButton({
-	container : '#kakao-login-btn',
-	size : 'medium',
-	success : function(authObj) {
-		// 로그인 성공시, API를 호출합니다.
-		Kakao.API.request({
-			url : '/v2/user/me',
-			success : function(res) {
-				alert(JSON.stringify(res));
-				alert(JSON.stringify(authObj));
-				location.href="./callback.jsp?name=" + res.properties.nickname + "&email=" + res.properties.email;
-			},
-			fail : function(error) {
-				alert(JSON.stringify(error));
-			}
-		});
-	},
-	fail : function(err) {
-		alert(JSON.stringify(err));
-	}
+   container : '#kakao-login-btn',
+   size : 'medium',
+   success : function(authObj) {
+      // 로그인 성공시, API를 호출합니다.
+      Kakao.API.request({
+         url : '/v2/user/me',
+         success : function(res) {
+            
+            var userId = res.id;
+            console.log("userId / " + userId);
+            $.ajax({
+               url :'../../isKakaoUser.us',
+               data : {userId: userId},
+               type: 'post',
+               success: function(result) {
+                  console.log("회원가입여부 / " + result);
+                  if(result > 0) {
+                     location.href="../../kakaoLogin.us?userId="+userId;
+                  } else {
+                     console.log("모달 나오냐 / " + result);
+                     $("#addInfoModal").css("display", "block");
+                     
+                     if(res.kakao_account.email_needs_agreement && 
+                           res.kakao_account.email.is_email_verified) {
+                        $("#addJoinEmail").val(res.kakao_account.email).attr("readonly");
+                     }
+                     
+                     
+                  }
+               }, 
+               fail: function(err) {
+                  console.log("카카오유저 확인 실패");
+                  console.log(err);
+               }
+               
+            });
+            
+         },
+         fail: function(err) {
+            console.log(err);
+         }
+      });
+   },
+   
+   fail: function(err) {
+      console.log(err);
+   }
+         
+            
 });
 //]]>
 
