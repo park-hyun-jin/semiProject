@@ -121,7 +121,90 @@ public class UserService {
 		return result;
 	}
 
-	public int deleteCheck(String deleteBoards) {
+	public int getWriteBoardCount(int writer) {
+		Connection conn = getConnection();
+		int boardCount =  new UserDao().getWriteBoardCount(conn, writer);
+		
+		return boardCount;
+
+	}
+  
+  public int changePwd(int uNo, String pwd) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().changePwd(conn, uNo, pwd);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+    
+  }
+  
+  
+  /**
+	 * 카카오로 회원가입
+	 * @param userId
+	 * @param userEmail
+	 * @param userNickName
+	 * @return result
+	 */
+	public int kakaoJoin(String userId, String userName, String userEmail, String userNickName) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().kakaoJoin(conn, userId, userName, userEmail, userNickName);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		return result;
+		
+	}
+  
+  
+     /**
+	    * 카카오로그인시 이미 가입된 계정인가.
+	 * @param userId
+	 * @return result
+	 */
+	public int isKakaoUser(String userId) {
+      Connection conn = getConnection();
+      
+      int result = new UserDao().isKakaoUser(conn, userId);
+      
+      return result;
+   }
+
+	   /**
+	    * 카카오로그인시 계정정보 가져오기
+	 * @param userId
+	 * @return loginUser
+	 */
+	public User kakaoLoginUser(String userId) {
+      Connection conn = getConnection();
+      
+      User loginUser = new UserDao().kakaoLoginUser(conn, userId);
+      
+      return loginUser;
+   }
+  
+  public int quitUser(int uNo) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().quitUser(conn, uNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+  
+  public int deleteCheck(String deleteBoards) {
 		
 		Connection conn = getConnection();
 		int result = new UserDao().deleteCheck(conn,deleteBoards);
@@ -131,21 +214,9 @@ public class UserService {
 		}else {
 			rollback(conn);
 		}
-		
-		
-		
 		return result;
 	}
+  
 
-	public int getWriteBoardCount(int writer) {
-		Connection conn = getConnection();
-		int boardCount =  new UserDao().getWriteBoardCount(conn, writer);
-		
-		return boardCount;
-		
-		
-	}
-
-
-   
 }
+

@@ -13,19 +13,18 @@ import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/userInfo.me")
-public class UserInfoServlet extends HttpServlet {
+@WebServlet("/myPageQuit.me")
+public class MyPageQuit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public UserInfoServlet() {
+    
+    public MyPageQuit() {
         super();
         
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		User loginUser = (User)request.getSession().getAttribute("loginUser");
 		int uNo = loginUser.getuNo();
 		
@@ -33,15 +32,16 @@ public class UserInfoServlet extends HttpServlet {
 		RequestDispatcher view = null;
 
 		if(user != null) {
-			view = request.getRequestDispatcher("views/mypage/myPageInfo.jsp");
+			view = request.getRequestDispatcher("views/mypage/myPageQuit.jsp");
 			request.setAttribute("user", user);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "회원 정보 조회 실패");
-			
+			request.setAttribute("msg", "회원 정보 조회 실패");			
 		}
 		
 		view.forward(request, response);
+		
+		
 	}
 
 	

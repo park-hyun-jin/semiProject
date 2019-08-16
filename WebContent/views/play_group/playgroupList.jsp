@@ -33,15 +33,14 @@
 		width : 25px;
 		height : 25px;
 	}
-	section{
-	position: relative;
-	top:8rem;
-	left: 12rem;
-	width:74%;
-	height:900px;
+	
+	section {
+		position: relative;
+		top: 8rem;
+		left: 14rem;
+		width: 74%;
+		height: 900px;
 	}
-	
-	
 	
 </style>
 

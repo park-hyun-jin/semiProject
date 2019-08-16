@@ -1,8 +1,6 @@
 package user.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,35 +11,33 @@ import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/userInfo.me")
-public class UserInfoServlet extends HttpServlet {
+@WebServlet("/quit.me")
+public class QuitUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public UserInfoServlet() {
+    
+    public QuitUserServlet() {
         super();
         
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		User loginUser = (User)request.getSession().getAttribute("loginUser");
 		int uNo = loginUser.getuNo();
+		int result = new UserService().quitUser(uNo);
 		
-		User user = new UserService().selectUser(uNo);
-		RequestDispatcher view = null;
-
-		if(user != null) {
-			view = request.getRequestDispatcher("views/mypage/myPageInfo.jsp");
-			request.setAttribute("user", user);
-		}else {
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "회원 정보 조회 실패");
+		if(result > 0) {
+			request.setAttribute("msg", "사요나라.. "+ loginUser.getNickName());
+			request.getSession().invalidate(); // 세션 무효화
 			
+			response.sendRedirect(request.getContextPath());
+		}else {
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
 		}
 		
-		view.forward(request, response);
 	}
 
 	
