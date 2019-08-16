@@ -22,8 +22,9 @@ public class IsKakaoUserServlet extends HttpServlet {
       request.setCharacterEncoding("UTF-8");
       
       String userId = request.getParameter("userId");
+      String sign = "K";
       
-      int result = new UserService().isKakaoUser(userId);
+      int result = new UserService().isSocialUser(userId, sign);
       
       response.getWriter().print(result);
    
