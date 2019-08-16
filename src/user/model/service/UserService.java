@@ -121,12 +121,20 @@ public class UserService {
 		return result;
 	}
 
-	public String deleteCheck(String deleteBoards) {
+	public int deleteCheck(String deleteBoards) {
 		
 		Connection conn = getConnection();
-		String result = new UserDao().deleteCheck(conn,deleteBoards);
+		int result = new UserDao().deleteCheck(conn,deleteBoards);
 		
-		return null;
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		
+		
+		return result;
 	}
 
 	public int getWriteBoardCount(int writer) {

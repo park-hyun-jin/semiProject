@@ -355,9 +355,31 @@ public class UserDao {
 	}
 
 
-	public String deleteCheck(Connection conn, String deleteBoards) {
+	public int deleteCheck(Connection conn, String deleteBoards) {
+		Statement stmt = null;
+		int result = 0;
 		
-		return null;
+		String query = prop.getProperty("deleteCheck")+"(" + deleteBoards+ ")";
+		System.out.println(query);
+		try {
+			stmt = conn.createStatement();
+			
+			
+			result= stmt.executeUpdate(query);
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		
+	
+		
+		return result;
 		
 		
 		
