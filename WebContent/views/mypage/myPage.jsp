@@ -187,7 +187,7 @@ aside {
 			<a href="<%= request.getContextPath() %>/myPageList.me" class="myBoard">내가 쓴 글 확인</a> 
 			<a href="#" class="download">다운로드 악보/찜한 악보</a> 
 			<a href="#" class="upload">업로드 악보</a> 
-			<a href="#" class="cashCharge">캐시 충전</a> 
+			<a href="<%= request.getContextPath() %>/myPageCashCharge.me" class="cashCharge">캐시 충전</a> 
 			<a href="#" class="identify">인증하기</a> 
 			<a href="<%=request.getContextPath() %>/myPageQuit.me" class="quit">탈퇴</a>
 		</div>

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
+import cash.model.vo.Imp;
 import user.model.dao.UserDao;
 import user.model.vo.User;
 
@@ -212,6 +213,20 @@ public class UserService {
 		
 		return result;
 	}
+
+public int cashCharge(int uNo, Imp imp) {
+	Connection conn = getConnection();
+	
+	int result = new UserDao().cashCharge(conn, uNo, imp);
+	
+	if(result>0) {
+		commit(conn);
+	}else {
+		rollback(conn);
+	}	
+	
+	return result;
+}
   
   
 

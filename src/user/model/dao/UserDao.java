@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import cash.model.vo.Imp;
 import point.model.vo.Point;
 import user.model.vo.User;
 
@@ -529,6 +530,34 @@ public class UserDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int cashCharge(Connection conn, int uNo, Imp imp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("cashCharge");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, imp.getImpUid());
+			pstmt.setString(2, imp.getMerchantUid());
+			pstmt.setString(3, imp.getReceiptUrl());
+			pstmt.setInt(4, imp.getAmount());
+			pstmt.setInt(5, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {			
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
