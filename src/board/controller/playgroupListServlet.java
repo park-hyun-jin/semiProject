@@ -25,7 +25,7 @@ public class playgroupListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		ArrayList<Board> playgroup = new BoardService().selectPlaygroup();
 		String page="";
-
+		System.out.println(playgroup);
 		if(playgroup!=null) { // 정상적으로 조회된 경우
 			page = "views/play_group/playgroupList.jsp";
 			request.setAttribute("playgroup", playgroup);

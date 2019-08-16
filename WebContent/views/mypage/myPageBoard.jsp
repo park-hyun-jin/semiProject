@@ -405,6 +405,7 @@ section{
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="#ck_all" class="allcheck"></th>
+					
 								<th width="120px">말머리</th>
 								<th width="530px">제목</th>
 								<th width="100px">작성자</th>
@@ -563,17 +564,41 @@ section{
 
     $(".allcheck").on('change', function(){
         if($(this).is(":checked")){
-            $("input[name=selectBoard]").prop("checked",true);
+            $("input[name=isDelete]").prop("checked",true);
         }else{
-            $("input[name=selectBoard]").prop("checked",false);
+            $("input[name=isDelete]").prop("checked",false);
         }
 
     });
     
     
+    
+    
+    
+    
+    
+    
+   <%--  $(function(){
+		// 게시판 상세보기
+		$("#listArea td").mouseenter(function(){
+			$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"black"});
+		}).click(function(){
+			var bNo = $(this).parent().children().eq(0).text();
+    
+			// 로그인 한 사람만 게시글 상세보기 가능
+			<% if(loginUser != null){ %>
+				location.href="<%= request.getContextPath() %>/detail.bo?bNo="+bNo;
+			<% } else{ %>
+				alert("로그인해야만 상세보기가 가능합니다!");
+			<% } %>
+		}); --%>
+    
+    
     $('#writeBtn').click(function(){
         if(confirm("삭제하시겠습니까?")){
-            var list = $("input[name=selectBoard]");
+            var list = $("input[name=isDelete]");
             var checkedList = "";
             $.each(list, function(i){
             	if($(this).prop("checked")) {    

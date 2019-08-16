@@ -354,13 +354,6 @@ public class UserDao {
 		return result;
 	}
 
-	public String deleteCheck(Connection conn, String deleteBoards) {
-		
-		return null;
-		
-		
-		
-	}
 
 
 	public int getWriteBoardCount(Connection conn, int writer) {
@@ -538,7 +531,24 @@ public class UserDao {
 		return result;
 	}
   
-  
+	public int deleteCheck(Connection conn, String deleteBoards) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteCheck")+"(" + deleteBoards+ ")";
+		System.out.println(query);
+		try {
+			stmt = conn.createStatement();
+
+			result= stmt.executeUpdate(query);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return result;		
+	}
   
 }
 
