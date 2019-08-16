@@ -25,7 +25,7 @@
       .modify{
           position: relative;
           width: 100%;
-          height: 100px;
+          height: 120px;
           text-align: center;
       }
 
@@ -38,6 +38,17 @@
           margin: auto;
           width: 20rem;
       }
+      
+      .editInfoMsg {
+      	margin-top: 30px;
+      	width: 100%;
+      	bottom: 0;
+      	text-align: center;
+      	color: black;
+      	font-weight: bold;
+      	font-size: 15px;
+      	display: block;
+      }
 
 </style>
 </head>
@@ -49,21 +60,38 @@
 		<div class="content">
 			<div class="password">
                 <form action="<%=request.getContextPath() %>/changePwd.me" method="post" class="user-form" id="join_form2" onsubmit="return validate();">
-                <label>닉네임</label><br>
-                <input type="text" class="password1" value="<%=nickName%>" readonly>
-                <br><br>
-                <label>password&nbsp;&nbsp;</label><label id="pwdRegMsg2"></label><br>
-                <input type="password" class="password1" name="joinPwd2" id="joinPwd2">
-                <br><br>
-                <label>password 확인&nbsp;&nbsp;</label><label id="pwdChkMsg2"></label><br>
-                <input type="password" class="password1" name="pwdChk2" id="pwdChk2">
-                <br><br>
-                <label>본인email</label><br>
-                <input type="text" class="password1" value="<%=email%>" readonly>
-                <br><br>
-                <div class="modify">
-                <input type="submit" value="수정">
-                </div>
+	                <label>닉네임</label><br>
+	                <input type="text" class="password1" value="<%=nickName%>" readonly>
+	                <br><br>
+	                <label>password&nbsp;&nbsp;</label><label id="pwdRegMsg2"></label><br>
+	               
+	                <% if(!loginUser.getSign().equals("E")) { %>
+						<input type="password" class="password1" name="joinPwd2" id="joinPwd2" readonly>
+					<% } else { %>
+						<input type="password" class="password1" name="joinPwd2" id="joinPwd2">
+					<% } %>
+	                <br><br>
+	                
+	                <label>password 확인&nbsp;&nbsp;</label><label id="pwdChkMsg2"></label><br>
+	                 <% if(!loginUser.getSign().equals("E")) { %>
+	                	<input type="password" class="password1" name="pwdChk2" id="pwdChk2" readonly>
+	                <% } else { %>
+	                	<input type="password" class="password1" name="pwdChk2" id="pwdChk2">
+	                <% } %>
+	                
+	                <br><br>
+	                <label>본인email</label><br>
+	                <input type="text" class="password1" value="<%=email%>" readonly>
+	                <br><br>
+	                <div class="modify">
+	                <input type="submit" value="수정">
+	                <% if(!loginUser.getSign().equals("E")) { %>
+	                	<span class="editInfoMsg">
+	                		소셜 계정으로 로그인하셨습니다.<br>
+	                		정보 수정은 소셜사이트에서 가능합니다.
+	                	</span>
+	                <%} %>
+	                </div>
                 </form>
            </div>
 		</div>
@@ -75,7 +103,7 @@
 	var pwdC = false;
 	var pwd2C = false;
 	// 비밀번호 형식 검사
-	$("#join_form2 input[name=joinPwd2]").keyup(function() {
+	$("#join_form2 input[name=joinPwd2]").on("input", function() {
 		var value = $("#joinPwd2").val().trim();
 	
 		// 숫자, 문자(영어) 포함 형태
@@ -93,7 +121,7 @@
 	});
     
 		// 비밀번호 일치 여부 검사
-	$("#join_form input[name=joinPwd2], input[name=pwdChk2]").keyup(function() {
+	$("#join_form input[name=joinPwd2], input[name=pwdChk2]").on("input", function() {
 		var pwd = $("#joinPwd2").val().trim();
 		var pwd2 = $("#pwdChk2").val().trim();
 		pwd2C = false;
