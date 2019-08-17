@@ -8,6 +8,13 @@
 	User loginUser = (User)session.getAttribute("loginUser");
 	
 	String msg = (String)session.getAttribute("msg"); 
+	
+	// 카카오로그인 app key
+	String kakaoKey = "188493ea165a4a41ea7f70b87d9da98c";
+	
+	// 네이버 로그인 클라이언트ID, callbackURL
+	String naverClientID = "TyJHkEkL1q5EMX7mTaF3";
+	String naverCallbackUrl = request.getContextPath() + "/views/common/naverLoginCallback.jsp";
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -831,7 +838,7 @@
 		/* -------------- 카카오로그인, 회원가입시 필요한 스크립트 ----------------- */
 	   //<![CDATA[
 	   // 사용할 앱의 JavaScript 키를 설정해 주세요.
-	   Kakao.init('188493ea165a4a41ea7f70b87d9da98c');
+	   Kakao.init('<%=kakaoKey%>');
 
 	   function kakaoLogin() {
 		
@@ -889,7 +896,35 @@
 		   
 		   });
 		}
-	
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+
+	   var naverLogin = new naver.LoginWithNaverId({
+	   	clientId : "TyJHkEkL1q5EMX7mTaF3",
+	   	callbackUrl : "http://localhost:8080/NORE_DUCK/views/common/naverLoginCallback.jsp",
+	   	isPopup : false, /* 팝업을 통한 연동처리 여부 */
+	   	loginButton : {
+	   		color : "green",
+	   		type : 3,
+	   		height : 60
+	   	}
+	   /* 로그인 버튼의 타입을 지정 */
+	   });
+
+	   /* 설정정보를 초기화하고 연동을 준비 */
+	   naverLogin.init();
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	});
 
 
@@ -903,7 +938,7 @@
 			<div id="naverIdLogin" class="api_login login_btn" style="display:none"></div>
   
   <%-- <script src="<%=request.getContextPath() %>/views/script/login.js"></script>    
- --%>
+  --%>
 
 </body>
 </html>

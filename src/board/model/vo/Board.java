@@ -21,8 +21,23 @@ public class Board {
 	// int cid; 아니고  조인 결과 값인 String cateogry;로 함
 	// int writer; 아니고 조인 결과 값이 int writer;로 함
 	
-	public Board() {}
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, int rpCount, String bType, String header, String writer) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.rpCount = rpCount;
+		this.bType = bType;
+		this.header = header;
+		this.writer = writer;
+	}
 
+	
+	
+	
 	public Board(int bNo, String bType, String header, String bTitle, String bContent, String writer, int bCount,
 			Date createDate, Date modifyDate, String bStatus) {
 		super();

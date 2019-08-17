@@ -22,10 +22,10 @@ public class UserService {
     * @param joinEmail
 	* @return result
 	*/
-	public int checkEmail(String joinEmail) {
+	public int emailCheck (String joinEmail) {
 		Connection conn = getConnection();
 	   
-		int result = new UserDao().checkEmail(conn, joinEmail);
+		int result = new UserDao().emailCheck(conn, joinEmail);
 		return 0;
 	}
 	
@@ -122,15 +122,6 @@ public class UserService {
 		return result;
 	}
 
-
-	public String deleteCheck(String deleteBoards) {
-		
-		Connection conn = getConnection();
-		String result = new UserDao().deleteCheck(conn,deleteBoards);
-		
-		return null;
-	}
-
 	public int getWriteBoardCount(int writer) {
 		Connection conn = getConnection();
 		int boardCount =  new UserDao().getWriteBoardCount(conn, writer);
@@ -156,61 +147,61 @@ public class UserService {
   
   
   /**
-	 * 카카오로 회원가입
-	 * @param userId
-	 * @param userEmail
-	 * @param userNickName
-	 * @return result
-	 */
-	public int kakaoJoin(String userId, String userName, String userEmail, String userNickName) {
-		Connection conn = getConnection();
-		
-		int result = new UserDao().kakaoJoin(conn, userId, userName, userEmail, userNickName);
-		
-		if(result > 0) commit(conn);
-		else rollback(conn);
-		return result;
-		
-	}
-  
-  
-     /**
-	    * 카카오로그인시 이미 가입된 계정인가.
-	 * @param userId
-	 * @return result
-	 */
-	public int isKakaoUser(String userId) {
-      Connection conn = getConnection();
-      
-      int result = new UserDao().isKakaoUser(conn, userId);
-      
-      return result;
-   }
+   * 소셜계정으로 회원가입
+   * @param userId
+   * @param userEmail
+   * @param userNickName
+   * @return result
+   */
+  public int socialJoin(User joinUser) {
+     Connection conn = getConnection();
+     
+     int result = new UserDao().socialJoin(conn, joinUser);
+     
+     if(result > 0) commit(conn);
+     else rollback(conn);
+     
+     return result;
+  }
+ 
+ 
+    /**
+   * 소셜계정 로그인시 이미 가입된 계정인가.
+   * @param userId
+   * @return result
+   */
+  public int isSocialUser(String userId, String sign) {
+     Connection conn = getConnection();
+     
+     int result = new UserDao().isSocialUser(conn, userId, sign);
+     
+     return result;
+  }
 
-	   /**
-	    * 카카오로그인시 계정정보 가져오기
-	 * @param userId
-	 * @return loginUser
-	 */
-	public User kakaoLoginUser(String userId) {
-      Connection conn = getConnection();
-      
-      User loginUser = new UserDao().kakaoLoginUser(conn, userId);
-      
-      return loginUser;
-   }
+   /**
+   * 소셜계정으로 로그인시 계정정보 가져오기
+   * @param userId
+   * @return loginUser
+   */
+  public User socialLoginUser(String userId, String sign) {
+     Connection conn = getConnection();
+     
+     User loginUser = new UserDao().socialLoginUser(conn, userId, sign);
+     
+     return loginUser;
+  }
+
   
-  public int quitUser(int uNo) {
-		Connection conn = getConnection();
+  public int deleteCheck(String deleteBoards) {
 		
-		int result = new UserDao().quitUser(conn, uNo);
+		Connection conn = getConnection();
+		int result = new UserDao().deleteCheck(conn,deleteBoards);
 		
 		if(result>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
-		
 		return result;
 	}
 
@@ -228,6 +219,6 @@ public int cashCharge(int uNo, Imp imp) {
 	return result;
 }
   
-  
 
 }
+

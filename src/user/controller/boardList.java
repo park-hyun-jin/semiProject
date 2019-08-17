@@ -72,7 +72,7 @@ public class boardList extends HttpServlet {
 																	   // double 붙이고 올림 ceil 사용 ceil도 더블형이기에 
 																		// int형으로 형변환
 				
-				maxPage = (maxPage == 0) ? 1 : maxPage;
+//				maxPage = (maxPage == 0) ? 1 : maxPage;
 				// startpage - 페이징바 시작 페이지 번호
 				// 페이징바에 숫자가 10개씩 표시되는 경우 
 				// 1, 11, 21, 31... → 10(n-1) + 1
