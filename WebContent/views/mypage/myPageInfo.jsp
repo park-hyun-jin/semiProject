@@ -56,7 +56,7 @@
 	<%@ include file="../common/nav.jsp"%>
 	
 	<section>
-		<%@ include file="myPage.jsp"%>
+		<%@ include file="myPageFrame.jsp"%>
 		<div class="content">
 			<div class="password">
                 <form action="<%=request.getContextPath() %>/changePwd.me" method="post" class="user-form" id="join_form2" onsubmit="return validate();">
