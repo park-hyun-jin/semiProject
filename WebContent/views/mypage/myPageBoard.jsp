@@ -279,7 +279,7 @@ section{
             color: rgb(99, 96, 96);
             }
             .tab-content th:nth-of-type(1), .tab-content td:nth-of-type(1){
-                width: 5%;
+                width: 7.2%;
             }
             .tab-content th:nth-of-type(2), .tab-content td:nth-of-type(2){
                 width: 10%;
@@ -401,7 +401,7 @@ section{
 				<span id="tab-1" class="tab-btn"></span>
 				<a href="#tab-1" class="tab-link tab1">내가 작성한 게시글 보기</a>
 				<div class="tab-content table1">
-					<table align="center" id ="listArea">
+					<table align="center" id ="listArea1">
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="#ck_all" class="allcheck"></th>
@@ -421,12 +421,12 @@ section{
 
 							<% for(Board b : list){ %> 
 						<tr>
-							<td> <input type="checkbox" name="isDelete" value="<%=b.getbNo() %>"> </td> 
-							<td><%= b.getheader()%></td> 
-							<td><%= b.getbTitle() %></td>         
-							<td><%= b.getwriter() %></td> 
-							<td><%= b.getbCount() %></td> 
-							<td><%= b.getCreateDate() %></td> 
+							<td class="b"> <input type="checkbox" name="isDelete" value="<%=b.getbNo() %>"> </td> 
+							<td class="b"><%= b.getheader()%></td> 
+							<td class="b"><%= b.getbTitle() %></td>         
+							<td class="b"><%= b.getwriter() %></td> 
+							<td class="b"><%= b.getbCount() %></td> 
+							<td class="b"><%= b.getCreateDate() %></td> 
 						
 							     
 						</tr>
@@ -452,38 +452,7 @@ section{
 				        <th width="200px">작성일</th>
 				    </tr>
 				    </thead>
-				    <tr>
-					    <td><input type="checkbox"></td>
-					    <td width="100px">[기타]</td>
-					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-					    <td width="100px">ekdns</td>
-					    <td width="100px">1</td>
-					    <td width="200px">19-08-03</td>
-					</tr>
-                    <tr>
-					    <td><input type="checkbox"></td>
-					    <td width="100px">[기타]</td>
-					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-					    <td width="100px">ekdns</td>
-					    <td width="100px">2</td>
-					    <td width="200px">sysdate</td>
-					</tr>
-					<tr>
-					    <td><input type="checkbox"></td>
-					    <td width="100px">[기타]</td>
-					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-					    <td width="100px">ekdns</td>
-					    <td width="100px">3</td>
-					    <td width="200px">sysdate</td>
-					</tr>
-					<tr>
-					    <td><input type="checkbox"></td>
-					    <td width="100px">[기타]</td>
-					    <td width="500px"><a href="https://www.google.com">잘치거싶어요</a></td>
-					    <td width="100px">ekdns</td>
-					    <td width="100px">4</td>
-					    <td width="200px">sysdate</td>
-					</tr>
+				   
 				</table>
 			</div>
 		</div>
@@ -531,12 +500,12 @@ section{
 	                
 		</div>
 	        
-	    <div id = "search">
+	    <!-- <div id = "search">
 	        <form id = "searchForm">
 	            <input type="text" id="searchInput">
 	            <span><button type="submit" id = "searchSubmit">검색</button></span>
 	        </form>
-		</div>
+		</div> -->
 							
 						
     </section>
@@ -571,29 +540,15 @@ section{
 
     });
     
-    
-    
-    
-    
-    
-    
-    
-   <%--  $(function(){
+     
+     $(function(){
 		// 게시판 상세보기
-		$("#listArea td").mouseenter(function(){
-			$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
-		}).mouseout(function(){
-			$(this).parent().css({"background":"black"});
-		}).click(function(){
-			var bNo = $(this).parent().children().eq(0).text();
-    
-			// 로그인 한 사람만 게시글 상세보기 가능
-			<% if(loginUser != null){ %>
-				location.href="<%= request.getContextPath() %>/detail.bo?bNo="+bNo;
-			<% } else{ %>
-				alert("로그인해야만 상세보기가 가능합니다!");
-			<% } %>
-		}); --%>
+		$("#listArea1 td").click(function(){
+			var bNo = $(this).parent().children().children().val();
+    		console.log(bNo);
+			location.href="<%= request.getContextPath() %>/detail.bo?bNo="+bNo;
+			
+		}); 
     
     
     $('#writeBtn').click(function(){
@@ -612,7 +567,8 @@ section{
             return false;
         }
     });							
-							
+	
+     });	
 							
     </script>
 

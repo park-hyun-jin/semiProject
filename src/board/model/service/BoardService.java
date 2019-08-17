@@ -27,6 +27,7 @@ public class BoardService {
 		return playgroup;
 	}
 
+
 	public Board selectBoard(int bNo) {
 		Connection conn = getConnection();
 		

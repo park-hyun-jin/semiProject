@@ -81,6 +81,7 @@ private Properties prop = new Properties();
 		return playgroup;
 	}
 
+
 	public Board seletePlayGroup(Connection conn, int bNo) {
 		
 		PreparedStatement pstmt = null;
@@ -141,6 +142,7 @@ private Properties prop = new Properties();
 		
 		return result;
 	}
+
 
 
 }
