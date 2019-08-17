@@ -267,7 +267,7 @@
                         $("input[name=addJoinEmail]").val(email);
                         $("input[name=sign]").val("N");
                         
-                        console.log("userId: " + unqId + " / userName: " + userName)
+                        console.log("userId: " + unqId + " / userName: " + name)
                        
                      }
                   }, 

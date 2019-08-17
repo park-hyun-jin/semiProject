@@ -14,7 +14,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 
 import board.model.vo.Attachment;
-import board.model.vo.Board;
 import common.MyFileRenamePolicy;
 
 @WebServlet("/playgroupImg.ch")

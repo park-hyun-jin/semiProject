@@ -450,7 +450,7 @@ public class UserDao {
 	      try {
 	         pstmt = conn.prepareStatement(query);
 	         pstmt.setInt(1, Integer.parseInt(userId));
-	         pstmt.setString(2, "K");
+	         pstmt.setString(2, sign);
 	         
 	         rset = pstmt.executeQuery();
 	         if(rset.next()) result = rset.getInt(1);

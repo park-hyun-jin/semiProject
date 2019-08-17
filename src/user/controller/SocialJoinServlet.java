@@ -21,7 +21,7 @@ public class SocialJoinServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("socialUserId");
+		int userId = Integer.parseInt(request.getParameter("socialUserId"));
 		String userName = request.getParameter("socialUserName");
 		String userEmail = request.getParameter("addJoinEmail");
 		String userNickName = request.getParameter("addNickName");
