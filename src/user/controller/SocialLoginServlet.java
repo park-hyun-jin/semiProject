@@ -9,25 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user.model.service.UserService;
+import user.model.vo.User;
 
-@WebServlet("/isKakaoUser.us")
-public class IsKakaoUserServlet extends HttpServlet {
+@WebServlet("/socialLogin.us")
+public class SocialLoginServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
        
-    public IsKakaoUserServlet() {
+    public SocialLoginServlet() {
         super();
     }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      request.setCharacterEncoding("UTF-8");
-      
       String userId = request.getParameter("userId");
-      String sign = "K";
+      String sign = request.getParameter("sign");
+      User loginUser = new UserService().socialLoginUser(userId, sign);
       
-      int result = new UserService().isSocialUser(userId, sign);
-      
-      response.getWriter().print(result);
-   
+      request.getSession().setAttribute("loginUser", loginUser);
+      response.sendRedirect(request.getContextPath());
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
