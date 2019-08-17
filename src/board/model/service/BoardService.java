@@ -27,17 +27,7 @@ public class BoardService {
 		return playgroup;
 	}
 
-	public Board selectBoard(int bNo) {
-		Connection conn = getConnection();
-		
-		BoardDao bDao = new BoardDao();
-		
-		Board board = bDao.selectBoard(conn,bNo);		
-		
-		
-		return board;
-	}
-
+	
 
 	
 

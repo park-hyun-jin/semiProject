@@ -7,6 +7,7 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import user.model.dao.UserDao;
 import user.model.vo.User;
@@ -203,6 +204,18 @@ public class UserService {
 		}
 		return result;
 	}
+  
+  public Board selectBoard(int bNo) {
+		Connection conn = getConnection();
+		
+		UserDao uDao = new UserDao();
+		
+		Board board = uDao.selectBoard(conn,bNo);		
+		
+		
+		return board;
+	}
+
   
 
 }
