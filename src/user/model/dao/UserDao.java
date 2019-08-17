@@ -40,7 +40,7 @@ public class UserDao {
 	 * @param joinEmail
 	 * @return result
 	 */
-	public int checkEmail(Connection conn, String joinEmail) {
+	public int emailCheck(Connection conn, String joinEmail) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("emailCheck");
@@ -411,100 +411,102 @@ public class UserDao {
   }
   
   
-  public int kakaoJoin(Connection conn, String userId, String userName, String userEmail, String userNickName) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String query = prop.getProperty("kakaoJoin");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userEmail);
-			pstmt.setString(3, userName);
-			pstmt.setString(4, userNickName);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		
-		return result;
-	}
-  
-  /**
-	 * 카카오계정으로 가입된 유저인가
-	 * @param conn
-	 * @param userId
-	 * @return result
-	 */
-	public int isKakaoUser(Connection conn, String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("isKakaoUser");
-		int result = 0;
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(userId));
-			pstmt.setString(2, "K");
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) result = rset.getInt(1);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	
-	/**
-	 * 카카오로 로그인한 유저 정보 가져오기
-	 * @param conn
-	 * @param userId
-	 * @return loginUser
-	 */
-	public User kakaoLoginUser(Connection conn, String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+	  public int socialJoin(Connection conn, User joinUser) {
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      String query = prop.getProperty("socialJoin");
 	      
-		String query = prop.getProperty("kakaoLoginUser");
-	      
-		User loginUser = null;
-	      
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, userId);
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, joinUser.getuNo());
+	         pstmt.setString(2, joinUser.getEmail());
+	         pstmt.setString(3, joinUser.getUserName());
+	         pstmt.setString(4, joinUser.getNickName());
+	         pstmt.setString(5, joinUser.getSign());
 	         
-			rset = pstmt.executeQuery();
+	         result = pstmt.executeUpdate();
 	         
-			if(rset.next()) {
-				loginUser = new User(
-						rset.getInt(1), 
-						rset.getString(2),
-						rset.getString(3), 
-						rset.getString(4),
-						rset.getString(5),
-						rset.getString(6)   
-					);
-	                  
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	      }
 	      
-		return loginUser;
 	      
-	}  
+	      return result;
+	   }
+	  
+	  /**
+	    * 소셜계정으로 가입된 유저인가
+	    * @param conn
+	    * @param userId
+	    * @return result
+	    */
+	   public int isSocialUser(Connection conn, String userId, String sign) {
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      String query = prop.getProperty("isSocialUser");
+	      int result = 0;
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, Integer.parseInt(userId));
+	         pstmt.setString(2, "K");
+	         
+	         rset = pstmt.executeQuery();
+	         if(rset.next()) result = rset.getInt(1);
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      return result;
+	   }
+	   
+	   
+	   /**
+	    * 소셜계정으로 로그인한 유저 정보 가져오기
+	    * @param conn
+	    * @param userId
+	    * @return loginUser
+	    */
+	   public User socialLoginUser(Connection conn, String userId, String sign) {
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	         
+	      String query = prop.getProperty("kakaoLoginUser");
+	         
+	      User loginUser = null;
+	         
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setString(1, userId);
+	         pstmt.setString(2, sign);
+	            
+	         rset = pstmt.executeQuery();
+	            
+	         if(rset.next()) {
+	            loginUser = new User(
+	                  rset.getInt(1), 
+	                  rset.getString(2),
+	                  rset.getString(3), 
+	                  rset.getString(4),
+	                  rset.getString(5),
+	                  rset.getString(6)   
+	               );
+	                     
+	         }
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	         
+	      return loginUser;
+	         
+	   }   
 
 
 	public int quitUser(Connection conn, int uNo) {

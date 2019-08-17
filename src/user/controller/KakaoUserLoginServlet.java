@@ -22,7 +22,7 @@ public class KakaoUserLoginServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       String userId = request.getParameter("userId");
       
-      User loginUser = new UserService().kakaoLoginUser(userId);
+      User loginUser = new UserService().socialLoginUser(userId, "K");
       
       request.getSession().setAttribute("loginUser", loginUser);
       response.sendRedirect(request.getContextPath());
