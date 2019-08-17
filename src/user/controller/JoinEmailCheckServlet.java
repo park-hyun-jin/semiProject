@@ -21,7 +21,7 @@ public class JoinEmailCheckServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String joinEmail = request.getParameter("joinEmail");
-		int result = new UserService().checkEmail(joinEmail);
+		int result = new UserService().emailCheck(joinEmail);
 		
 		response.getWriter().print(result);
 

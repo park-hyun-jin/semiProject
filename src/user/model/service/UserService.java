@@ -205,20 +205,6 @@ public class UserService {
 		}
 		return result;
 	}
-
-public int cashCharge(int uNo, Imp imp) {
-	Connection conn = getConnection();
-	
-	int result = new UserDao().cashCharge(conn, uNo, imp);
-	
-	if(result>0) {
-		commit(conn);
-	}else {
-		rollback(conn);
-	}	
-	
-	return result;
-}
   
   public Board selectBoard(int bNo) {
 		Connection conn = getConnection();
@@ -231,6 +217,36 @@ public int cashCharge(int uNo, Imp imp) {
 		return board;
 	}
 
+  
+  public int cashCharge(int uNo, Imp imp) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().cashCharge(conn, uNo, imp);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}	
+		
+		return result;
+	}
+  
+  
+  public int quitUser(int uNo) {
+		Connection conn = getConnection();		
+		int result = new UserDao().quitUser(conn, uNo);		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		return result;
+	}
+  
+  
+  
+  
   
 
 }
