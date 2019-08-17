@@ -98,7 +98,7 @@
 	<%@ include file="../common/nav.jsp"%>
 	
 	<section>
-		<%@ include file="myPage.jsp"%>
+		<%@ include file="myPageFrame.jsp"%>
 		<div class="content">
 			<div class="calendar-month">
 				<span><%=(m+1)%>월</span>
