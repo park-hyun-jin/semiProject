@@ -485,9 +485,10 @@
 				
 				<div id="addInfoForm">
 					<!-- 추가정보 입력폼 -->
-					<form id="addForm" method="post" action="<%=request.getContextPath() %>/kakaoJoin.us">
+					<form id="addForm" method="post" action="<%=request.getContextPath() %>/socialJoin.us">
 						<input type="hidden" name="socialUserId" value=""></input>
 						<input type="hidden" name="socialUserName" value=""></input>
+						<input type="hidden" name="sign" value=""></input>
 						<span id="add_email_label" class="addInfoLabel">EMAIL</span>
 						<span class="addChkMsg" id="addEmailChkMsg">중복 x</span>
 						<div id="join_input_pwd" class="add_input_area">
@@ -853,18 +854,19 @@
 		               var userName = res.properties.nickname
 		               console.log("userId / " + userId);
 		               $.ajax({
-		                  url :'<%=request.getContextPath()%>/isKakaoUser.us',
-		               data : {userId: userId},
+		                  url :'<%=request.getContextPath()%>/isSocialUser.us',
+		               data : {userId: userId, sign: 'K'},
 		               type: 'post',
 		               success: function(result) {
 		                  console.log("회원가입여부 / " + result);
 		                  if(result > 0) {
-		                     location.href="<%=request.getContextPath()%>/kakaoLogin.us?userId="+userId;
+		                     location.href="<%=request.getContextPath()%>/kakaoLogin.us?userId="+userId+"&sign=K";
 		                     } else {
 		                        console.log("모달 나오냐 / " + result);
 		                        $("#addInfoModal").css("display", "block");
 		                        $("input[name=socialUserId]").val(userId);
 		                        $("input[name=socialUserName]").val(userName);
+		                        $("input[name=sign]").val("K");
 		                        console.log("userId: " + userId + " / userName: " + userName)
 		                       
 		                        if(res.kakao_account.email_needs_agreement == "true" && 

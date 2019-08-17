@@ -28,35 +28,47 @@ public class NaverLoginServlet extends HttpServlet {
 		
 		UserService uService = new UserService();
 		
+		// 네이버계정으로 회원가입되어 있는지 확인
 		int result = uService.isSocialUser(unqId, "N");
 		
 		User user = null;
+		
+		// 네이버계정의 프로필정보를 통해 로그인회원의 정보 받아오기
 		User joinUser = new User(unqId, email, name, nickname, "N");
-		// 네이버계정으로 회원가입이 되어 있다면 유저정보 가져옴.
+		
+		String page = "";
+		// 네이버계정으로 회원가입이 되어 있다면 db애서 유저정보 가져옴.
 		if(result > 0) {
 			user = uService.socialLoginUser(unqId, "N");
+			request.getSession().setAttribute("loginUser", user);
+			response.sendRedirect(request.getContextPath());
+			System.out.println("가입되어 있음");
 		} else {
-			// 네이버계정으로 회원가입이 되어 있지 않다면 해당 이메일로 가입이 되어있는지 확인
+			
+			// 네이버계정으로 회원가입이 되어 있지 않다면 해당 이메일로 가입이 되어있는지 확인, 가입정보 없으면 회원가입 후 바로 로그인.
 			result = uService.emailCheck(email);
-
+			System.out.println("네이버계정 로그인 정보 없음.");
 			if(result > 0) {
+				System.out.println("해당 이메일로 가입되어 있음.");
 				request.getSession().setAttribute("msg", "이미 가입된 이메일입니다.");
-				response.sendRedirect(request.getContextPath());
 			} else {
 				// 가입성공했다면 바로 로그인.
-				result = uService.socialJoin(user);
+				System.out.println("회원가입");
+				result = uService.socialJoin(joinUser);
 				
 				if(result > 0) {
+					System.out.println("가입성공");
 					user = uService.socialLoginUser(unqId, "N");
+					request.getSession().setAttribute("loginUser", user);
+					response.sendRedirect(request.getContextPath());
 				} else {
+					System.out.println("가입실패");
 					request.setAttribute("msg", "회원가입실패");
 					request.getRequestDispatcher(request.getContextPath()+"/views/common/errorPage.jsp").forward(request, response);
 				}
 			}
 		}
 		
-		request.getSession().setAttribute("loginUser", user);
-		response.sendRedirect(request.getContextPath());
 		
 	
 	}

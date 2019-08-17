@@ -475,7 +475,7 @@ public class UserDao {
 	      PreparedStatement pstmt = null;
 	      ResultSet rset = null;
 	         
-	      String query = prop.getProperty("kakaoLoginUser");
+	      String query = prop.getProperty("socialLoginUser");
 	         
 	      User loginUser = null;
 	         
