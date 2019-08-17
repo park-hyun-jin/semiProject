@@ -47,7 +47,7 @@ if(msg != "null") { // msg 값이 있을 경우
 	<%@ include file="../common/nav.jsp"%>
 	
 	<section>
-		<%@ include file="myPage.jsp"%>
+		<%@ include file="myPageFrame.jsp"%>
 		<div class="content">
             <div class=quit-div>
                 <div class="quit-user">
