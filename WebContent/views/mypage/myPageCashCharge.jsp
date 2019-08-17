@@ -38,7 +38,7 @@
 	<%@ include file="../common/nav.jsp"%>
 
 	<section>
-		<%@ include file="myPage.jsp"%>
+		<%@ include file="myPageFrame.jsp"%>
 		<div class="content">
             <div class="cash">
                 <form action="cashChargeForm.me" method="POST" class="cash-form" onsubmit="return checkConfirm();"> 
