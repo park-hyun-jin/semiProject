@@ -101,10 +101,13 @@ section{
     border: 1px solid black;
 }
 .Detail_Content_Etc{
-    margin-top: 5px;
+    margin-top: 30px;
+    margin-bottom:30px;
     width: 900px;
+    
+    /*  
     height: 100%;
-    /*  border: 1px solid black;*/
+    border: 1px solid black;*/
     
     float: left;
 }
@@ -200,7 +203,9 @@ section{
     width: 50%;
     height: 40px;
     float: right;
-    margin-top: 100px;
+    /* margin-top: 100px; */
+   
+    padding: 50px 0 100px 0
 }
 
 .List_Back_Btn{

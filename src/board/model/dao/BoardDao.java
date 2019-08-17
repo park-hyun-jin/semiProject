@@ -108,7 +108,7 @@ private Properties prop = new Properties();
 								  rset.getInt(7),
 								  rset.getDate(8)
 				);
-				System.out.println(board);
+				
 			}
 			
 		} catch (Exception e) {
