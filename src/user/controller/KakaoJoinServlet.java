@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user.model.service.UserService;
+import user.model.vo.User;
 
 @WebServlet("/kakaoJoin.us")
 public class KakaoJoinServlet extends HttpServlet {
@@ -25,9 +26,9 @@ public class KakaoJoinServlet extends HttpServlet {
 		String userEmail = request.getParameter("addJoinEmail");
 		String userNickName = request.getParameter("addNickName");
 		
-		System.out.println("userID: " + userId + " / userName : " + userName + " / userEmail : " + userEmail + " / userNickName: " + userNickName);
-
-		int result = new UserService().kakaoJoin(userId, userName, userEmail, userNickName);
+		User joinUser =  new User(userId, userEmail, userName, userNickName, "K");
+		
+		int result = new UserService().socialJoin(joinUser);
 		System.out.println(result);
 		if(result > 0) {
 			response.sendRedirect(request.getContextPath()+"/kakaoLogin.us?userId="+userId);

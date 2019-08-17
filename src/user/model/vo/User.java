@@ -19,22 +19,31 @@ public class User {
    public User() {   }
    
    
-   
-   public User(int uNo, String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
-	super();
-	this.uNo = uNo;
-	this.email = email;
-	this.userPwd = userPwd;
-	this.userName = userName;
-	this.nickName = nickName;
-	this.artist = artist;
-	this.userPoint = userPoint;
-	this.userCash = userCash;
-}
+   public User(int uNo, String email, String userName, String nickName, String sign) {
+	   super();
+	   this.uNo = uNo;
+	   this.email = email;
+	   this.userName = userName;
+	   this.nickName = nickName;
+	   this.sign = sign;
+	}	
+
+
+	public User(int uNo, String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
+		super();
+		this.uNo = uNo;
+		this.email = email;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.nickName = nickName;
+		this.artist = artist;
+		this.userPoint = userPoint;
+		this.userCash = userCash;
+	}
 
 
 
-public User(String email, String userPwd, String sign) {
+	public User(String email, String userPwd, String sign) {
 		super();
 		this.email = email;
 		this.userPwd = userPwd;
@@ -51,31 +60,31 @@ public User(String email, String userPwd, String sign) {
       this.sign = sign;
    }
    
-   public User(int uNo, String email, String userName, String nickName, String artist, String sign) {
-	super();
-	this.uNo = uNo;
-	this.email = email;
-	this.userName = userName;
-	this.nickName = nickName;
-	this.artist = artist;
-	this.sign = sign;
-}
+	public User(int uNo, String email, String userName, String nickName, String artist, String sign) {
+		super();
+		this.uNo = uNo;
+		this.email = email;
+		this.userName = userName;
+		this.nickName = nickName;
+		this.artist = artist;
+		this.sign = sign;
+	}
 
 
-public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
+	public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
          String artist, int userPoint, int userCash, String sign) {
-      super();
-      this.uNo = uNo;
-      this.email = email;
-      this.userPwd = userPwd;
-      this.userName = userName;
-      this.nickName = nickName;
-      this.enrollDate = enrollDate;
-      this.artist = artist;
-      this.userPoint = userPoint;
-      this.userCash = userCash;
-      this.sign = sign;
-   }
+		super();
+		this.uNo = uNo;
+		this.email = email;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.nickName = nickName;
+		this.enrollDate = enrollDate;
+		this.artist = artist;
+     	this.userPoint = userPoint;
+     	this.userCash = userCash;
+     	this.sign = sign;
+	}
 
    public User(int uNo, String email, String userPwd, String userName, String nickName, Date enrollDate,
          String artist, String uStatus, int userPoint, int userCash, String sign) {
