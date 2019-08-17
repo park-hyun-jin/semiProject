@@ -27,7 +27,43 @@ public class BoardService {
 		return playgroup;
 	}
 
-	
+
+	public Board selectBoard(int bNo) {
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		
+		Board board = bDao.seletePlayGroup(conn,bNo);		
+		
+		
+		return board;
+	}
+
+	public Board seletePlayGroup(int bNo) {
+		Connection conn = getConnection();
+		
+		
+		BoardDao bDao = new BoardDao();
+		
+		
+		Board board = bDao.seletePlayGroup(conn, bNo);
+		
+		if(board != null) {
+			int result = bDao.countPlayGroup(conn,bNo);
+			
+			if(result >0) {
+				commit(conn);
+				board.setbCount(board.getbCount()+1);
+			}else {
+				
+				rollback(conn);
+				board =null; 
+			}
+		}
+
+		return board;
+	}
+
 
 	
 
