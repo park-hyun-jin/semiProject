@@ -549,6 +549,54 @@ public class UserDao {
 		}
 		return result;		
 	}
-  
+	
+	
+public Board selectBoard(Connection conn, int bNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Board board = null;
+		
+		String query = prop.getProperty("selectBoard");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				board = new Board(
+					rset.getInt("bno"),	
+					rset.getString("btitle"),
+					rset.getString("bContent"),
+					rset.getInt("bCount"),
+					rset.getDate("createDate"),
+					rset.getDate("modifyDate"),
+					rset.getInt("rpCount"),
+					rset.getString("bType"),
+					rset.getString("header"),
+					rset.getString("writer") 
+				);
+						
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+		
+			close(rset);
+			close(pstmt);
+		
+	}
+
+		return board;
+
+	}
+	
 }
 
