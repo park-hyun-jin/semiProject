@@ -7,8 +7,6 @@
 <%
 	ArrayList<Board> playgroup = (ArrayList<Board>)request.getAttribute("playgroup");
 
-
-
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,7 +18,7 @@
 
 
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>views/style/navNcommunity.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/views/style/navNcommunity.css">
 <style>
 	* {
     	margin: 0;
@@ -76,13 +74,13 @@
 				</tr>
 				<% }else { %>
 					<%for(Board b : playgroup){ %>
-						<tr>
-							<td><%=b.getbNo() %></td>
-							<td><%=b.getheader() %></td>							
-							<td><%=b.getbTitle() %></td>
-							<td><%=b.getwriter() %></td>
-							<td><%=b.getwriter() %></td>
-							<td><%=b.getCreateDate() %></td>
+						  <tr class="table_header">
+							<td width="10%"><%=b.getbNo() %></td>
+							<td width="10%"><%=b.getheader() %></td>							
+							<td width="50%"><%=b.getbTitle() %></td>
+							<td width="10%"><%=b.getwriter() %></td>
+							<td width="5%"><%=b.getbCount() %></td>
+							<td width="15%"><%=b.getCreateDate() %></td>
 						</tr>
 					<%} %>
 
@@ -92,7 +90,7 @@
                 
                 <!-- 글쓰기 버튼 -->
                 <div class="community_footer">
-                    <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
+                    <%-- <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button>  --%>
                 </div>
                
             
@@ -104,9 +102,42 @@
                     <input type="text" class="searchInput">
                     <span><button type="submit" class = "searchSubmit">검색</button></span>
                 </form>
+                <% if(loginUser != null){ %>
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
+                <%} %>
             </div>
 
         </section>
+        
+        
+		<script>
+			$(function(){
+				// 게시판 상세보기
+				$(".table_header td").mouseenter(function(){
+					$(this).parent().css({"color":"black", "cursor":"pointer"});
+				}).click(function(){
+					var bNo = $(this).parent().children().eq(0).text();
+					
+					// 로그인 한 사람만 게시글 상세보기 가능
+					<% if(loginUser != null){ %>
+						location.href="<%= request.getContextPath() %>/playgroupWrite.de?bNo="+bNo;
+					<% } else{ %>
+						alert("로그인해야만 상세보기가 가능합니다!");
+					<% } %>
+				});
+				
+				
+				/* // 페이징바 마우스오버 이벤트
+				$(".clickBtn").mouseenter(function(){
+					$(this).css({"background":"darkgray", "cursor":"pointer"});
+				}).mouseout(function(){
+					$(this).css({"background":"black"});
+				}); */
+				
+			});
+			
+			
+		</script>
 
 </body>
 </html>

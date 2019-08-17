@@ -81,14 +81,15 @@ private Properties prop = new Properties();
 		return playgroup;
 	}
 
-	public Board selectBoard(Connection conn, int bNo) {
+
+	public Board seletePlayGroup(Connection conn, int bNo) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		Board board = null;
 		
-		String query = prop.getProperty("selectBoard");
+		String query = prop.getProperty("selectPlayGroup");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
@@ -98,39 +99,50 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				board = new Board(
-					rset.getInt("bno"),	
-					rset.getString("btitle"),
-					rset.getString("bContent"),
-					rset.getInt("bCount"),
-					rset.getDate("createDate"),
-					rset.getDate("modifyDate"),
-					rset.getInt("rpCount"),
-					rset.getString("bType"),
-					rset.getString("header"),
-					rset.getString("writer") 
+				
+				board = new Board(rset.getInt(1),
+								  rset.getString(2),
+								  rset.getString(3),
+								  rset.getString(4),
+								  rset.getString(5) + ","+ rset.getString(6),
+								  rset.getInt(7),
+								  rset.getDate(8)
 				);
-						
+				System.out.println(board);
 			}
-			
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-		
 			close(rset);
 			close(pstmt);
-		
 	}
-
-
-
 		return board;
-
-	
 	}
+
+
+
+	public int countPlayGroup(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countPlayGroup");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 
 }
