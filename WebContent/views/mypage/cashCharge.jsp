@@ -48,21 +48,26 @@
                 			uNo : '<%=uNo%>'
                 		}
                 	}).done(function(data){
-                		if(everythings_fine){
+                		if(data){
                 			var msg = '결제가 완료되었습니다.' + '\n';
                             msg += '결제 금액 : ' + rsp.paid_amount+ '원\n';
-                            
+                            alert(msg);
+                            location.href="<%=request.getContextPath()%>/myPageCashCharge.me";
                 		}else{
-                			
+                			var msg = '결제과정에 에러가 발생하였습니다.' + '\n';
+                			alert(msg);
+                			location.href="<%=request.getContextPath()%>/myPageCashCharge.me";
                 		}
                 	});
-                	alert(msg);
+                	
                     
                 } else {
                     var msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + rsp.error_msg;
+                    alert(msg);
+                    location.href="<%=request.getContextPath()%>/myPage.me";
                 }
-                alert(msg);
+                
             });
             
 	</script>

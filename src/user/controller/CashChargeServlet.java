@@ -35,7 +35,9 @@ public class CashChargeServlet extends HttpServlet {
 		int result = new UserService().cashCharge(uNo, imp);
 		response.setCharacterEncoding("UTF-8");
 		if(result > 0) {
-			
+			response.getWriter().print(true);
+		}else {
+			response.getWriter().print(false);
 		}
 		
 		

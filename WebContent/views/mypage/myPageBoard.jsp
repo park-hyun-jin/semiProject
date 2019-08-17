@@ -517,7 +517,7 @@ section{
 
         var link = document.querySelector('.tab-section > .tab-link');
         if (link) link.click();
-    });
+    })();
 
     $(".tab1").click(function(){
         $(".table2").css("display","none");
