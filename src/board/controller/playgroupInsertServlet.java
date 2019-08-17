@@ -42,7 +42,7 @@ public class playgroupInsertServlet extends HttpServlet {
 
 		if(result>0) { // insert 성공시
 			// 어떤 페이지, 어떤 url 사용할지 생각  메세지도 전달할지 생각
-			request.getSession().setAttribute("msg", "디비 등록 성공 ");
+			request.getSession().setAttribute("msg", "게시글이 등록되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/playgroupWrite.li");
 		}else {
 			request.setAttribute("msg", " 등록 실패 ");

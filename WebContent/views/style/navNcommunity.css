@@ -24,8 +24,8 @@
  */
 
 .community_wrap{
-    width: 900px;
-    height: 900px;
+    width: 1200px;
+    height: 800px;
     /* border: 1px solid black; */
     margin: 0 auto;
     position: relative;
@@ -47,8 +47,10 @@
 
 /* 게시글 영역(목록) */
 .community_board_area {
-    width: 900px;
+    width: 1200px;
     height: 650px;
+    margin: 0 auto;
+    position: relative;
 }
 
 
@@ -63,20 +65,23 @@
 .table_header th {
     font-size: 15px;
     text-align: center;
+    background-color: #e3e3e3;
 
 }
 
 .table_header td {
     font-size: 15px;
-   
+   	text-align: center;
 }
-
+.table_header:hover{
+	background-color: #e3e3e3;
+}
 
 
 
 /* 글쓰기 버튼 영역*/
 .community_footer{
-    width: 900px;
+    
     height: 50px;
     margin: 0 auto;
     margin-bottom: 50px;
@@ -119,7 +124,7 @@
     margin-bottom: 100px;
 }
 .searchForm{
-    position: absolute;
+    /*position: absolute;*/
     margin: auto;
     top: 0;
     bottom: 0;

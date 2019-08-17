@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="board.model.vo.Board"%>
+
+<%
+
+Board b = (Board)request.getAttribute("board");
+
+ String[] writer = b.getwriter().split(",");
+int uNo = Integer.parseInt(writer[0]);
+String nickName = writer[1]; 
+%>
 <!DOCTYPE html>
 <html lang = "ko">
     <head>
     <meta charset="UTF-8">
         <title></title>
-        <link rel="stylesheet" href="../style/playgroupDetail.css">
+        <link rel="stylesheet" href="views/style/playgroupDetail.css">
     </head>
 	<%@ include file="../common/nav.jsp" %>
     <section>
@@ -18,16 +28,17 @@
                     <div class ="Detail_Header_TI">
                         <!-- 제목  -->
                         <div class="Detail_Header_Title">
-                             <span>Way Back Home - 숀</span>
+                        	<p>[<%= b.getheader() %>]</p>
+                             <span><%= b.getbTitle() %></span>
                         </div>
-                        <div class="Detail_Header_Icon"><img src="../image/download.png"></div>
-                        <div class="Detail_Header_Icon"><img src="../image/like.png" class = "changeImg" onclick="changeImg();"></div>
-                        <div class="Detail_Header_Icon"><img src="../image/danger.png"></div>
+                        <div class="Detail_Header_Icon"><img src="views/image/download.png"></div>
+                        <div class="Detail_Header_Icon"><img src="views/image/like.png" class = "changeImg" onclick="changeImg();"></div>
+                        <div class="Detail_Header_Icon"><img src="views/image/danger.png"></div>
                     </div>
                     <!-- 작성일 작성자 -->
                     <div class ="Detail_Header_WD">
-                        <div class="Detail_Header_Writer">작성자</div>
-                        <div class="Detail_Header_Date">작성일</div>
+                        <div class="Detail_Header_Writer"><%=nickName%></div>
+                        <div class="Detail_Header_Date"><%=b.getCreateDate() %></div>
                     </div>
                    
     
@@ -35,7 +46,7 @@
     
                 <!-- detail안에 내용 들어오는 부분 -->
                 <div class= "Detail_Content">
-                    <div class="Detail_Content_Etc">설명</div>
+                    <div class="Detail_Content_Etc"><%=b.getbContent() %></div>
                 </div>
 
                 <!-- 댓글 -->
@@ -74,7 +85,11 @@
 
                 <!-- 목록 버튼 -->
                 <div class= "Btn_Wrap">
-                    <button class="List_Back_Btn" onclick="history:back();">목록</button>  
+                    <button class="List_Back_Btn" onclick="history.go(-1)">목록</button>
+                    <% if(nickName.equals(loginUser.getNickName())) { %>
+						<button class="List_Back_Btn2" type="button" onclick="updateBoard()">수정</button>
+						<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
+					<%}%>
                 </div>
             </div> 
     </section>
@@ -82,7 +97,7 @@
     <script>
         function changeImg(){
             var changeImg =document.getElementsByClassName("changeImg");
-            changeImg[0].src="../image/liked.png";
+            changeImg[0].src="views/image/liked.png";
         }
     </script>
 
