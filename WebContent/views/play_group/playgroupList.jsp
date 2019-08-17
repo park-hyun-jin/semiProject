@@ -7,8 +7,6 @@
 <%
 	ArrayList<Board> playgroup = (ArrayList<Board>)request.getAttribute("playgroup");
 
-
-
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -81,7 +79,7 @@
 							<td width="10%"><%=b.getheader() %></td>							
 							<td width="50%"><%=b.getbTitle() %></td>
 							<td width="10%"><%=b.getwriter() %></td>
-							<td width="5%"><%=b.getwriter() %></td>
+							<td width="5%"><%=b.getbCount() %></td>
 							<td width="15%"><%=b.getCreateDate() %></td>
 						</tr>
 					<%} %>
@@ -118,7 +116,7 @@
 				$(".table_header td").mouseenter(function(){
 					$(this).parent().css({"color":"black", "cursor":"pointer"});
 				}).click(function(){
-					var bid = $(this).parent().children().eq(0).text();
+					var bNo = $(this).parent().children().eq(0).text();
 					
 					// 로그인 한 사람만 게시글 상세보기 가능
 					<% if(loginUser != null){ %>

@@ -22,7 +22,19 @@ public class Board {
 	// int writer; 아니고 조인 결과 값이 int writer;로 함
 	public Board( ) {}
 	
+
 	
+	public Board(String bTitle, String bContent, int bCount, Date createDate, String bType, String writer) {
+		super();
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.bType = bType;
+		this.writer = writer;
+	}
+
+
 	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, int rpCount, String bType, String header, String writer) {
 		super();
 		this.bNo = bNo;
@@ -37,8 +49,7 @@ public class Board {
 		this.writer = writer;
 	}
 
-	
-	
+
 	
 	public Board(int bNo, String bType, String header, String bTitle, String bContent, String writer, int bCount,
 			Date createDate, Date modifyDate, String bStatus) {
@@ -139,7 +150,29 @@ public class Board {
 		this.createDate = createDate;
 		this.header = header;
 		this.writer = writer;
-}
+	}
+
+	
+
+
+
+	
+
+
+
+	public Board(int bNo, String header,String bTitle, String bContent, String writer,int bCount, Date createDate
+			) {
+		super();
+		this.bNo = bNo;
+		this.header = header;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.writer = writer;
+		this.bCount = bCount;	
+		this.createDate = createDate;
+	}
+
+
 
 	public int getbNo() {
 		return bNo;
@@ -227,7 +260,7 @@ public class Board {
 	public String toString() {
 		return "Board [bNo=" + bNo + ", bType=" + bType + ", header=" + header + ", bTitle=" + bTitle
 				+ ", bContent=" + bContent + ", writer=" + writer + ", bCount=" + bCount
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + bStatus + "]";
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", bstatus=" + bStatus + "]";
 	}
 
 	

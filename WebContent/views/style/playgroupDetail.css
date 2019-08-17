@@ -75,7 +75,7 @@ section{
 }
 
 .Detail_Content{
-    height: 600px;
+    /* height: 100%; */
     width: 900px;
 
 }
@@ -104,7 +104,8 @@ section{
     margin-top: 5px;
     width: 900px;
     height: 100%;
-    border: 1px solid black;
+    /*  border: 1px solid black;*/
+    
     float: left;
 }
 
@@ -198,10 +199,23 @@ section{
 .Btn_Wrap{
     width: 50%;
     height: 40px;
-    float: left;
+    float: right;
+    margin-top: 100px;
 }
 
 .List_Back_Btn{
+    border-radius: 5px 5px 5px 5px;
+    background-color:  rgb(1,11,20);
+    width: 100px;
+    height: 40px;
+    margin: 0 auto;
+    position: relative;
+    float: right;
+    color: white;
+    
+} 
+
+.List_Back_Btn2{
     border-radius: 5px 5px 5px 5px;
     background-color:  rgb(1,11,20);
     width: 100px;
