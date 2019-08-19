@@ -203,45 +203,8 @@
 	<%@ include file="../common/nav.jsp"%>
 	
 	<section>
-		<%-- <%@ include file="myPageFrame.jsp"%> --%>
-		<header>
-            <div class="content-list">
-                <h5>마이페이지 > 출석체크</h5>
-            </div>
-            <div class="user-info">
-                <div class="header-left"><span>User ID</span></div>
-                <div class="header-right">
-                    <div><span>닉네임</span></div>
-                    <div>
-                        <span>
-                            <p>보유 포인트</p>
-                            <p style="color:rgb(37, 223, 161)">4060p</p>
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <p>보유 캐시</p>
-                            <p style="color:rgb(37, 223, 161)">5010cash</p>
-                        </span>
-                    </div>
-                    <div>
-                        <span><button class="modified-btn">정보 수정</button></span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <aside>
-            <div class="vertical-menu">
-                <a href="#" >출석체크</a>
-                <a href="#" >내가 쓴 글 확인</a>
-                <a href="#" class="active">다운로드 악보/찜한 악보</a>
-                <a href="#">업로드 악보</a>
-                <a href="#">캐시 충전</a>
-                <a href="#">인증하기</a>
-                <a href="#">탈퇴</a>
-            </div>
-        </aside>
+		<%@ include file="myPageFrame.jsp"%>
+		
 		
 		<div class="content">
 		

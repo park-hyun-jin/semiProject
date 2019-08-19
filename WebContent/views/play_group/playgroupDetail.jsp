@@ -102,10 +102,30 @@ String nickName = writer[1];
     </section>
 
     <script>
-        function changeImg(){
+    
+    	$(".changeImg").click(function(){
+    		var changeImg =document.getElementsByClassName("changeImg");
+            changeImg[0].src="views/image/liked.png";
+            var bNo = <%= b.getbNo()%>
+            $.ajax({
+            	url: "playgroupDib.in",
+				type:"POST",
+				dataType:"json",
+				data : {bNo : bNo},
+				success : function(result){
+					if(result>0){
+						alert("악보 찜꽁 ><");
+					}else{
+						console.log("댓글 등록 에러 발생");
+					}
+				}
+				
+            });
+    	});
+        /* function changeImg(){
             var changeImg =document.getElementsByClassName("changeImg");
             changeImg[0].src="views/image/liked.png";
-        }
+        } */
         function goList(){
         	location.href='<%= request.getContextPath() %>/playgroupWrite.li';
         }
@@ -161,14 +181,14 @@ String nickName = writer[1];
     					
     					$.each(rList,function(i){
     						var $tr = $("<tr>");
-    						var $writerTd=$("<td>").html(rList[i].rContent).css("width","500px");
+    						var $writerTd=$("<td id = 'rContentTd'>").html(rList[i].rContent).css("width","500px");
     						var $contentTd =$("<td>").text(rList[i].nickName).css("width","150px");
     						var $dateTd = $("<td>").text(rList[i].rCreateDate).css("width","150px");
     						$tr.append($writerTd);
     						$tr.append($contentTd);
     						$tr.append($dateTd);
     						 if(rList[i].nickName == "<%=loginUser.getNickName()%>") {
-    							var $update = $("<td>").html('<button type = "button" class ="replyUpdate">[수정]</button>').css("width","50px");
+    							var $update = $("<td>").html('<button type = "button" class ="replyUpdate"  >[수정]</button>').css("width","50px");
     							var $delete = $("<td>").html('<button type = "button" class ="replyDelete">[삭제]</button>').css("width","50px");
     							$tr.append($update);
         						$tr.append($delete);
@@ -187,6 +207,18 @@ String nickName = writer[1];
     			selectRlist();
     		},3000);
         	
+    		$(function() {
+    			$(".replyUpdate").click(function() {
+    				/* console.log($("#rContentTd").parent().children().eq(0).val()); */
+    				$("#reply_textarea").html($("#rContentTd").parent().children().eq(0).val());
+    			});
+    		});
+    		
+    		/* function replyUpdate(){
+    			var rContentTd =$("#rContentTd").val(); 
+    			
+    			$("#reply_textarea").html(rContentTd);
+    		} */
        
 		
       

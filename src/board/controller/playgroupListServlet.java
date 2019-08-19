@@ -67,23 +67,7 @@ public class playgroupListServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
-		
-		
-//		ArrayList<Board> playgroup = new BoardService().selectPlaygroup();
-//		String page="";
-//		
-//		if(playgroup!=null) { // 정상적으로 조회된 경우
-//			page = "views/play_group/playgroupList.jsp";
-//			request.setAttribute("playgroup", playgroup);
-//			
-//		}else { // 조회가 되지 않은 경우
-//			page = "views/common/errorPage.jsp";
-//			request.setAttribute("mag", "공지사항 조회중 문제 발생");
-//		}
-//		RequestDispatcher view = request.getRequestDispatcher(page);
-//		view.forward(request, response);
+
 		
 	}
 
