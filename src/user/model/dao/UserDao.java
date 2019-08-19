@@ -172,7 +172,7 @@ public class UserDao {
 
 	public User selectUser(Connection conn, int uNo) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+		ResultSet rset = null; 
 		
 		User user = null;
 		
@@ -193,7 +193,8 @@ public class UserDao {
 						rset.getString(5), 
 						rset.getString(6), 
 						rset.getInt(7), 
-						rset.getInt(8));
+						rset.getInt(8)
+						);
 			}
 			
 			
