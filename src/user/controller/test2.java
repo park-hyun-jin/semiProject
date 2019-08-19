@@ -30,7 +30,7 @@ public class test2 extends HttpServlet {
     	//계좌정보, 인증내용 컨텐트, 파일 
     	
 	    String urlName = request.getParameter("urlName");
-	    int accountNumber = Integer.parseInt(request.getParameter("accountNumber"));
+	    String accountNumber = request.getParameter("accountNumber");
 	    String content = request.getParameter("content");
 	    String pictureName = request.getParameter("pictureName");
 	    
@@ -40,19 +40,22 @@ public class test2 extends HttpServlet {
 
 	    int result = new UserService().certificationSubmit(certification, uNo);
 	    
-	    RequestDispatcher view = null;
+	    User user =  new UserService().selectUser(uNo);
+
 	    
 	    String page = "";
 	    if(result >0) {
-			page="views/common/test.jsp";
-	
+			page="views/mypage/test.jsp";
+			request.setAttribute("user", user);
+			request.getSession().setAttribute("msg" , "성공적으로 회원 정보를 수정하였습니다."); // nav가 인쿠르드가 다 되어있으니 메세지를 쏴주기면 하면 된다. jsp에서 
+																					// 별도의 받는 작업을 안 해도 된다.
+			
 			}else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("msg", "게시판 목록 조회 실패");
 			}
 	    
-			view=request.getRequestDispatcher(page);
-			view.forward(request, response);
+			request.getRequestDispatcher(page).forward(request, response);
 	    	
 	      
     

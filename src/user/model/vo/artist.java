@@ -3,7 +3,7 @@ package user.model.vo;
 public class artist {
 
 	   private String urlName;
-	   private int accountNumber;
+	   private String accountNumber;
 	   private String content;
 	   private String pictureName;
 	   
@@ -11,7 +11,7 @@ public class artist {
 		
 	}
 	   
-	public artist(String urlName, int accountNumber, String content, String pictureName) {
+	public artist(String urlName, String accountNumber, String content, String pictureName) {
 		super();
 		this.urlName = urlName;
 		this.accountNumber = accountNumber;
@@ -27,11 +27,11 @@ public class artist {
 		this.urlName = urlName;
 	}
 
-	public int getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
