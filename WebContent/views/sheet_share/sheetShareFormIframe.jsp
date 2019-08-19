@@ -18,9 +18,12 @@
                 /* border: 1px solid red; */
                 box-sizing: border-box;
             }
+            html{
+            	height: 1100px;
+            }
 
             #iframeWrap {
-                width: 1000px;
+                width: 900px;
                 /* height: 1100px;
                 	margin-top: 150px; 
                 	padding: 40px;
@@ -49,7 +52,7 @@
 
 
 				<div id="iframeWrap">
-					<iframe id="writeForm" src="sheetShareForm.jsp" width="1200px" height="900px" scrolling="no"></iframe>   
+					<iframe id="writeForm" src="sheetShareForm.jsp" width="1200px" height="1300px" scrolling="no"></iframe>   
 				 </div>
 				 
 

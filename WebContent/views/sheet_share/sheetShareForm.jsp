@@ -6,20 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
-
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
  
-
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
- 
-
         <style>
             *{
                 margin: 0;
@@ -32,8 +19,8 @@
                 width: 900px;
                 height: 1100px;
                 padding: 40px;
-                margin: 0 auto;
-                border: 1px solid red;
+                margin: 0;
+                
                	margin-top: 150px;
             }
 
@@ -49,7 +36,10 @@
         
             .write_input_form {
                 padding: 30px;
-                height: 1000px;
+                height: 850px;
+            }
+            .write_input_form form{
+            	height: 100%;        
             }
         
             .input_form_header {
@@ -97,7 +87,7 @@
             }
 
             .ms_file input {
-                display: inline-block;
+                display: inline-block !important;
                 vertical-align: middle;
                 width: 80%;
             }
@@ -157,13 +147,13 @@
             
             .board_content_area {
                 width: 100%;
-                height: 500px;
+                height: 400px;
             }
 
             .write_input_footer {
                 width: 100%;
-                height: 140px;
-                padding-top: 60px;
+                height: 70px;
+                padding-top: 30px;
             }
 
             .write_btn_area {
@@ -240,29 +230,28 @@
 
                 </div>
 
-
                 <!-- 악보정보 -->
                 <div class="input_form_msInfo">
                     <span class="msInfo_header">악보정보</span>
                     <div class="msInfo_content_area">
                         <div class="msInfo_line">
                             <span class="msInfo_label">제목</span>
-                            <input type="text" name="msInfo_comp">
+                            <input type="text" name="msInfo_comp" required>
                         </div>
                         
                         <div class="msInfo_line">
                             <span class="msInfo_label">작곡가</span>
-                            <input type="text" name="msInfo_comp">
+                            <input type="text" name="msInfo_comp" required>
                         </div>
 
                         <div class="msInfo_line">
                             <span class="msInfo_label">장르</span>
-                            <input type="text" name="msInfo_comp">5
+                            <input type="text" name="msInfo_comp" required>
                         </div>
 
                         <div class="msInfo_line">
                             <span class="msInfo_label">악기</span>
-                            <input type="text" name="msInfo_comp">
+                            <input type="text" name="msInfo_comp" required>
                         </div>
                     </div>
 
@@ -271,7 +260,7 @@
                 <!-- 본문 글쓰기 -->
                 <div class="board_content_area">
 
-					<%@ include file="../play_group/writeForm.jsp" %>
+					<%@ include file="writeContentForm.jsp" %>
 
 
                 </div>
