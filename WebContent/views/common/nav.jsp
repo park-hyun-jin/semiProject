@@ -834,13 +834,13 @@
 		               var userName = res.properties.nickname
 		               console.log("userId / " + userId);
 		               $.ajax({
-		                  url :'<%=request.getContextPath()%>/isKakaoUser.us',
-		               data : {userId: userId},
+		                  url :'<%=request.getContextPath()%>/isSocialUser.us',
+		               data : {userId: userId, sign: "K"},
 		               type: 'post',
 		               success: function(result) {
 		                  console.log("회원가입여부 / " + result);
 		                  if(result > 0) {
-		                     location.href="<%=request.getContextPath()%>/kakaoLogin.us?userId="+userId;
+		                     location.href="<%=request.getContextPath()%>/socialLogin.us?userId="+userId+"&sign=K";
 		                     } else {
 		                        console.log("모달 나오냐 / " + result);
 		                        $("#addInfoModal").css("display", "block");
@@ -877,12 +877,7 @@
 		   
 		   });
 		}
-	   
-	   
-	   
-	   
-	   
-	   
+
 	   
 	   var naverLogin = new naver.LoginWithNaverId({
 	   	clientId : "TyJHkEkL1q5EMX7mTaF3",
