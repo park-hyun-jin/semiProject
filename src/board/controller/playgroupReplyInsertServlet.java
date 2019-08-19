@@ -8,30 +8,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
-@WebServlet("/playgroupWriteForm.up")
-public class playgroupUpdateFormServlet extends HttpServlet {
+import board.model.vo.Reply;
+
+@WebServlet("/playgroupReply.in")
+public class playgroupReplyInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public playgroupUpdateFormServlet() {
+       
+    public playgroupReplyInsertServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userNo  = Integer.parseInt(request.getParameter("uNo"));
+		String rContent = request.getParameter("content");
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
-		Board board = new BoardService().seletePlayGroup(bNo);
+		rContent = rContent.replace("\n","<br>");
+		Reply r = new Reply(rContent, bNo);
 		
-		String page= "";
-		if(board != null) {
-			page = "views/play_group/playgroupUpdate.jsp";
-			request.setAttribute("board", board);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "수정할 게시글을 불러오는 과정에서 오류 발생");
-		}
+		int result = new BoardService().playgroupReplyInsert(r, userNo);
 		
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		response.getWriter().print(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
