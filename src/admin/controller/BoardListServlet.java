@@ -1,6 +1,7 @@
 package admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,34 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.model.service.AdminService;
-import user.model.vo.Artist;
-import user.model.vo.User;
+import board.model.vo.Board;
 
-@WebServlet("/detailUser.ad")
-public class DetailUserServlet extends HttpServlet {
+@WebServlet("/boardList.ad")
+public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public DetailUserServlet() {
+    public BoardListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = Integer.parseInt(request.getParameter("uno"));
-	
-		User user = new AdminService().selectUser(uno);
-		Artist artist = new AdminService().selectArtist(uno);
-		String page = ""; 
-		if(user != null) {
-			request.setAttribute("user", user);
-			if(artist != null) 
-				request.setAttribute("artist", artist);
-				
-			page = "/views/admin/user_management/userManagement.jsp";
+
+		ArrayList<Board> list = new AdminService().boardList();
+		String page = "";
+		if(list!= null) {
+			request.setAttribute("list", list);
+			page = "/views/admin/user_management/boardList.jsp";
 		} else {
-			request.setAttribute("msg", "유저정보 조회 실패");
+			request.setAttribute("msg", "게시글 조회 오류");
 			page = "/views/common/errorPage.jsp";
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

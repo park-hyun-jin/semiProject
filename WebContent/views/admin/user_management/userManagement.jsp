@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<%
+	request.setAttribute("user", request.getAttribute("user"));
+	request.setAttribute("artist", request.getAttribute("artist"));
+
+%>
+
 </head>
 
 <style>
@@ -127,7 +134,7 @@
 
 <body>
 
-	<%@ include file="adminNav.jsp" %>
+	<%@ include file="../adminNav.jsp" %>
 
 	<!-- 본문 -->
 	<div id="page_content">
@@ -157,7 +164,9 @@
 	            <label for="tab6">보유 포인트 / 캐시</label> 
 	        
 	            <section id="content1">
-	                <div class= "section_wrap">
+	            	<jsp:include page="userInfo.jsp" /> 
+	            
+	                <!-- <div class= "section_wrap">
 	                    <div class="profile_Img">
 	                        <img src="images/admin_user_profile.png">
 	                    </div>
@@ -209,9 +218,11 @@
 	                            </tr>
 	                        </table>
 	                    </div>
-	                </div>
+	                </div> -->
 	            </section>
-		        
+	            <section id="content4">
+	            	<jsp:include page="userInfo.jsp" /> 
+		        </section>
 	        </div>
 	    </div>
 	
