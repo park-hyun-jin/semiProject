@@ -12,6 +12,7 @@ import board.model.vo.Board;
 import cash.model.vo.Imp;
 import user.model.dao.UserDao;
 import user.model.vo.User;
+import user.model.vo.artist;
 
 
 public class UserService {
@@ -243,6 +244,22 @@ public class UserService {
 		}		
 		return result;
 	}
+
+public int certificationSubmit(artist certification,int uNo) {
+	
+	Connection conn = getConnection();
+	
+	int result = new UserDao().certificationSubmit(conn, certification, uNo);
+	
+	if(result>0) {
+		commit(conn);
+	}else {
+		rollback(conn);
+	}		
+	return result;
+	
+
+}
   
   
   

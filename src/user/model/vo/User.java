@@ -15,6 +15,7 @@ public class User {
    private int userPoint;
    private int userCash;
    private String sign;
+
    
    public User() {   }
    
@@ -219,6 +220,12 @@ public class User {
             + ", nickName=" + nickName + ", enrollDate=" + enrollDate + ", artist=" + artist + ", uStatus="
             + uStatus + ", userPoint=" + userPoint + ", userCash=" + userCash + ", sign=" + sign + "]";
    }
+
+
+public String urlName() {
+	// TODO Auto-generated method stub
+	return null;
+}
    
    
 
