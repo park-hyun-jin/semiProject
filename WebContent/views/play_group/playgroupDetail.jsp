@@ -161,8 +161,8 @@ String nickName = writer[1];
     					
     					$.each(rList,function(i){
     						var $tr = $("<tr>");
-    						var $writerTd=$("<td>").text(rList[i].rContent).css("width","500px");
-    						var $contentTd =$("<td>").html(rList[i].nickName).css("width","150px");
+    						var $writerTd=$("<td>").html(rList[i].rContent).css("width","500px");
+    						var $contentTd =$("<td>").text(rList[i].nickName).css("width","150px");
     						var $dateTd = $("<td>").text(rList[i].rCreateDate).css("width","150px");
     						$tr.append($writerTd);
     						$tr.append($contentTd);

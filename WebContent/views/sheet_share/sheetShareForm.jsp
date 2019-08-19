@@ -198,8 +198,6 @@
 </head>
 <body>
 
-	<%@ include file="../common/nav.jsp" %>
-
     <!-- 악보공유 글쓰기 화면 -->
     <div class="write_form_wrap">
         <!-- 화면 정보 -->
@@ -273,7 +271,7 @@
                 <!-- 본문 글쓰기 -->
                 <div class="board_content_area">
 
-					<%@ include file="writeContentForm.jsp" %>
+					<%@ include file="../play_group/writeForm.jsp" %>
 
 
                 </div>
