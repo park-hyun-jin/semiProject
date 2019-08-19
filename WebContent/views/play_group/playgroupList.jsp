@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
+<%@page import="board.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
 <%
-	ArrayList<Board> playgroup = (ArrayList<Board>)request.getAttribute("playgroup");
-
+	ArrayList<Board> playgroupList = (ArrayList<Board>)request.getAttribute("playgroupList");
+	
+	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
+	
+	int boardCount = pInf.getBoardCount();
+	int currentPage =pInf.getCurrentPage();
+	int maxPage = pInf.getMaxPage();
+	int startPage=pInf.getStartPage();
+	int endPage = pInf.getEndPage();
+	int limit = pInf.getLimit();
+	int pagingBarSize = pInf.getPagingBarSize();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,6 +49,18 @@
 		width: 74%;
 		height: 900px;
 	}
+	.pagingBtn{
+		text-decoration: none;
+		background-color:white;
+		color:black;
+		display : inline-block;
+		width : 25px;
+		height : 25px;
+	}
+	.pagingArea{
+		margin : 50px 0 20px 0;
+		padding-right: 100px;
+	}
 	
 </style>
 
@@ -68,12 +90,12 @@
                              <th width="5%">조회수</th>
                             <th width="15%">작성일</th>
                         </tr>
-                         <% if(playgroup.isEmpty()){ %>
+                         <% if(playgroupList.isEmpty()){ %>
 				<tr>
 					<td colspan="6">등록된 게시글이 없습니다.</td>
 				</tr>
 				<% }else { %>
-					<%for(Board b : playgroup){ %>
+					<%for(Board b : playgroupList){ %>
 						  <tr class="table_header">
 							<td width="10%"><%=b.getbNo() %></td>
 							<td width="10%"><%=b.getheader() %></td>							
@@ -88,24 +110,64 @@
                     </table>
                 </div>
                 
+                
+                <!------- 페이징 바 ------->
+		<!-- 페이징 처리 시작! -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로(<<) -->
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=1'">&lt;&lt;</span>
+		
+			<!-- 이전 페이지로(<) -->
+			<% if(currentPage <= 1) { %>
+				<span class="pagingBtn">&lt;</span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= currentPage-1 %>'">&lt;</span>
+			<% } %>
+			
+			<!-- 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage) { %>
+					<span class="pagingBtn selectBtn"><%= p %></span>
+				<% } else{ %>
+					<span class="pagingBtn clickBtn" 
+						onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= p %>'"><%=p%></span>
+				<% } %>
+			<%} %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage >= maxPage){ %>
+				<span class="pagingBtn"> &gt; </span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= currentPage+1 %>'">&gt;</span>
+			<% } %>
+			
+			<!-- 맨 끝으로(>>) -->
+			<span class="pagingBtn clickBtn"
+				onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+		</div>
+                
+
+                
                 <!-- 글쓰기 버튼 -->
                 <div class="community_footer">
+                 <% if(loginUser != null){ %>
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
+                <%} %>
                     <%-- <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button>  --%>
                 </div>
-               
-            
-            </div>
-        
-            <!-- 검색 영역 -->
+               <!-- 검색 영역 -->
             <div class = "search_area">
                 <form class = "searchForm">
                     <input type="text" class="searchInput">
                     <span><button type="submit" class = "searchSubmit">검색</button></span>
                 </form>
-                <% if(loginUser != null){ %>
-                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
-                <%} %>
             </div>
+            
+            </div>
+        
+            
 
         </section>
         
@@ -127,12 +189,12 @@
 				});
 				
 				
-				/* // 페이징바 마우스오버 이벤트
+				// 페이징바 마우스오버 이벤트
 				$(".clickBtn").mouseenter(function(){
 					$(this).css({"background":"darkgray", "cursor":"pointer"});
 				}).mouseout(function(){
-					$(this).css({"background":"black"});
-				}); */
+					$(this).css({"background":"lightgray"});
+				}); 
 				
 			});
 			

@@ -15,6 +15,7 @@ public class User {
    private int userPoint;
    private int userCash;
    private String sign;
+
    
    public User() {   }
    
@@ -27,6 +28,17 @@ public class User {
 	   this.nickName = nickName;
 	   this.sign = sign;
 	}	
+
+
+	public User(int uNo, String userName, String nickName, String artist, int userPoint, int userCash) {
+	super();
+	this.uNo = uNo;
+	this.userName = userName;
+	this.nickName = nickName;
+	this.artist = artist;
+	this.userPoint = userPoint;
+	this.userCash = userCash;
+}
 
 
 	public User(int uNo, String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
@@ -219,6 +231,12 @@ public class User {
             + ", nickName=" + nickName + ", enrollDate=" + enrollDate + ", artist=" + artist + ", uStatus="
             + uStatus + ", userPoint=" + userPoint + ", userCash=" + userCash + ", sign=" + sign + "]";
    }
+
+
+public String urlName() {
+	// TODO Auto-generated method stub
+	return null;
+}
    
    
 
