@@ -177,27 +177,38 @@ public class AdminDao {
 	}
 
 
-	public ArrayList<Board> boardList(Connection conn) {
+	public ArrayList<Board> boardList(Connection conn, int uno, int currentPage, int limit) {
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("boardList");
 		
 		ArrayList<Board> list = null;
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			
+			int startRow = (currentPage -1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			System.out.println("start: " + startRow + " / endRow : " + endRow);
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow); 
+
+			rset = pstmt.executeQuery();
+			
 			list = new ArrayList<>();
 			
 			while(rset.next()) {
 				Board b = new Board();
-				b.setbNo(rset.getInt(1));
-				b.setbType(rset.getInt(2) + "," + rset.getString(3));
-				b.setbTitle(rset.getString(4));
-				b.setbContent(rset.getString(5));
-				b.setwriter(rset.getInt(6) + "," + rset.getString(7));
-				b.setCreateDate(rset.getDate(8));
+				b.setbNo(rset.getInt(2));
+				b.setbType(rset.getInt(3) + "," + rset.getString(4));
+				b.setbTitle(rset.getString(5));
+				b.setbContent(rset.getString(6));
+				b.setwriter(rset.getInt(7) + "," + rset.getString(8));
+				b.setCreateDate(rset.getDate(9));
 				
 				list.add(b);
 			}
@@ -206,9 +217,63 @@ public class AdminDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		return list;
+	}
+
+
+	public int getBoardCount(Connection conn, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getBoardCount");
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int selectbType(Connection conn, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectbType");
+		int bType = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bType = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bType;
 	}
 	
 	

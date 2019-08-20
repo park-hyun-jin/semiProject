@@ -46,11 +46,25 @@ public class AdminService {
 		return artist;
 	}
 
-	public ArrayList<Board> boardList() {
+	public ArrayList<Board> boardList(int uno, int currentPage, int limit) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = new AdminDao().boardList(conn);
+		ArrayList<Board> list = new AdminDao().boardList(conn, uno, currentPage, limit);
 		
 		return list;
+	}
+
+	public int getBoardCount(int uno) {
+		Connection conn = getConnection();
+		int boardCount = new AdminDao().getBoardCount(conn, uno);
+		
+		return boardCount;
+	}
+
+	public int selectbType(int bno) {
+		Connection conn = getConnection();
+		int bType = new AdminDao().selectbType(conn, bno);
+		
+		return bType;
 	}
 
 }

@@ -3,7 +3,7 @@
     import="board.model.vo.PageInfo, board.model.vo.Board, java.util.ArrayList" %>
     
 <%
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("bList");
 	
 	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
 
@@ -36,12 +36,12 @@
 			margin-top: 40px;
 		}
  */
-		.userListTable, .userListTable td, .userListTable th {
+		.boardListTable, .boardListTable td, .boardListTable th {
 		    border: 1px solid black;  
 		    border-collapse: collapse;
 		
 		}
-		.userListTable td {
+		.boardListTable td {
 		    width: 200px;
 		    height: 40px;
 		    padding: 10px;
@@ -49,7 +49,7 @@
 		    
 		}
 		
-		.userListTable th {
+		.boardListTable th {
 			background-color: lightgray;
 			height: 50px;
 			font-weight: bold;
@@ -78,7 +78,7 @@
 
 
 	<div class=BoardListArea serction_wrap">
-	    <table class="BoardListTable">
+	    <table class="boardListTable">
 	        <thead>
 	            <th class="boardTypeArea">게시판 이름</td>
 	            <th class="titleArea">게시글 제목</td>
