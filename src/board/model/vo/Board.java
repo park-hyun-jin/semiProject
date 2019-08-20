@@ -174,6 +174,15 @@ public class Board {
 
 
 
+	public Board(int bNo, String bTitle, Date createDate) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.createDate = createDate;
+		
+	}
+
+
+
 	public int getbNo() {
 		return bNo;
 	}

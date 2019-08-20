@@ -13,12 +13,12 @@ import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/abc.me")
-public class test3 extends HttpServlet {
+@WebServlet("/myPageCertification.me")
+public class myPageCertificationServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public test3() {
+    public myPageCertificationServelet() {
         super();
         
     }
@@ -32,7 +32,7 @@ public class test3 extends HttpServlet {
 		RequestDispatcher view = null;
 
 		if(user != null) {
-			view = request.getRequestDispatcher("views/mypage/test.jsp");
+			view = request.getRequestDispatcher("views/mypage/myPageCertification.jsp");
 			request.setAttribute("user", user);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
