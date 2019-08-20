@@ -111,7 +111,7 @@
                 </div>
                 
                 
-                <!------- 페이징 바 ------->
+                <!-------- 페이징 바 -------->
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로(<<) -->
@@ -159,8 +159,18 @@
                 </div>
                <!-- 검색 영역 -->
             <div class = "search_area">
-                <form class = "searchForm">
-                    <input type="text" class="searchInput">
+                <form class = "searchForm" method="get" action="<%= request.getContextPath()%>/playgroupSearch.bo" name="searchForm">
+					<select id="searchCondition" name="headValue">
+						<option value="100">통합</option>
+						<option value="7">전국</option>
+						<option value="8">수도권</option>
+						<option value="9">강원도</option>
+						<option value="10">전라도</option>
+						<option value="11">대전/충청</option>
+						<option value="12">대구/경북</option>
+						<option value="13">부산/경남</option>
+					</select>
+                    <input type="text" class="searchInput" name="keyword">
                     <span><button type="submit" class = "searchSubmit">검색</button></span>
                 </form>
             </div>
@@ -188,13 +198,17 @@
 					<% } %>
 				});
 				
-				
 				// 페이징바 마우스오버 이벤트
 				$(".clickBtn").mouseenter(function(){
 					$(this).css({"background":"darkgray", "cursor":"pointer"});
 				}).mouseout(function(){
 					$(this).css({"background":"lightgray"});
 				}); 
+				
+				// 검색시 기존 페이징정보 없애기
+				$("form[name=searchForm]").sumbit(function() {
+					<% request.removeAttribute("pInf"); %>
+				});
 				
 			});
 			
