@@ -2202,7 +2202,170 @@ private Properties prop = new Properties();
 		}
 		return result;
 	}
-	}	
+
+	public Board boardGroup(Connection conn, int bNo) {
+		
+		return null;
+	}
+
+	public Board selectBoardGroup(Connection conn, int bNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Board board = null;
+		
+		String query = prop.getProperty("selectBoardGroup");
+		System.out.println(query);
+		try {
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				board = new Board();
+				
+				board.setbNo(bNo);
+				board.setbTitle(rset.getString("Bno"));
+				board.setbContent(rset.getString("bContent"));
+				board.setbCount(rset.getInt("bCount"));
+				board.setCreateDate(rset.getDate("create_Date"));
+				board.setwriter(rset.getInt("writer")+","+rset.getString("nickname"));
+				
+				
+							
+						
+//						rset.getInt(1),
+//								  rset.getString(2),
+//								  rset.getString(3),
+//								  rset.getInt(4),
+//								  rset.getDate(5),
+//								  rset.getString(6)
+//								  
+		
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+	}
+		return board;
+	}
+
+	public int deleteBoadGroup(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoadGroup");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int boardReplyInsert(Connection conn, Reply r, int userNo) {
+		PreparedStatement pstmt = null;
+		
+		int result =0;
+		
+		String query = prop.getProperty("playgroupReplyInsert");
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, r.getrContent());
+			pstmt.setInt(2, r.getbNo());
+			pstmt.setInt(3, userNo);
+			
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int countBoard(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countBoard");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+
+	public Board updateBoardGroup(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Board board = null;
+		
+		String query = prop.getProperty("updateBoardGroup");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				board = new Board(rset.getInt(1),
+								  rset.getString(2),
+								  rset.getString(3),
+								  rset.getString(4),
+								  rset.getString(5) + ","+ rset.getString(6),
+								  rset.getInt(7),
+								  rset.getDate(8)
+				);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+	}
+		return board;
+	}
+	}
+	
+	
+	
+
+	
+	
 		
 		
 		

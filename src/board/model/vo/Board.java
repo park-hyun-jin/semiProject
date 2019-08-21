@@ -194,6 +194,18 @@ public class Board {
 
 
 
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, String writer) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.writer = writer;
+		
+	}
+
+
+
 	public int getbNo() {
 		return bNo;
 	}
