@@ -23,8 +23,6 @@ public class playgroupDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		
-		
 		BoardService playgroupService = new BoardService();
 		
 		Board board = playgroupService.seletePlayGroup(bNo);
@@ -32,18 +30,24 @@ public class playgroupDetailServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		String page = "";
 		
-		if(board != null) { // 해당 글이 존재하는 경우
-			
+		if(request.getSession().getAttribute("loginUser") == null) {
+			request.getSession().setAttribute("msg", "로그인을 해주세요");
+			response.sendRedirect(request.getContextPath());
+		} else {
+		
+			if(board != null) { // 해당 글이 존재하는 경우
+				System.out.println("해당 글 존재");
 				page = "views/play_group/playgroupDetail.jsp";
 				request.setAttribute("board", board);
 			
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상세 조회 중 에러 발생");
+			} else {
+				page = "views/common/errorPage.jsp";
+				request.setAttribute("msg", "상세 조회 중 에러 발생");
+			}
+			
+			view = request.getRequestDispatcher(page);
+			view.forward(request, response);
 		}
-		
-		view =request.getRequestDispatcher(page);
-		view.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

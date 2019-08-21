@@ -213,7 +213,7 @@
                         <option value="13">부산/경남</option>
                     </select>
 
-                    <input type="text" name="BTITLE" class="board_title" placeholder="제목">
+                    <input type="text" name="BTITLE" class="board_title" placeholder="제목" required>
                 </div>
 
                 

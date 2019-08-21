@@ -17,6 +17,10 @@
 	int endPage = pInf.getEndPage();
 	int limit = pInf.getLimit();
 	int pagingBarSize = pInf.getPagingBarSize();
+	
+	
+	String headValue = request.getParameter("headValue");
+	String keyword = request.getParameter("keyword");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -113,18 +117,18 @@
                 </div>
                 
                 
-                <!------- 페이징 바 ------->
+                <!-------- 페이징 바 -------->
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=1'">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=1&headValue=<%=headValue%>&keyword=<%=keyword%>'">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= currentPage-1 %>'">&lt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= currentPage-1 %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -133,7 +137,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= p %>'"><%=p%></span>
+						onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= p %>&headValue=<%=headValue%>&keyword=<%=keyword%>'"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -142,12 +146,12 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= currentPage+1 %>'">&gt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= currentPage+1 %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/playgroupWrite.li?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+				onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= maxPage %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&gt;&gt;</span>
 		</div>
                 
 
@@ -161,8 +165,18 @@
                 </div>
                <!-- 검색 영역 -->
             <div class = "search_area">
-                <form class = "searchForm">
-                    <input type="text" class="searchInput">
+                <form class = "searchForm" method="get" action="<%= request.getContextPath()%>/playgroupSearch.bo" name="searchForm">
+					<select id="searchCondition" name="headValue">
+						<option value="100">통합</option>
+						<option value="7">전국</option>
+						<option value="8">수도권</option>
+						<option value="9">강원도</option>
+						<option value="10">전라도</option>
+						<option value="11">대전/충청</option>
+						<option value="12">대구/경북</option>
+						<option value="13">부산/경남</option>
+					</select>
+                    <input type="text" class="searchInput" name="keyword">
                     <span><button type="submit" class = "searchSubmit">검색</button></span>
                 </form>
             </div>
@@ -176,6 +190,16 @@
         
 		<script>
 			$(function(){
+				
+				// 페이지 로드시 검색옵션값 설정
+				<% if(headValue != null) {%>
+					$("option[value=<%=headValue%>]").attr("selected", "selected");
+				<% }
+					if(keyword != null) { %>
+					$("input[name=keyword]").val("<%=keyword%>");
+				<% } %>
+				
+				
 				// 게시판 상세보기
 				$(".table_header td").mouseenter(function(){
 					$(this).parent().css({"color":"black", "cursor":"pointer"});
@@ -190,13 +214,17 @@
 					<% } %>
 				});
 				
-				
 				// 페이징바 마우스오버 이벤트
 				$(".clickBtn").mouseenter(function(){
 					$(this).css({"background":"darkgray", "cursor":"pointer"});
 				}).mouseout(function(){
-					$(this).css({"background":"lightgray"});
+					$(this).css({"background":"white"});
 				}); 
+				
+				// 검색시 기존 페이징정보 없애기
+				<%-- $("form[name=searchForm]").submit(function() {
+					<% request.removeAttribute("pInf"); %>
+				}); --%>
 				
 			});
 			

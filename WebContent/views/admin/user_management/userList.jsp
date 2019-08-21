@@ -166,7 +166,7 @@
 			}).mouseout(function(){
 				$(this).parent().css({"background":"white"});
 			}).click(function(){
-				var uno = $(this).parent().children().eq(1).children().eq(0).val();
+				var uno = $(this).parent().children().eq(0).children().eq(0).val();
 				location.href="<%= request.getContextPath() %>/detailUser.ad?uno="+uno;
 			});
 			

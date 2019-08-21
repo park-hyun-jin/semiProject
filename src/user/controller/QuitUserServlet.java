@@ -31,9 +31,10 @@ public class QuitUserServlet extends HttpServlet {
 		
 		if(result > 0) {
 			request.setAttribute("msg", "사요나라.. "+ loginUser.getNickName());
-			request.getSession().invalidate(); // 세션 무효화
+			
 			
 			response.sendRedirect(request.getContextPath());
+			request.getSession().invalidate(); // 세션 무효화
 		}else {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
 		}

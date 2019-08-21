@@ -4,7 +4,7 @@
 <%@page import="java.util.ArrayList"%>  
 <%
 
-   	ArrayList<Board> list =(ArrayList<Board>)request.getAttribute("list"); // 그냥 게시물에 대한 정보
+ /*   	ArrayList<Board> list =(ArrayList<Board>)request.getAttribute("list"); // 그냥 게시물에 대한 정보
      
     PageInfo pInf = (PageInfo)request.getAttribute("pInf");
     
@@ -15,7 +15,7 @@
     int endPage = pInf.getEndPage();
     int limit = pInf.getLimit();
     int pagingBarSize = pInf.getPagingBarSize();
-    
+     */
   
     %>
     
@@ -246,8 +246,12 @@ section{
                 left: 125%;
             }
         }
+        
+        #listArea1{
+            width: 100%;
+        }
 
-        #listArea{
+        #listArea2{
             width: 100%;
         }
 
@@ -273,23 +277,42 @@ section{
         padding-top: 5px;
         color: rgb(99, 96, 96);
         }
-        .tab-content th:nth-of-type(1), .tab-content td:nth-of-type(1){
+        .table1 th:nth-of-type(1), .table1 td:nth-of-type(1){
             width: 7.2%;
         }
-        .tab-content th:nth-of-type(2), .tab-content td:nth-of-type(2){
+        .table1 th:nth-of-type(2), .table1 td:nth-of-type(2){
             width: 10%;
         }
-        .tab-content th:nth-of-type(3), .tab-content td:nth-of-type(3){
-            width: 50%;
-        }
-        .tab-content th:nth-of-type(4), .tab-content td:nth-of-type(4){
+        .table1 th:nth-of-type(3), .table1 td:nth-of-type(3){
             width: 15%;
         }
-        .tab-content th:nth-of-type(5), .tab-content td:nth-of-type(5){
+        .table1 th:nth-of-type(4), .table1 td:nth-of-type(4){
+            width: 45%;
+        }
+        .table1 th:nth-of-type(5), .table1 td:nth-of-type(5){
             width: 10%;
         }
-        .tab-content th:nth-of-type(6), .tab-content td:nth-of-type(6){
+        .table1 th:nth-of-type(6), .table1 td:nth-of-type(6){
+            width: 15%;
+        }
+        
+        .table2 th:nth-of-type(1), .table2 td:nth-of-type(1){
+            width: 7.2%;
+        }
+        .table2 th:nth-of-type(2), .table2 td:nth-of-type(2){
             width: 10%;
+        }
+        .table2 th:nth-of-type(3), .table2 td:nth-of-type(3){
+            width: 25%;
+        }
+        .table2 th:nth-of-type(4), .table2 td:nth-of-type(4){
+            width: 35%;
+        }
+        .table2 th:nth-of-type(5), .table2 td:nth-of-type(5){
+            width: 10%;
+        }
+        .table2 th:nth-of-type(6), .table2 td:nth-of-type(6){
+            width: 15%;
         }
 
         #writeBtn{
@@ -350,122 +373,49 @@ section{
 <body>
 
 	<%@ include file="../common/nav.jsp"%>
-	
 	<section>
-        <header>
-            <div class="content-list">
-                <h5>마이페이지 > 출석체크</h5>
-            </div>
-            <div class="user-info">
-                <div class="header-left"><span>User ID</span></div>
-                <div class="header-right">
-                    <div><span>닉네임</span></div>
-                    <div>
-                        <span>
-                            <p>보유 포인트</p>
-                            <p style="color:rgb(37, 223, 161)">4060p</p>
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <p>보유 캐시</p>
-                            <p style="color:rgb(37, 223, 161)">5010cash</p>
-                        </span>
-                    </div>
-                    <div>
-                        <span><button class="modified-btn">정보 수정</button></span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <aside>
-            <div class="vertical-menu">
-                <a href="#" >출석체크</a>
-                <a href="#" class="active">내가 쓴 글 확인</a>
-                <a href="#">다운로드 악보/찜한 악보</a>
-                <a href="#">업로드 악보</a>
-                <a href="#">캐시 충전</a>
-                <a href="#">인증하기</a>
-                <a href="#">탈퇴</a>
-            </div>
-        </aside>
-
+	<%@ include file="myPageFrame.jsp"%>
+	
+	
         <div class="content">
 			<div class="tab-section">
 				<span id="tab-1" class="tab-btn"></span>
-				<a href="#tab-1" class="tab-link tab1">내가 작성한 게시글 보기</a>
+				<a href="#tab-1" class="tab-link tab1" value="1">내가 작성한 게시글 보기</a>
 				<div class="tab-content table1">
 					<table align="center" id ="listArea1">
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="#ck_all" class="allcheck"></th>
-					
+								<th width="100px">게시판</th>
 								<th width="120px">말머리</th>
 								<th width="530px">제목</th>
-								<th width="100px">작성자</th>
 								<th width="100px">조회수</th>
 								<th width="150px">작성일</th>
 							</tr>
 						</thead>
-							<% if(list.isEmpty()){ %>
-						<tr>
-							<td colspan="6">등록된 게시글이 없습니다.</td>
-						</tr>
-						<% }else { %>
-
-							<% for(Board b : list){ %> 
-						<tr>
-							<td class="b"> <input type="checkbox" name="isDelete" value="<%=b.getbNo() %>"> </td> 
-							<td class="b"><%= b.getheader()%></td> 
-							<td class="b"><%= b.getbTitle() %></td>         
-							<td class="b"><%= b.getwriter() %></td> 
-							<td class="b"><%= b.getbCount() %></td> 
-							<td class="b"><%= b.getCreateDate() %></td> 
-
-						</tr>
-							<% } %>	
-						<% } %>	
-                          
+						<tbody>
+						
                            
-                       
+                    	</tbody>
 					</table>
 				</div>
                         
 				<span id="tab-2" class="tab-btn"></span>
-				<a href="#tab-2" class="tab-link tab2">내가 작성한 댓글 보기</a>
+				<a href="#tab-2" class="tab-link tab2" value="1">내가 작성한 댓글 보기</a>
 				<div class="tab-content table2">
-				<table align="center" id ="listArea">
+				<table align="center" id ="listArea2">
 				    <thead>
 				    <tr>
 				        <th><input type="checkbox" class="allcheck2"></th>
-				        <th width="100px">말머리</th>
-				        <th width="500px">제목</th>
-				        <th width="100px">작성자</th>
-				        <th width="100px">조회수</th>
-				        <th width="200px">작성일</th>
+				        <th >게시판</th>
+				        <th >게시글 제목</th>
+				        <th colspan='2'>댓글내용</th>
+				        <th >작성일</th>
 				    </tr>
 				    </thead>
-				   <%--  <% if(list.isEmpty()){ %>
-						<tr>
-							<td colspan="6">등록된 게시글이 없습니다.</td> --%>
-						</tr>
-			<%-- 			<% }else { %>
-
-							<% for(reply r : list){ %> 
-							
-						<tr>
-							<td class="b"> <input type="checkbox" name="isDelete" value="<%=r.getbNo() %>"> </td> 
-							<td class="b"><%= r.getheader()%></td> 
-							<td class="b"><%= r.getbTitle() %></td>         
-							<td class="b"><%= r.getwriter() %></td> 
-							<td class="b"><%= r.getbCount() %></td> 
-							<td class="b"><%= r.getCreateDate() %></td> 
-
-						</tr>
-							<% } %>	
-						<% } %>	 --%>
-               
+				  	<tbody>
+				  	
+				  	</tbody>
 				</table>
 			</div>
 		</div>
@@ -477,50 +427,11 @@ section{
 	        <!------- 페이징 바 ------->
 			<!-- 페이징 처리 시작! -->
 			<div class="pagingArea" align="center">
-				<!-- 맨 처음으로(<<) -->
-				<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=1'">&lt;&lt;</span>
-			
-				<!-- 이전 페이지로(<) -->
-				<% if(currentPage <= 1) { %>
-					<span class="pagingBtn">&lt;</span>
-				<% } else{ %>
-					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= currentPage-1 %>'">&lt;</span>
-				<% } %>
 				
-				<!-- 페이지 목록 -->
-				<% for(int p = startPage; p <= endPage; p++){ %>
-					<% if(p == currentPage) { %>
-						<span class="pagingBtn selectBtn"><%= p %></span>
-					<% } else{ %>
-						<span class="pagingBtn clickBtn" 
-							onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= p %>'"><%=p%></span>
-					<% } %>
-				<%} %>
-				
-				<!-- 다음 페이지로(>) -->
-				<% if(currentPage >= maxPage){ %>
-					<span class="pagingBtn"> &gt; </span>
-				<% } else{ %>
-					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= currentPage+1 %>'">&gt;</span>
-				<% } %>
-				
-				<!-- 맨 끝으로(>>) -->
-				<span class="pagingBtn clickBtn"
-					onclick="location.href='<%= request.getContextPath() %>/myPageList.me?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 			</div>
 	                
 		</div>
-	        
-	    <!-- <div id = "search">
-	        <form id = "searchForm">
-	            <input type="text" id="searchInput">
-	            <span><button type="submit" id = "searchSubmit">검색</button></span>
-	        </form>
-		</div> -->
-							
-						
+		
     </section>
     
     <script>
@@ -555,6 +466,8 @@ section{
     
      
      $(function(){
+    	 
+    	 
 		// 게시판 상세보기
 		$("#listArea1 td").mouseenter(function(){
 			$(this).parent().css({"background":"lightgray", "cursor":"pointer"});
@@ -567,25 +480,291 @@ section{
 			
 		}); 
     
-    
-    $('#writeBtn').click(function(){
-        if(confirm("삭제하시겠습니까?")){
-            var list = $("input[name=isDelete]");
-            var checkedList = "";
-            $.each(list, function(i){
-            	if($(this).prop("checked")) {    
-            		checkedList += $(this).val() +",";
-            	}
-            });
-            checkedList = checkedList.slice(0, -1);
-            console.log(checkedList);
-           location.href="<%= request.getContextPath() %>/deleteMyBoardList.bo?deleteBoards="+checkedList;
-        }else{
-            return false;
-        }
-    });							
+	    $('#writeBtn').click(function(){
+	        if(confirm("삭제하시겠습니까?")){
+	            var list = $("input[name=isDelete]");
+	            var checkedList = "";
+	            $.each(list, function(i){
+	            	if($(this).prop("checked")) {    
+	            		checkedList += $(this).val() +",";
+	            	}
+	            });
+	            checkedList = checkedList.slice(0, -1);
+	            console.log(checkedList);
+	           location.href="<%= request.getContextPath() %>/deleteMyBoardList.bo?deleteBoards="+checkedList;
+	        }else{
+	            return false;
+	        }
+	    });
+	    
+	    
+		// 작성게시글 탭 선택시 목록조회 메소드 호출
+		$(".tab1").click(function() {
+			var movePage = $(this).val();
+			console.log("이동할 페이지 : " + movePage);
+			$(this).boardListShow(movePage);
+		});
+		
 	
-     });	
+		// 작성댓글 탭 선택시 목록조회 메소드 호출
+		$(".tab2").click(function() {
+			var movePage = $(this).val();
+			console.log("이동할 페이지 : " + movePage);
+			$(this).replyListShow(movePage);
+		});
+		 
+		
+		
+		
+		// 게시글 목록 조회 & 페이징처리 메소드
+		$.fn.boardListShow = function(currNum) {
+			var curr;
+			if (currNum == null || currNum == "") curr = 1;
+			else curr = currNum;
+			console.log("이동할 페이지 :: " + curr);
+			$.ajax({
+				url: "<%=request.getContextPath()%>/myPageList.me",
+				type: "get",
+				data: {currentPage: curr},
+				dataType : "json",
+				success: function(bMap) {
+					var bList = bMap["bList"];
+					var pInf = bMap["pInf"];
+					
+					console.log(bList);
+					
+					var $tableBody = $("#listArea1 tbody");
+					$tableBody.html("");
+					var result = "";
+					
+					var $pagingArea = $(".pagingArea");
+					var pResult = "";
+					$pagingArea.html("");
+					
+					if(bList.length > 0) {
+						$.each(bList, function(i) {
+
+							result += "<tr>"
+								+ "<td><input type='checkbox' value='" + bList[i].bNo + "' name='isDelete'></td>" 
+								+ "<td><input type='hidden' value='" + String(bList[i].bType).split(",")[0] + "' name='bType'>" 
+								+  String(bList[i].bType).split(",")[1] + "</td>" 
+								+ "<td>" + bList[i].header + "</td>"
+								+ "<td>" + bList[i].bTitle + "</td>"
+								+ "<td>" + bList[i].bCount + "</td>" 
+								+ "<td>" + bList[i].createDate + "</td>"
+								+ "</tr>";
+								
+							console.log(result);
+						});
+						
+						// 페이징 바 
+						// 페이징 처리 시작!
+						
+						//<!-- 맨 처음으로(<<) -->
+						pResult += "<span class='pagingBtn clickBtn' name='1'>&lt;&lt;</span>";
+						
+						if(pInf.startPage <= 1) { 
+							pResult += "<span class='pagingBtn' name='-1'>&lt;</span>";
+							
+						} else {
+							pResult = "<span class='pagingBtn clickBtn' name='" + pInf.startPage - pInf.pagingBarSize + "'>&lt;</span>";
+						}
+							
+						for(var p = pInf.startPage; p <= pInf.endPage; p++) {
+							if(p == pInf.currentPage) { 
+									pResult += "<span class='pagingBtn selectBtn' name='-1'>" + p + " </span>";
+							} else {
+								pResult += "<span class='pagingBtn clickBtn' name='" + p + "'>" + p + "</span>";
+							} 
+						} 
+							
+						//<!-- 다음 페이지로(>) -->
+						if(pInf.endPage >= pInf.maxPage) {
+							pResult += "<span class='pagingBtn' name='-1'> &gt; </span>";
+						} else {
+							pResult += "<span class='pagingBtn clickBtn' name='" + pInf.startPage + pInf.pagingBarSize + "'>&gt;</span>";
+						}
+						
+						//<!-- 맨 끝으로(>>) -->
+						pResult += "<span class='pagingBtn clickBtn' name='" + pInf.maxPage + "'>&gt;&gt;</span>";
+					
+					} else {
+						result += "<tr><td colspan='6'>작성된 게시글이 없습니다.</td></tr>";
+						pResult += "";
+					}
+					
+					// 테이블에 목록조회 결과, 페이징바 삽입
+					$tableBody.append(result);
+					$pagingArea.append(pResult);
+					
+					// 페이징 버튼 css
+					$(".clickBtn").mouseenter(function(){
+						$(this).css({"background":"darkgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).css({"background":"white"});
+					});
+					
+					// 페이징 처리. 목록조회 메소드 호출
+					$(".pagingBtn").click(function() {
+						var movePage = $(this).attr('name');
+
+						if(movePage == -1) return;
+						
+						$(this).boardListShow(movePage);
+					});
+					
+					// 게시판 상세보기
+					$("#listArea1 td").mouseenter(function(){
+						$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"white"});
+					}).click(function(){
+						var bno = $(this).parent().children().eq(0).children().eq(0).val();
+						var bType = $(this).parent().children().eq(1).children().eq(0).val();
+						console.log(bno);
+						location.href='<%= request.getContextPath() %>/detailBoard.ad?bno=' + bno + '&bType=' + bType; 
+						<%-- location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid; --%>
+					});
+					
+				},
+				error: function(err) {
+					console.log(err);
+				}
+				
+			});
+			
+		}
+		
+		
+		// 댓글 목록 조회 & 페이징처리 메소드
+		$.fn.replyListShow = function(currNum) {
+			$.ajax({
+				url: "<%=request.getContextPath()%>/replyList.me",
+				type: "get",
+				data: {currentPage: currNum },
+				dataType : "json",
+				success: function(rMap) {
+					var rInfo = rMap["rInfo"];
+					var pInf = rMap["pInf"];
+					
+					var $tableBody = $("#listArea2 tbody");
+					$tableBody.html("");
+					var result = "";
+					
+					var $pagingArea = $(".pagingArea");
+					var pResult = "";
+					$pagingArea.html("");
+					
+					if(rInfo.length > 0) {
+						$.each(rInfo, function(i) {
+							reply = rInfo[i][0];
+							board = rInfo[i][1];
+							console.log(reply);
+							console.log(board);
+							result += "<tr>"
+								+ "<td>"
+								+ "<input type='checkbox' name='isDelete' value='" + reply.bNo + "'>" 
+								+ "<input type='hidden' value='" + String(board.bType).split(",")[0] + "' name='bType'>" 
+								+ "<input type='hidden' value='" + reply.rNo + "' name='rNo'> </td>" 
+								+ "<td>" + String(board.bType).split(",")[1] + "</td>" 
+								+ "<td>" + board.bTitle + "</td>";
+							var content = String(reply.rContent);
+							
+							content = content.replace(/(<([^>]+)>)/ig,"");
+							
+							if(content.length > 15) {
+								result += "<td colspan='2'>" +content.substring(0, 14) + "... </td>";
+							} else { 
+								result += "<td colspan='2'>" + content + "</td>";
+							}
+							result += "<td>" + reply.rCreateDate + "</td>"
+								+ "</tr>";
+						});
+						
+						
+						// 페이징 바 
+						// 페이징 처리 시작!
+						
+						//<!-- 맨 처음으로(<<) -->
+						pResult += "<span class='pagingBtn clickBtn' name='1'>&lt;&lt;</span>";
+						
+						if(pInf.startPage <= 1) { 
+							pResult += "<span class='pagingBtn' name='-1'>&lt;</span>";
+							
+						} else {
+							pResult = "<span class='pagingBtn clickBtn' name='" + pInf.startPage - pInf.pagingBarSize + "'>&lt;</span>";
+						}
+							
+						for(var p = pInf.startPage; p <= pInf.endPage; p++) {
+							if(p == pInf.currentPage) { 
+									pResult += "<span class='pagingBtn selectBtn' name='-1'>" + p + " </span>";
+							} else {
+								pResult += "<span class='pagingBtn clickBtn' name='" + p + "'>" + p + "</span>";
+							} 
+						} 
+							
+						//<!-- 다음 페이지로(>) -->
+						if(pInf.endPage >= pInf.maxPage) {
+							pResult += "<span class='pagingBtn' name='-1'> &gt; </span>";
+						} else {
+							pResult += "<span class='pagingBtn clickBtn' name='" + pInf.startPage + pInf.pagingBarSize + "'>&gt;</span>";
+						}
+						
+						//<!-- 맨 끝으로(>>) -->
+						pResult += "<span class='pagingBtn clickBtn' name='" + pInf.maxPage + "'>&gt;&gt;</span>";
+					
+					} else {
+						result += "<tr><td colspan='5'>작성된 게시글이 없습니다.</td></tr>";
+						pResult += "";
+					}
+					
+					// 테이블에 목록조회 결과, 페이징바 삽입
+					$tableBody.append(result);
+					$pagingArea.append(pResult);
+					
+					// 페이징 버튼 css
+					$(".replyListArea .clickBtn").mouseenter(function(){
+						$(this).css({"background":"darkgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).css({"background":"white"});
+					});
+					
+					// 페이징 처리. 목록조회 메소드 호출
+					$(".replyListArea .pagingBtn").click(function() {
+						var movePage = $(this).attr('name');
+						console.log("이동할 페이지 : " + movePage);
+						if(movePage == -1) return;
+						
+						$(this).replyListShow(movePage);
+					});
+					
+					// 게시판 상세보기
+					$("#listArea2 td").mouseenter(function(){
+						$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"white"});
+					}).click(function(){
+						var bno = $(this).parent().children().eq(0).children().eq(0).val();
+						var bType = $(this).parent().children().eq(0).children().eq(1).val();
+						console.log(bno);
+						location.href = '<%= request.getContextPath() %>/detailBoard.me?bno=' + bno + '&bType=' + bType, '_blank'); 
+						<%-- location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid; --%>
+					});
+					
+				},
+				error: function(err) {
+					console.log(err);
+				}
+				
+			});		
+		
+		}
+		
+		$(document).boardListShow(1);
+		
+		$(".myBoard").addClass("active");
+		
+	});	
 							
     </script>
 

@@ -37,9 +37,9 @@ String nickName = writer[1];
                         	<p>[<%= b.getheader() %>]</p>
                              <span><%= b.getbTitle() %></span>
                         </div>
-                        <div class="Detail_Header_Icon"><img src="views/image/download.png"></div>
-                        <div class="Detail_Header_Icon"><img src="views/image/like.png" class = "changeImg" onclick="changeImg();"></div>
-                        <div class="Detail_Header_Icon"><img src="views/image/danger.png"></div>
+                        <% if(!nickName.equals(loginUser.getNickName())) { %>
+                        <div class="Detail_Header_Icon"><img src="views/image/danger.png" class= "danger"></div>
+                    	<%}%>
                     </div>
                     <!-- 작성일 작성자 -->
                     <div class ="Detail_Header_WD">
@@ -102,9 +102,9 @@ String nickName = writer[1];
     </section>
 
     <script>
-    
-    	$(".changeImg").click(function(){
-    		var changeImg =document.getElementsByClassName("changeImg");
+    	// 찜하기 - 여기서 안쓰는데 잘못만듬
+    	<%-- $(".changeImg").click(function(){
+    		var changeImg = $("changeImg");
             changeImg[0].src="views/image/liked.png";
             var bNo = <%= b.getbNo()%>
             $.ajax({
@@ -121,11 +121,10 @@ String nickName = writer[1];
 				}
 				
             });
-    	});
-        /* function changeImg(){
-            var changeImg =document.getElementsByClassName("changeImg");
-            changeImg[0].src="views/image/liked.png";
-        } */
+    	}); --%>
+    	
+
+    	// 게시글 목록, 수정 ,삭제 이동 
         function goList(){
         	location.href='<%= request.getContextPath() %>/playgroupWrite.li';
         }
@@ -139,6 +138,32 @@ String nickName = writer[1];
 		}
         
         
+    	// 게시글 신고
+    	$(".danger").click(function(){
+    		var uNo = <%= loginUser.getuNo()%>
+			var bNo = <%=b.getbNo()%>
+    		var rpContent = prompt( '신고 사유를 작성해주세요');
+    		
+    		if(rpContent == null){
+    			alert("게시글 신고 작성이 취소되었습니다.")
+    			return false;
+    		}
+    		
+    		$.ajax({
+				url : "dangerWrite.in",
+				type : "POST",
+				data : {uNo : uNo, rpContent : rpContent , bNo:bNo},
+				success : function(result){
+					if(result>0){
+						alert("신고 등록 완료");
+					}else{
+						console.log("신고 등록 에러 발생");
+					}
+				}
+				
+			});
+    	      
+    	});
         // 댓글 등록
         $("#reply_Submit").click(function(){
 			var uNo = <%= loginUser.getuNo()%>
@@ -167,7 +192,6 @@ String nickName = writer[1];
 		});
         
         // 댓글 출력 
-       
         	function selectRlist(){
     			var bNo = <%= b.getbNo()%>
     			$.ajax({
@@ -181,14 +205,14 @@ String nickName = writer[1];
     					
     					$.each(rList,function(i){
     						var $tr = $("<tr>");
-    						var $writerTd=$("<td id = 'rContentTd'>").html(rList[i].rContent).css("width","500px");
+    						var $writerTd=$("<td id ='rContentTd'>").html(rList[i].rContent).css("width","500px");
     						var $contentTd =$("<td>").text(rList[i].nickName).css("width","150px");
     						var $dateTd = $("<td>").text(rList[i].rCreateDate).css("width","150px");
     						$tr.append($writerTd);
     						$tr.append($contentTd);
     						$tr.append($dateTd);
     						 if(rList[i].nickName == "<%=loginUser.getNickName()%>") {
-    							var $update = $("<td>").html('<button type = "button" class ="replyUpdate"  >[수정]</button>').css("width","50px");
+    							var $update = $("<td>").html('<button type = "button" class ="replyUpdate">[수정]</button>').css("width","50px");
     							var $delete = $("<td>").html('<button type = "button" class ="replyDelete">[삭제]</button>').css("width","50px");
     							$tr.append($update);
         						$tr.append($delete);
@@ -206,22 +230,11 @@ String nickName = writer[1];
     		setInterval(function(){
     			selectRlist();
     		},3000);
-        	
-    		$(function() {
-    			$(".replyUpdate").click(function() {
-    				/* console.log($("#rContentTd").parent().children().eq(0).val()); */
-    				$("#reply_textarea").html($("#rContentTd").parent().children().eq(0).val());
-    			});
-    		});
+
+    		// 댓글 수정
     		
-    		/* function replyUpdate(){
-    			var rContentTd =$("#rContentTd").val(); 
-    			
-    			$("#reply_textarea").html(rContentTd);
-    		} */
-       
-		
-      
+    		
     </script>
+
 
 </html>
