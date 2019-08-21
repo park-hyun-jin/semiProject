@@ -194,7 +194,7 @@
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-            <form action="" method="post">
+            <form action="sheetShareWrite.bo" method="post">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
                 
@@ -208,7 +208,7 @@
                         <option value="7" >etc</option>
                     </select>
 
-                    <input type="text" name="board_title" class="board_title" placeholder="제목">
+                    <input type="text" name="board_title" class="board_title" placeholder="제목" required>
                 </div>
 
                 <!-- 악보 첨부파일 -->
