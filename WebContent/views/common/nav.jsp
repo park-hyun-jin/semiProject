@@ -271,7 +271,7 @@
 	
 		<!-- 로그인 창 -->
 	    <div id="login-form" class= "animate-top">
-	        
+        	<div id="loginHeader"><span id="loginClose" onclick="exitLoginModal()">x</span></div>
 	        <div id="login-input-email-pwd">
                <form method="post" id="login-form-input" action="<%=request.getContextPath() %>/loginUser.us">
                		<!-- 이메일로 로그인. loginWay -->
@@ -317,6 +317,7 @@
 	    
 	    <!-- 회원가입 눌렀을 때 -->
         <div id="agree-form" class="animate-top">
+            <div id="loginHeader"><span id="loginClose" onclick="exitLoginModal()">x</span></div>
             
             <div id="terms-of-service">
                 <span class="tos_label">이용약관</span>
@@ -350,7 +351,7 @@
         
 		<!-- (이메일로) 회원가입 모달 -->
         <div id="join_form" class="animate_top">
-            
+            <div id="loginHeader"><span id="loginClose" onclick="exitLoginModal()">x</span></div>
             <form method="post" action="<%=request.getContextPath() %>/emailJoin.do" id="join_form_input">
                 
                 <div id="join_input_info">
@@ -387,7 +388,6 @@
                     </div>
 
                     <div id="join_btn_area" class="login_btn_area">
-                        <span id="middle_line"><hr></span>
                         <button type="submit" id="go_join" class="join_btn">가입하기</button>
                     </div>
                 </div>
@@ -398,7 +398,7 @@
         <!-- ID/PWD 찾기 모달  -->
 	    <!-- ID 찾기 창 -->
 	    <div class="id_pwd_search_area animate_top">
-	        
+	        <div id="loginHeader"><span id="loginClose" onclick="exitLoginModal()">x</span></div>
 	        <span class="id_pwd_search_header">ID 찾기</span>
 	        
 	        <div class="id_pwd_search_form">
@@ -424,7 +424,7 @@
 	    
 	    <!-- PASSWORD 찾기 창 -->
 	    <div class="id_pwd_search_area animate_top">
-	        
+	        <div id="loginHeader"><span id="loginClose" onclick="exitLoginModal()">x</span></div>
 	        <span class="id_pwd_search_header">PASSWORD 찾기</span>
 	        
 	        <div class="id_pwd_search_form">
@@ -514,9 +514,14 @@
 	}
 	
 	// 로그인 버튼을 누르거나 x를 누르면 모달 닫기.
-    function exitModalLogin() {
-        document.getElementById('login-modal').style.display = 'none';
-    }
+    function exitLoginModal() {
+    
+        $("#login-modal").css("display","none");
+		$("#login-modal form").each(function() {
+			this.reset();
+		});
+		$(".chkMsg, .msg, .addChkMsg").text("");
+	}
 	// 소셜로그인시 추가정보 입력 모달. x를 누르면 모달 닫기.
     function exitAddInfoModal() {
         document.getElementById('addInfoModal').style.display = 'none';
@@ -525,6 +530,18 @@
 			this.reset();
 		});
 	}
+	
+	/* 
+    // 모달 실행시 모달폼 이외의 영역 클릭하면 폼 닫기. 폼 데이터 리셋 
+	$(document).on("click", function(e) {
+		if($("#login-modal").is(e.target)) {
+			$("#login-modal").css("display","none");
+			$("#login-modal form").each(function() {
+				this.reset();
+			});
+			$(".chkMsg, .msg, .addChkMsg").text("");
+		}
+	}); */
 	
 	
 	$(function() {
@@ -541,17 +558,6 @@
 			});
 		    $(".chkMsg, .msg, .addChkMsg").text("");
 	    });
-	    
-		 // 모달 실행시 모달폼 이외의 영역 클릭하면 폼 닫기. 폼 데이터 리셋 
-		$(document).on("click", function(e) {
-			if($("#login-modal").is(e.target)) {
-				$("#login-modal").css("display","none");
-				$("#login-modal form").each(function() {
-					this.reset();
-				});
-				$(".chkMsg, .msg, .addChkMsg").text("");
-			}
-		});
 		 
 		 
 	    // 회원가입 버튼 누르면 로그인 화면 사라지고 동의창 나옴. 
@@ -892,11 +898,6 @@
 	   });
 	   /* 설정정보를 초기화하고 연동을 준비 */
 	   naverLogin.init();
-	   
-	   
-	   
-	   
-	   
 	   
 	   
 	});
