@@ -211,7 +211,7 @@
             <form action="" method="post">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
-                    <select name="head" id="board_head">
+                    <select name="header" id="board_head">
                         <option value="0" selected>말머리</option>
                         <option value="1" >피아노</option>
                         <option value="2" >기타</option>
@@ -221,7 +221,7 @@
                         <option value="7" >etc</option>
                     </select>
 
-                    <input type="text" name="board_title" class="board_title" placeholder=" <%=request.getParameter("bTitle")%>">
+                    <input type="text" name="board_title" class="board_title" placeholder="제목" value="[<%=request.getParameter("bTitle")%>] 신청악보" readyonly>
                 </div>
 
                 <!-- 악보 첨부파일 -->

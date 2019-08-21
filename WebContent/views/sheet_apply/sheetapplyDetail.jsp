@@ -108,7 +108,7 @@ String nickName = writer[1];
     
     	// 악보 신청하면 이동하는 클릭 이벤트
     	function acceptApply(){
-    		location.href='<%= request.getContextPath() %>/views/sheet_share/sheetShareForm.jsp?bNo=<%= b.getbNo() %>';
+    		location.href='<%= request.getContextPath() %>/views/sheet_share/sheetShareForm.jsp?bNo=<%= b.getbNo() %>&bTitle=<%= b.getbTitle() %>&header=<%= b.getheader() %>';
     	}
     	// 찜하기 - 여기서 안쓰는데 잘못만듬
     	<%-- $(".changeImg").click(function(){
