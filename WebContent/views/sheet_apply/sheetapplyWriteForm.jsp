@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8">
 <title>Insert title here</title>
-
 <style>
     *{
         margin: 0;
@@ -33,12 +31,11 @@
     	position: relative;
     }
 </style>
-
 </head>
 <body>
 	<%@ include file="../common/nav.jsp" %>
 		<div id="iframeWrap">
-			<iframe id="writeForm" src="<%=request.getContextPath()%>/views/play_group/writeForm.jsp" width="1200px" height="900px" scrolling="no"></iframe>   
+			<iframe id="writeForm" src="<%=request.getContextPath()%>/views/sheet_apply/sheetapplyWrite.jsp" width="1200px" height="900px" scrolling="no"></iframe>   
 		</div>
 </body>
 </html>

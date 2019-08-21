@@ -225,9 +225,9 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover" href="#">악보신청</a>
+                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>
                     <ul class="detailList">
-                        <li><a href="#">피아노</a></li>
+                        <li><a href="<%=request.getContextPath()%>/sheetapplyWrite.li">피아노</a></li>
                         <li><a href="#">기타</a></li>
                         <li><a href="#">바이올린</a></li>
                         <li><a href="#">플루트</a></li>

@@ -37,6 +37,9 @@ String nickName = writer[1];
                         	<p>[<%= b.getheader() %>]</p>
                              <span><%= b.getbTitle() %></span>
                         </div>
+                        <div class = "Detail_Header_Icon">
+                        	<button onclick="acceptApply();">신청받아주기</button>
+                        </div>
                         <% if(!nickName.equals(loginUser.getNickName())) { %>
                         <div class="Detail_Header_Icon"><img src="views/image/danger.png" class= "danger"></div>
                     	<%}%>
@@ -102,6 +105,11 @@ String nickName = writer[1];
     </section>
 
     <script>
+    
+    	// 악보 신청하면 이동하는 클릭 이벤트
+    	function acceptApply(){
+    		location.href='<%= request.getContextPath() %>/views/sheet_share/sheetShareForm.jsp?bNo=<%= b.getbNo() %>';
+    	}
     	// 찜하기 - 여기서 안쓰는데 잘못만듬
     	<%-- $(".changeImg").click(function(){
     		var changeImg = $("changeImg");
@@ -126,14 +134,14 @@ String nickName = writer[1];
 
     	// 게시글 목록, 수정 ,삭제 이동 
         function goList(){
-        	location.href='<%= request.getContextPath() %>/playgroupWrite.li';
+        	location.href='<%= request.getContextPath() %>/sheetapplyWrite.li';
         }
         function updateBoard(){
-        	location.href='<%= request.getContextPath() %>/playgroupWriteForm.up?bNo=<%= b.getbNo() %>';
+        	location.href='<%= request.getContextPath() %>/sheetapplyWriteForm.up?bNo=<%= b.getbNo() %>';
         }
         function deleteBoard(){
 			if(confirm('정말 삭제하시겠습니까?')){
-				location.href='<%= request.getContextPath() %>/playgroupWrite.del?bNo=<%= b.getbNo() %>';
+				location.href='<%= request.getContextPath() %>/sheetapplyWrite.del?bNo=<%= b.getbNo() %>';
 			}
 		}
         
