@@ -30,6 +30,17 @@ public class User {
 	}	
 
 
+	public User(int uNo, String userName, String nickName, String artist, int userPoint, int userCash) {
+	super();
+	this.uNo = uNo;
+	this.userName = userName;
+	this.nickName = nickName;
+	this.artist = artist;
+	this.userPoint = userPoint;
+	this.userCash = userCash;
+}
+
+
 	public User(int uNo, String email, String userPwd, String userName, String nickName, String artist, int userPoint, int userCash) {
 		super();
 		this.uNo = uNo;

@@ -47,8 +47,13 @@
     font-size: 20px;
 }
 .community_table{
+<<<<<<< HEAD
    width : 100%;
       
+=======
+	width : 100%;
+		
+>>>>>>> refs/heads/master
 }
 
 /* 게시글 영역(목록) */

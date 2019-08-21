@@ -3,7 +3,6 @@
     pageEncoding="UTF-8" import="user.model.vo.User"%>
     
 <%
-
 	// 로그인했을 경우 유저정보
 	User loginUser = (User)session.getAttribute("loginUser");
 	
@@ -32,12 +31,10 @@
             resize: both;
             width: 1910px;            
         }
-
         .navbar{
             font-size: 1.2rem;
             padding: 0rem 3rem;
         }
-
         .bg-primary{
             z-index: 2;
             position: fixed !important;
@@ -52,7 +49,6 @@
             /* margin-right: 2rem; */
             
         }
-
         .sign_in_btn{
             margin: 0 auto;
             display: inline-block;
@@ -99,29 +95,24 @@
         .form-control{
             width: 5rem;
         }
-
         .nav-hover{
             border-bottom: 4px solid rgb(1,11,20);
             border-top: 4px solid rgb(1,11,20);
             width: 96.88px;
             height: 58.88px;
         }
-
         .nav-hover:hover{
             border-bottom: 4px solid yellow;
         }
-
         .nav-link:hover, .nav-link:focus {
             text-decoration: none;
         }
-
         .detailList{
             display: none;
             border-bottom: 1px solid #adb5bd;
             
             box-sizing: border-box;
         }
-
         .detailList>li{
             display: inline;
             font-size: 1.2rem;
@@ -132,15 +123,12 @@
         .detailList>li a{
             color: rgb(1,11,20);
         }
-
         .detailList>li:hover a{
             border-bottom: 3px solid yellow;
         }
-
         .nav-margin{
             margin-right: 10rem !important;
         }
-
         .nav-margin:hover > .detailList{
             position: absolute;
             display: block;
@@ -149,11 +137,9 @@
             margin-top: 10px;
             padding: 0;
         } 
-
         .nav-margin:hover > .detailList2{
             width: 500px;
         }
-
         .detailList2>li>a{
             text-decoration: none;
             
@@ -162,10 +148,7 @@
             padding-left: 0.5rem;
             margin-right: 3rem;
         }
-
 	
-
-
         </style>
 
 
@@ -239,7 +222,7 @@
                     <a class="nav-link nav-hover" href="#">커뮤니티</a>
                     <ul class="detailList detailList2">
                         <li><a href="<%= request.getContextPath() %>/notice.me">공지사항</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="<%= request.getContextPath() %>/freeBoard.bo">자유게시판</a></li>
                         <li><a href="#">Q&A</a></li>
                     </ul>
                 </li>
@@ -524,15 +507,16 @@
 			<% } else if(loginUser.getSign().equals("K")) { %>
 				Kakao.Auth.logout();
 				location.href = "<%=request.getContextPath()%>/logout.me";
-			<% } 
-		} %>
+			<% } else{ %>
+				location.href = "<%=request.getContextPath()%>/logout.me";			
+			<% } %>
+		<% } %>
 	}
 	
 	// 로그인 버튼을 누르거나 x를 누르면 모달 닫기.
     function exitModalLogin() {
         document.getElementById('login-modal').style.display = 'none';
     }
-
 	// 소셜로그인시 추가정보 입력 모달. x를 누르면 모달 닫기.
     function exitAddInfoModal() {
         document.getElementById('addInfoModal').style.display = 'none';
@@ -585,7 +569,6 @@
 		    	$("#agree-form").css("display", "none");
 		    	$("#join_form").css("display", "block");
 		    	$("#emailChk").attr("disabled", true).css("border-style", "none");
-
 	    	} else {
 	    		$("#tos_agree_area").css("color", "red");
 	    	}
@@ -607,7 +590,6 @@
     	/* $("#kakaoCreateBtn").click(function() {
     		$("#kakao-login-btn img").click();
     	}); */
-
     	// 카카오로그인 이미지 누르면 카카오 api 실행
 		$(".kakaoCreateBtn").click(function() {
 			kakaoLogin();
@@ -839,7 +821,6 @@
 	   //<![CDATA[
 	   // 사용할 앱의 JavaScript 키를 설정해 주세요.
 	   Kakao.init('<%=kakaoKey%>');
-
 	   function kakaoLogin() {
 		
 		   Kakao.Auth.loginForm({
@@ -853,13 +834,13 @@
 		               var userName = res.properties.nickname
 		               console.log("userId / " + userId);
 		               $.ajax({
-		                  url :'<%=request.getContextPath()%>/isKakaoUser.us',
-		               data : {userId: userId},
+		                  url :'<%=request.getContextPath()%>/isSocialUser.us',
+		               data : {userId: userId, sign: "K"},
 		               type: 'post',
 		               success: function(result) {
 		                  console.log("회원가입여부 / " + result);
 		                  if(result > 0) {
-		                     location.href="<%=request.getContextPath()%>/kakaoLogin.us?userId="+userId;
+		                     location.href="<%=request.getContextPath()%>/socialLogin.us?userId="+userId+"&sign=K";
 		                     } else {
 		                        console.log("모달 나오냐 / " + result);
 		                        $("#addInfoModal").css("display", "block");
@@ -896,14 +877,8 @@
 		   
 		   });
 		}
-	   
-	   
-	   
-	   
-	   
-	   
-	   
 
+	   
 	   var naverLogin = new naver.LoginWithNaverId({
 	   	clientId : "TyJHkEkL1q5EMX7mTaF3",
 	   	callbackUrl : "http://localhost:8080/NORE_DUCK/views/common/naverLoginCallback.jsp",
@@ -915,7 +890,6 @@
 	   	}
 	   /* 로그인 버튼의 타입을 지정 */
 	   });
-
 	   /* 설정정보를 초기화하고 연동을 준비 */
 	   naverLogin.init();
 	   
@@ -926,8 +900,6 @@
 	   
 	   
 	});
-
-
 	
 </script>
 
