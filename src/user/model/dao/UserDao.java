@@ -18,6 +18,7 @@ import board.model.vo.Board;
 import cash.model.vo.Imp;
 import point.model.vo.Point;
 import user.model.vo.User;
+import user.model.vo.Artist;
 
 public class UserDao {
    Properties prop = null;
@@ -172,7 +173,7 @@ public class UserDao {
 
 	public User selectUser(Connection conn, int uNo) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+		ResultSet rset = null; 
 		
 		User user = null;
 		
@@ -193,7 +194,8 @@ public class UserDao {
 						rset.getString(5), 
 						rset.getString(6), 
 						rset.getInt(7), 
-						rset.getInt(8));
+						rset.getInt(8)
+						);
 			}
 			
 			
@@ -451,7 +453,7 @@ public class UserDao {
 	      try {
 	         pstmt = conn.prepareStatement(query);
 	         pstmt.setInt(1, Integer.parseInt(userId));
-	         pstmt.setString(2, "K");
+	         pstmt.setString(2, sign);
 	         
 	         rset = pstmt.executeQuery();
 	         if(rset.next()) result = rset.getInt(1);
@@ -476,7 +478,7 @@ public class UserDao {
 	      PreparedStatement pstmt = null;
 	      ResultSet rset = null;
 	         
-	      String query = prop.getProperty("kakaoLoginUser");
+	      String query = prop.getProperty("socialLoginUser");
 	         
 	      User loginUser = null;
 	         
@@ -623,7 +625,38 @@ public Board selectBoard(Connection conn, int bNo) {
 				
 		return result;
 	}
-	
+
+
+	public int certificationSubmit(Connection conn, Artist certification, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("certificationSubmit"); // 쿼리를 가져오는 거 
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+				
+			pstmt.setInt(1, uNo);
+			pstmt.setString(2, certification.getAccountNumber());
+			pstmt.setString(3, certification.getContent());
+			pstmt.setString(4, certification.getPictureName());
+			pstmt.setString(5,  certification.getUrlName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+		
+		
+		
+
 
 
 
