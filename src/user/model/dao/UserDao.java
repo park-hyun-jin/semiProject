@@ -17,6 +17,7 @@ import board.model.vo.Attachment;
 import board.model.vo.Board;
 import cash.model.vo.Imp;
 import point.model.vo.Point;
+import user.model.vo.Artist;
 import user.model.vo.User;
 import user.model.vo.artist;
 
@@ -627,7 +628,7 @@ public Board selectBoard(Connection conn, int bNo) {
 	}
 
 
-	public int certificationSubmit(Connection conn, artist certification, int uNo) {
+	public int certificationSubmit(Connection conn, Artist certification, int uNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("certificationSubmit"); // 쿼리를 가져오는 거 
@@ -638,7 +639,7 @@ public Board selectBoard(Connection conn, int bNo) {
 			
 				
 			pstmt.setInt(1, uNo);
-			pstmt.setInt(2, certification.getAccountNumber());
+			pstmt.setString(2, certification.getAccountNumber());
 			pstmt.setString(3, certification.getContent());
 			pstmt.setString(4, certification.getPictureName());
 			pstmt.setString(5,  certification.getUrlName());

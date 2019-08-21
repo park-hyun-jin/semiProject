@@ -19,6 +19,14 @@ public class Report {
 		this.bNo = bNo;
 		this.userNo = userNo;
 	}
+	
+
+	public Report(String rpContent, int bNo, int userNo) {
+		super();
+		this.rpContent = rpContent;
+		this.bNo = bNo;
+		this.userNo = userNo;
+	}
 
 
 	public int getRpNo() {
