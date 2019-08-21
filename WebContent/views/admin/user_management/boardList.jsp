@@ -154,6 +154,9 @@
 		
 			<script>
 		$(function(){
+			$("#nav_user_management a").css("color", "rgb(235, 199, 91)");
+			
+			
 			// 유저정보 상세보기
 			$(".boardListTable td").mouseenter(function(){
 				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});

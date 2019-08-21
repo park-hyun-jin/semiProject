@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 
 <style>
-	 .admin_main{
+	 .section_wrap {
 	    padding-top: 8rem;
 	    /* width: 1200px; */
 	    height: 850px;
-	    margin: 0 auto;
+	    margin-left: 400px;
 	    position: relative;
+	    
 	
 	}
 	.main_money,.main_artist,.main_report{
@@ -26,17 +27,17 @@
 	}
 	
 	
-	.admin_main th,.admin_main td{
+	.section_wrap th, .section_wrap td{
 	    font-size: 13px;
 	    text-align: center;
 	    border-bottom: 1px solid black;
 	    padding: 3px;
 	}
-	.admin_main table{
+	.section_wrap table{
 	    border-collapse: collapse;
 	}
 	
-	.admin_main th{
+	.section_wrap th{
 	    background-color: rgb(57, 109, 219);
 	    color: white;
 	}
@@ -50,7 +51,7 @@
 
 	<%@ include file="adminNav.jsp" %>
 	
-	<div class= "admin_main">
+	<div class= "section_wrap">
 	    <div class = "main_money">
 	        <table>
 	            <tr>

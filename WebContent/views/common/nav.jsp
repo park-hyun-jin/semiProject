@@ -227,7 +227,7 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/playgroupWrite.li">연주모임</a>
+                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/playgroupSearch.bo">연주모임</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
