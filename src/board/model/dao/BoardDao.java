@@ -2229,7 +2229,7 @@ private Properties prop = new Properties();
 				board = new Board();
 				
 				board.setbNo(bNo);
-				board.setbTitle(rset.getString("Bno"));
+				board.setbTitle(rset.getString("btitle"));
 				board.setbContent(rset.getString("bContent"));
 				board.setbCount(rset.getInt("bCount"));
 				board.setCreateDate(rset.getDate("create_Date"));
