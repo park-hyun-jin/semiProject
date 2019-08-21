@@ -7,7 +7,6 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import cash.model.vo.Imp;
 import user.model.dao.UserDao;
@@ -25,9 +24,11 @@ public class UserService {
 	* @return result
 	*/
 	public int emailCheck (String joinEmail) {
+		
 		Connection conn = getConnection();
 	   
 		int result = new UserDao().emailCheck(conn, joinEmail);
+
 		return result;
 	}
 	

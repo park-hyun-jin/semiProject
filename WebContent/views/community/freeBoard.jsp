@@ -84,46 +84,51 @@
 
                 <!-- 페이지 이름 영역 -->
                 <div class="commuity_header">
-                    <span class="community_label"> 공지사항 </span>
+                    <span class="community_label"> </span>
                 </div>
                 <!-- 게시글 목록 -->
                 <div class = "community_board_area">
                     <table align="center" class="community_table">
                         <tr class="table_header">
-                            <th width="10%">글 번호</th>
-                            <th width="10%">말머리</th>
-                             <th width="50%">제목</th>
-                            <th width="10%">작성자</th>
-                             <th width="5%">조회수</th>
-                            <th width="15%">작성일</th>
+                            <th width="100px">번호</th>
+                            <th width="500px">제목</th>
+                            <th width="100px">작성자</th>
+                            <th width="100px">조회수</th>
+                            <th width="200px">작성일</th>
                         </tr>
-                        <tr>
-                           <td></td>
-                           <td></td> 
-                           <td></td> 
-                           <td></td> 
-                           <td></td> 
-                           <td></td>  
-                        </tr>
+                   <% if(list.isEmpty()){ %>
+				<tr>
+					<td colspan="6">등록된 게시글이 없습니다.</td>
+				</tr>
+				<% }else { %>
+					<%for(Board b : list){ %>
+						  <tr class="table_header">
+							<td width="10%"><%=b.getbNo()%></td>						
+							<td width="50%"><%=b.getbTitle() %></td>
+							<td width="10%"><%=b.getwriter() %></td>
+							<td width="5%"><%=b.getbCount() %></td>
+							<td width="15%"><%=b.getCreateDate()%></td>
+
+						</tr>
+					<%} %>
+
+				<% } %> 
                     </table>
                 </div>
                
-                <!-- 페이징 처리 영역 -->
-                <div class="pagWrap">
-               
-                    
+            
                     <!------- 페이징 바 ------->
 			<!-- 페이징 처리 시작! -->
 			<div class="pagingArea" align="center">
 				<!-- 맨 처음으로(<<) -->
-				<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/notice.me?currentPage=1'">&lt;&lt;</span>
+				<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/freeBoard.bo?currentPage=1'">&lt;&lt;</span>
 			
 				<!-- 이전 페이지로(<) -->
 				<% if(currentPage <= 1) { %>
 					<span class="pagingBtn">&lt;</span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/notice.me?currentPage=<%= currentPage-1 %>'">&lt;</span>
+						onclick="location.href='<%= request.getContextPath() %>/freeBoard.bo?currentPage=<%= currentPage-1 %>'">&lt;</span>
 				<% } %>
 				
 				<!-- 페이지 목록 -->
@@ -132,7 +137,7 @@
 						<span class="pagingBtn selectBtn"><%= p %></span>
 					<% } else{ %>
 						<span class="pagingBtn clickBtn" 
-							onclick="location.href='<%= request.getContextPath() %>/notice.me?currentPage=<%= p %>'"><%=p%></span>
+							onclick="location.href='<%= request.getContextPath() %>/freeBoard.bo?currentPage=<%= p %>'"><%=p%></span>
 					<% } %>
 				<%} %>
 				
@@ -141,18 +146,21 @@
 					<span class="pagingBtn"> &gt; </span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/notice.me?currentPage=<%= currentPage+1 %>'">&gt;</span>
+						onclick="location.href='<%= request.getContextPath() %>/freeBoard.bo?currentPage=<%= currentPage+1 %>'">&gt;</span>
 				<% } %>
 				
 				<!-- 맨 끝으로(>>) -->
 				<span class="pagingBtn clickBtn"
-					onclick="location.href='<%= request.getContextPath() %>/notice.me?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/freeBoard.bo?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 			</div>      
-                </div>
+               
          
-        	 <!-- 글쓰기 버튼 -->
+        	<!-- 글쓰기 버튼 -->
                 <div class="community_footer">
-                    <button class="writeBtn">글쓰기</button> 
+                 <% if(loginUser != null){ %>
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/freeBoardWrite.fo'">글쓰기</button> 
+                <%} %>
+                    <%-- <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button>  --%>
                 </div>
             <!-- 검색 영역 -->
             <div class = "search_area">

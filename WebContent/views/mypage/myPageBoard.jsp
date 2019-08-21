@@ -556,7 +556,11 @@ section{
      
      $(function(){
 		// 게시판 상세보기
-		$("#listArea1 td").click(function(){
+		$("#listArea1 td").mouseenter(function(){
+			$(this).parent().css({"background":"lightgray", "cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+		}).click(function(){
 			var bNo = $(this).parent().children().children().val();
     		console.log(bNo);
 			location.href="<%= request.getContextPath() %>/playgroupWrite.de?bNo="+bNo;

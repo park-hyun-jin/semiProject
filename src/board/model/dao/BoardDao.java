@@ -6,9 +6,11 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.locks.StampedLock;
 
 import board.model.vo.Board;
 import board.model.vo.Reply;
@@ -37,7 +39,6 @@ private Properties prop = new Properties();
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
-			pstmt.setInt(3, Integer.parseInt(board.getheader()));
 			pstmt.setInt(4,Integer.parseInt(board.getwriter()));
 			
 			result = pstmt.executeUpdate();
@@ -155,6 +156,940 @@ private Properties prop = new Properties();
 	}
 
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int getNoticeBoardCount(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int boardCount = 0;
+		
+		String query = prop.getProperty("getWriteBoardCount");
+		
+		try {
+			
+			stmt=conn.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardCount = rset.getInt(1);
+				
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}		
+    
+		return boardCount;
+	}
+
+	public ArrayList<Board> selectList(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectList");
+		
+		
+		   try {
+		         stmt = conn.createStatement();
+		      
+		         rset = stmt.executeQuery(query);
+		         
+		         list = new ArrayList<Board>();
+		       
+		         
+		         while(rset.next()) {
+		       
+		            Board b = new Board(
+		            		
+		            		rset.getInt(2),
+		            		rset.getString(3),
+		            		rset.getInt(4),
+		            		rset.getDate(5),
+		            		rset.getString(6)
+		            		);
+		           
+		            		
+		            		list.add(b);
+
+		         }      
+		         
+		      
+		      } catch (Exception e) {
+		         
+		      }finally {
+		         close(rset);
+		         close(stmt);
+		      }
+		      
+		      
+	      return list;
+	   }
+		
+		
+	
+
 	// -------------------------------추가한 영역------------------------------------------------
 	public int updatePlayGroup(Connection conn, Board playgroupboard) {
 		PreparedStatement pstmt = null;
@@ -503,12 +1438,11 @@ private Properties prop = new Properties();
 		ResultSet rset = null;
 		int result = 0;
 		String query = prop.getProperty("getSearchPlaygroupCount");
-		if(head.equals("100")) {
+		if(head == null || head.equals("100")) {
 			query += " AND BTITLE LIKE '%" + keyword +"%'";
 		} else {
 			query += " AND HEADER=" + head + " AND BTITLE LIKE '%" + keyword +"%'";
 		}
-		System.out.println(query);
 		
 		try {
 			stmt = conn.createStatement();
@@ -524,7 +1458,7 @@ private Properties prop = new Properties();
 			close(rset);
 			close(stmt);
 		}
-		
+		System.out.println("count: " + result);
 		return result;
 	}
 
@@ -539,14 +1473,11 @@ private Properties prop = new Properties();
 		int startRow = (currentPage-1)*limit+1;
 		int endRow = startRow+limit -1;
 		
-		if(head.equals("100"))
-			 query += " ORDER BY BNO DESC))"; 
-		else
-			query += "AND HEADER=" + head + " ORDER BY  BNO DESC))"; 
+		if(head != null && !head.equals("100"))
+			query += "AND HEADER=" + head; 
 		
-		query += "WHERE (RNO BETWEEN "+ startRow + " AND " + endRow + ") AND BTITLE LIKE '%" + keyword + "%'";
+		query += " AND BTITLE LIKE '%" + keyword + "%' ORDER BY  BNO DESC)) WHERE (RNO BETWEEN "+ startRow + " AND " + endRow + ")";
 		
-		System.out.println(query);
 		try {
 			stmt = conn.createStatement();
 			
@@ -1219,8 +2150,67 @@ private Properties prop = new Properties();
 
 	
 
+	public int getFreeBoardCount(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int boardCount = 0;
+		
+		String query = prop.getProperty("getFreeBoardCount");
+		
+		try {
+			
+			stmt=conn.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardCount = rset.getInt(1);
+				
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}		
+    
+		return boardCount;
+	}
+
+	public int insertFreeBoard(Connection conn, Board board) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFreeBoard");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3,Integer.parseInt(board.getwriter()));
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	}	
+		
+		
+		
+		
 
 
-}
+
+
+
 
 
