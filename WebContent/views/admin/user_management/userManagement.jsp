@@ -169,6 +169,40 @@
 		height : 25px;
 		font-size: 15px;
 	}
+	
+	
+	
+	/* 작성 댓글 테이블 */
+ 	.replyListArea {
+ 		width: 1010px;
+		margin-left: 100px;
+	}
+
+	.replyListTable {
+		width: 820px;
+ 		margin-left: 100px;
+	}
+
+	.replyListTable, .replyListTable td, .replyListTable th {
+	    border: 1px solid black;  
+	    border-collapse: collapse;
+	
+	}
+	.replyListTable td {
+	    width: 200px;
+	    height: 40px;
+	    padding: 10px;
+	    font-size: 17px;
+	    
+	}
+	
+	.replyListTable th {
+		background-color: lightgray;
+		height: 50px;
+		font-weight: bold;
+		font-size: 18px;
+		text-align: center;
+	}
 
 </style>
 
@@ -294,7 +328,8 @@
 
 							result += "<tr>"
 								+ "<td>"
-								+ "<input type='hidden' value=\"" + bList[i].bNo + "\">" 
+								+ "<input type='hidden' value='" + bList[i].bNo + "' name='bNo'>" 
+								+ "<input type='hidden' value='" + String(bList[i].bType).split(",")[0] + "' name='bType'>" 
 								+  String(bList[i].bType).split(",")[1] + "</td>" 
 								+ "<td>" + bList[i].bTitle + "</td>";
 							var content = bList[i].bContent;
@@ -374,13 +409,12 @@
 					}).mouseout(function(){
 						$(this).parent().css({"background":"white"});
 					}).click(function(){
-						var bno = $(this).parent().children().eq(0).children().val();
+						var bno = $(this).parent().children().eq(0).children().eq(0).val();
+						var bType = $(this).parent().children().eq(0).children().eq(1).val();
 						console.log(bno);
-						window.open('<%= request.getContextPath() %>/detailBoard.ad?bno=' + bno, '_blank'); 
+						window.open('<%= request.getContextPath() %>/detailBoard.ad?bno=' + bno + '&bType=' + bType, '_blank'); 
 						<%-- location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid; --%>
 					});
-					
-					
 					
 				},
 				error: function(err) {
@@ -402,8 +436,6 @@
 				success: function(rMap) {
 					var rInfo = rMap["rInfo"];
 					var pInf = rMap["pInf"];
-					console.log(rInfo);
-					console.log(pInf);
 					
 					var $tableBody = $(".replyListTable tbody");
 					$tableBody.html("");
@@ -414,15 +446,19 @@
 					$pagingArea.html("");
 					
 					if(rInfo.length > 0) {
-						$.each(rList, function(i) {
-							reply = rInfo[0];
-							board = rInfo[1];
+						$.each(rInfo, function(i) {
+							reply = rInfo[i][0];
+							board = rInfo[i][1];
+							console.log(reply);
+							console.log(board);
 							result += "<tr>"
 								+ "<td>"
-								+ "<input type='hidden' value=\"" + bList[i].bNo + "\">" 
-								+  String(bList[i].bType).split(",")[1] + "</td>" 
-								+ "<td>" + bList[i].bTitle + "</td>";
-							var content = bList[i].bContent;
+								+ "<input type='hidden' value='" + reply.bNo + "' name='bNo'>" 
+								+ "<input type='hidden' value='" + String(board.bType).split(",")[0] + "' name='bType'>" 
+								+ "<input type='hidden' value='" + reply.rNo + "' name='rNo'>" 
+								+  String(board.bType).split(",")[1] + "</td>" 
+								+ "<td>" + board.bTitle + "</td>";
+							var content = String(reply.rContent);
 							
 							content = content.replace(/(<([^>]+)>)/ig,"");
 							
@@ -431,8 +467,7 @@
 							} else { 
 								result += "<td>" + content + "</td>";
 							}
-							result += "<td>" + String(bList[i].writer).split(",")[1] + "</td>" 
-								+ "<td>" + bList[i].createDate + "</td>"
+							result += "<td>" + reply.rCreateDate + "</td>"
 								+ "</tr>";
 						});
 						
@@ -499,13 +534,12 @@
 					}).mouseout(function(){
 						$(this).parent().css({"background":"white"});
 					}).click(function(){
-						var bno = $(this).parent().children().eq(0).children().val();
+						var bno = $(this).parent().children().eq(0).children().eq(0).val();
+						var bType = $(this).parent().children().eq(0).children().eq(1).val();
 						console.log(bno);
-						window.open('<%= request.getContextPath() %>/detailBoard.ad?bno=' + bno, '_blank'); 
+						window.open('<%= request.getContextPath() %>/detailBoard.ad?bno=' + bno + '&bType=' + bType, '_blank'); 
 						<%-- location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid; --%>
 					});
-					
-					
 					
 				},
 				error: function(err) {

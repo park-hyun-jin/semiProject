@@ -75,13 +75,11 @@ public class AdminDao {
 		String query = prop.getProperty("selectList");
 		
 		ArrayList<User> list = null;
-		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			int startRow = (currentPage -1) * limit + 1;
 			int endRow = startRow + limit - 1;
 			
-			System.out.println("start: " + startRow + " / endRow : " + endRow);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -122,7 +120,7 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uno);
 			rset = pstmt.executeQuery();
-			System.out.println(query);
+
 			if(rset.next()) {
 				
 				user = new User();
@@ -156,7 +154,7 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uno);
 			rset = pstmt.executeQuery();
-			System.out.println(query);
+
 			if(rset.next()) {
 				artist = new Artist();
 				
@@ -193,7 +191,6 @@ public class AdminDao {
 			int startRow = (currentPage -1) * limit + 1;
 			int endRow = startRow + limit - 1;
 			
-			System.out.println("start: " + startRow + " / endRow : " + endRow);
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uno);

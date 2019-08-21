@@ -1,4 +1,4 @@
-package admin.controller;
+package user.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,23 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import admin.model.service.AdminService;
 import board.model.vo.PageInfo;
-import board.model.vo.Reply;
+import user.model.service.UserService;
+import user.model.vo.User;
 
-@WebServlet("/replyList.ad")
-public class ReplyListServlet extends HttpServlet {
+@WebServlet("/replyList.me")
+public class ReplyListUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ReplyListServlet() {
+    public ReplyListUserServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uno = Integer.parseInt(request.getParameter("uno"));
+		int uno = ((User)request.getSession().getAttribute("loginUser")).getuNo();
 		
-		AdminService aService = new AdminService();
-		int replyCount = aService.getReplyCount(uno);
+		UserService uService = new UserService();
+		int replyCount = uService.getReplyCount(uno);
 		
 		int limit = 10; 		// 한 페이지에 보여질 게시글 수
 		int pagingBarSize = 10; // 보여질 페이징바의 페이지 개수
@@ -40,7 +40,7 @@ public class ReplyListServlet extends HttpServlet {
 		int endPage = 0; 		// 페이징바 끝 페이지 번호
 		
 		// currentPage - 현재 페이지 번호를 표시할 변수
-		if(request.getParameter("currentPage") == null) {
+		if(request.getParameter("currentPage") == null || request.getParameter("currentPage").equals("")) {
 			// 처음 게시판 목록으로 화면 전환 시 1페이지가 보이도록 함.
 			currentPage = 1;
 		} else {
@@ -57,7 +57,7 @@ public class ReplyListServlet extends HttpServlet {
 		
 		PageInfo pInf = new PageInfo(replyCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 		
-		ArrayList<ArrayList> list = aService.replyList(uno, currentPage, limit);
+		ArrayList<ArrayList> list = uService.replyList(uno, currentPage, limit);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("rInfo", list);
