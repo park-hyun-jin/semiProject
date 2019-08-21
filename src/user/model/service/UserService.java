@@ -7,6 +7,9 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import admin.model.dao.AdminDao;
+import board.model.dao.BoardDao;
+
 import board.model.vo.Board;
 import cash.model.vo.Imp;
 import user.model.dao.UserDao;
@@ -260,6 +263,149 @@ public class UserService {
 		return result;
 		
 	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getReplyCount(int uno) {
+		Connection conn = getConnection();
+		int replyCount = new UserDao().getReplyCount(conn, uno);
+		
+		return replyCount;
+	}
+
+	public ArrayList<ArrayList> replyList(int uno, int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<ArrayList> list = new UserDao().replyList(conn, uno, currentPage, limit);
+		
+		return list;
 	}
   
   
