@@ -2,15 +2,16 @@ package user.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import user.model.vo.User;
+
 import user.model.service.UserService;
-import user.model.vo.artist;
+import user.model.vo.Artist;
+import user.model.vo.User;
+
 
 @WebServlet("/certificationInput.do")
 public class test2 extends HttpServlet {
@@ -36,7 +37,7 @@ public class test2 extends HttpServlet {
 	    
 	   
 	   
-	    artist certification = new artist(urlName,accountNumber, content, pictureName);
+	    Artist certification = new Artist(accountNumber, content, pictureName, urlName);
 
 	    int result = new UserService().certificationSubmit(certification, uNo);
 	    

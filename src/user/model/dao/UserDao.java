@@ -19,7 +19,7 @@ import cash.model.vo.Imp;
 import point.model.vo.Point;
 import user.model.vo.Artist;
 import user.model.vo.User;
-import user.model.vo.artist;
+import user.model.vo.Artist;
 
 public class UserDao {
    Properties prop = null;
@@ -639,8 +639,8 @@ public Board selectBoard(Connection conn, int bNo) {
 			
 				
 			pstmt.setInt(1, uNo);
-			pstmt.setString(2, certification.getAccountNumber());
-			pstmt.setString(3, certification.getContent());
+			pstmt.setString(2, certification.getAccount());
+			pstmt.setString(3, certification.getaContent());
 			pstmt.setString(4, certification.getPictureName());
 			pstmt.setString(5,  certification.getUrlName());
 			

@@ -43,7 +43,7 @@
 	$.ajax({
         data: form_data,
         type: "post",
-        url: "contentImg.bo",
+        url: "<%=request.getContextPath()%>/sheetSharePdf.ch",
         dataType: "text",
         cache: false,
         contentType: false,
