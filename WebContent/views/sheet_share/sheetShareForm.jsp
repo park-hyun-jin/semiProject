@@ -200,7 +200,7 @@
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-            <form action="" method="post">
+            <form action="sheetShareWrite.bo" method="post">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
                         <select name="header" id="board_head">
@@ -213,7 +213,8 @@
                         <option value="6" >ETC</option>
                     </select>
 
-                    <input type="text" name="board_title" class="board_title" placeholder="제목" value="[<%=request.getParameter("bTitle")%>] 신청악보" readyonly>
+
+                    <input type="text" name="board_title" class="board_title" placeholder="제목" required>
 
                 </div>
 
