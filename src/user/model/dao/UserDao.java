@@ -17,9 +17,8 @@ import board.model.vo.Attachment;
 import board.model.vo.Board;
 import cash.model.vo.Imp;
 import point.model.vo.Point;
-import user.model.vo.Artist;
 import user.model.vo.User;
-import user.model.vo.artist;
+import user.model.vo.Artist;
 
 public class UserDao {
    Properties prop = null;
