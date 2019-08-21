@@ -1446,6 +1446,8 @@ private Properties prop = new Properties();
 			
 		} catch (SQLException e) {			
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 
 		
@@ -1478,18 +1480,15 @@ private Properties prop = new Properties();
 								rset.getInt(11),
 								rset.getInt(12)
 						);
-				
 			}
-			
-			
 			
 		} catch (SQLException e) {		
 			e.printStackTrace();
-		}
-		
-		
-		
-		return null;
+		} finally {
+			close(rset);
+			close(pstmt);
+		}				
+		return note;
 	}
 
 	

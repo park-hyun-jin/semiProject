@@ -197,37 +197,37 @@ public class BoardService {
 	
 	
 	
+	public int insertPdfBoard(Board board, Note note) {
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		int result1 = bDao.insertPdfBoard(conn, board);
+		int result2 = bDao.insertPdfBoard(conn, note);
+				
+		if(result1>0 && result2 > 0) {
+			commit(conn);
+		}else {
+			String savePath = note.getFilePath();
+			String saveFile = note.getChangeName();
+			File failedFile = new File(savePath + saveFile);
+			
+			failedFile.delete();
+			
+			result1 = 0;
+			rollback(conn);
+		}
+		return result1;
+	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Note selectSheetSharePdf(int bNo) {
+		Connection conn = getConnection();
+		
+		Note note = new BoardDao().selectSheetSharePdf(conn, bNo);
+		
+		
+		return note;
+	}
 	
 	
 	
@@ -509,234 +509,6 @@ public class BoardService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public int insertPdfBoard(Board board, Note note) {
-		Connection conn = getConnection();
-		
-		BoardDao bDao = new BoardDao();
-		int result1 = bDao.insertPdfBoard(conn, board);
-		int result2 = bDao.insertPdfBoard(conn, note);
-				
-		if(result1>0 && result2 > 0) {
-			commit(conn);
-		}else {
-			String savePath = note.getFilePath();
-			String saveFile = note.getChangeName();
-			File failedFile = new File(savePath + saveFile);
-			
-			failedFile.delete();
-			
-			result1 = 0;
-			rollback(conn);
-		}
-		return result1;
-	}
-
-	
-	public Note selectSheetSharePdf(int bNo) {
-		Connection conn = getConnection();
-		
-		Note note = new BoardDao().selectSheetSharePdf(conn, bNo);
-		
-		
-		return note;
-	}
-
-	
-
-	
-
-
 
 
 
