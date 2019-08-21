@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="board.model.vo.Board"%>
-   <%Board b = (Board)request.getAttribute("board"); %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="board.model.vo.Board"%>
+<%
+	Board b = (Board)request.getAttribute("board"); 
+%>
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
@@ -196,32 +198,33 @@
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-            <form action="sheetShareWrite.bo" method="post">
+            <form action="<%=request.getContextPath()%>/sheetShareWrite.bo" method="post" enctype="multipart/form-data" onsubmit="return radioCheck();">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
-                    <select name="head" id="board_head">
+                      <select name="header" id="board_head">
                         <option value="0" selected>말머리</option>
                         <option value="1" >피아노</option>
                         <option value="2" >기타</option>
-                        <option value="4" >바이올린</option>
-                        <option value="5" >플룻</option>
-                        <option value="6" >하모니카</option>
-                        <option value="7" >etc</option>
+                        <option value="3" >바이올린</option>
+                        <option value="4" >플루트</option>
+                        <option value="5" >하모니카</option>
+                        <option value="6" >ETC</option>
                     </select>
 
                     <input type="text" name="board_title" class="board_title" placeholder="제목" required>
+
                 </div>
 
                 <!-- 악보 첨부파일 -->
                 <div class="ms_file">
                     <span class="ms_file_label">악보 파일</span>
-                    <input type="file" name="ms_file">
+                    <input type="file" name="sheetFile1" multiple="multiple" id="sheetFile1">
                 </div>
 
                 <!-- 악보 가격 -->
                 <div class="ms_price">
                     <div id="ms_price_point">
-                        <input type="radio" name="price" id="radio_point">포인트
+                        <input type="radio" name="price" id="radio_point" value="point">포인트
                         <input type="number" name="point" id="price_point" value="150" readonly>
                     </div>
                     <div id="ms_price_cash">
@@ -279,6 +282,21 @@
 
     </div> 
   
+  <script>
+  	$(document).ready(function(){
+	 $("#radio_cash").val().trim() = $("#price_cash").val().trim(); 
+	 
+  	});
+  function radioCheck(){
+	  if(!$("input[type=radio]").is(":checked")){
+		  alert("가격을 결정해주세요.")
+		  return false;
+	  }else{
+		  return true;
+	  }
+  }
+  
+  </script>
 
 </body>
 </html>
