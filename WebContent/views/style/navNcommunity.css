@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 
+@charset "UTF-8";
+
+
 .community_content {
     position: relative;
     top: 8rem;
@@ -44,8 +47,13 @@
     font-size: 20px;
 }
 .community_table{
+<<<<<<< HEAD
+   width : 100%;
+      
+=======
 	width : 100%;
 		
+>>>>>>> refs/heads/master
 }
 
 /* 게시글 영역(목록) */
@@ -74,10 +82,10 @@
 
 .table_header td {
     font-size: 15px;
-   	text-align: center;
+      text-align: center;
 }
 .table_header:hover{
-	background-color: #e3e3e3;
+   background-color: #e3e3e3;
 }
 
 
@@ -152,6 +160,9 @@
 .searchSubmit:hover{
     background-color: rgb(241, 196, 15);
 }
+    
+
+
     
 
 

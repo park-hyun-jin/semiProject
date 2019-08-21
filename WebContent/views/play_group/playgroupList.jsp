@@ -99,7 +99,9 @@
 					<td colspan="6">등록된 게시글이 없습니다.</td>
 				</tr>
 				<% }else { %>
+				
 					<%for(Board b : playgroupList){ %>
+					
 						  <tr class="table_header">
 							<td width="10%"><%=b.getbNo() %></td>
 							<td width="10%"><%=b.getheader() %></td>							
