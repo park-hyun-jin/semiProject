@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<%@page import="board.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="board.model.vo.PageInfo"%>
 <%
-	ArrayList<Board> playgroupList = (ArrayList<Board>)request.getAttribute("playgroupList");
-	
+	ArrayList<Board> sheetapplyList = (ArrayList<Board>)request.getAttribute("sheetapplyList");
 	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
 	
 	int boardCount = pInf.getBoardCount();
@@ -17,22 +14,13 @@
 	int endPage = pInf.getEndPage();
 	int limit = pInf.getLimit();
 	int pagingBarSize = pInf.getPagingBarSize();
-	
-	
-	String headValue = request.getParameter("headValue");
-	String keyword = request.getParameter("keyword");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="UTF-8">
 <title>Insert title here</title>
-
-
-
-<link rel="stylesheet" href="<%=request.getContextPath()%>/views/style/navNcommunity.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/views/style/sheetapplyList.css">
 <style>
 	* {
     	margin: 0;
@@ -67,20 +55,16 @@
 	}
 	
 </style>
-
-
 </head>
 <body>
+<%@ include file="../common/nav.jsp" %>
 
-	<%@ include file="../common/nav.jsp" %>
-
-	    <!-- 본문 영역 -->
         <section class="community_content">
             <!-- 커뮤니티 게시판 -->
             <div class= "community_wrap">
 
                 <!-- 페이지 이름 영역 -->
-               <!--  <div class="commuity_header">
+                <!-- <div class="commuity_header">
                     <span class="community_label"> 공지사항 </span>
                 </div> -->
                 <!-- 게시글 목록 -->
@@ -94,14 +78,12 @@
                              <th width="5%">조회수</th>
                             <th width="15%">작성일</th>
                         </tr>
-                         <% if(playgroupList.isEmpty()){ %>
+                                <% if(sheetapplyList.isEmpty()){ %>
 				<tr>
 					<td colspan="6">등록된 게시글이 없습니다.</td>
 				</tr>
 				<% }else { %>
-				
-					<%for(Board b : playgroupList){ %>
-					
+					<%for(Board b : sheetapplyList){ %>
 						  <tr class="table_header">
 							<td width="10%"><%=b.getbNo() %></td>
 							<td width="10%"><%=b.getheader() %></td>							
@@ -117,18 +99,18 @@
                 </div>
                 
                 
-                <!-------- 페이징 바 -------->
+                <!------- 페이징 바 ------->
 		<!-- 페이징 처리 시작! -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=1&headValue=<%=headValue%>&keyword=<%=keyword%>'">&lt;&lt;</span>
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/sheetapplyWrite.li?currentPage=1'">&lt;&lt;</span>
 		
 			<!-- 이전 페이지로(<) -->
 			<% if(currentPage <= 1) { %>
 				<span class="pagingBtn">&lt;</span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= currentPage-1 %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&lt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/sheetapplyWrite.li?currentPage=<%= currentPage-1 %>'">&lt;</span>
 			<% } %>
 			
 			<!-- 페이지 목록 -->
@@ -137,7 +119,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= p %>&headValue=<%=headValue%>&keyword=<%=keyword%>'"><%=p%></span>
+						onclick="location.href='<%= request.getContextPath() %>/sheetapplyWrite.li?currentPage=<%= p %>'"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -146,60 +128,31 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= currentPage+1 %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&gt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/sheetapplyWrite.li?currentPage=<%= currentPage+1 %>'">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= maxPage %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&gt;&gt;</span>
+				onclick="location.href='<%= request.getContextPath() %>/sheetapplyWrite.li?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 		</div>
-                
-
-                
-                <!-- 글쓰기 버튼 -->
-                <div class="community_footer">
-                 <% if(loginUser != null){ %>
-                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
+               <!-- 글쓰기 버튼 -->
+               <div class="community_footer">
+               <% if(loginUser != null){ %>
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/views/sheet_apply/sheetapplyWriteForm.jsp'">글쓰기</button> 
                 <%} %>
-                    <%-- <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button>  --%>
                 </div>
-               <!-- 검색 영역 -->
-            <div class = "search_area">
-                <form class = "searchForm" method="get" action="<%= request.getContextPath()%>/playgroupSearch.bo" name="searchForm">
-					<select id="searchCondition" name="headValue">
-						<option value="100">통합</option>
-						<option value="7">전국</option>
-						<option value="8">수도권</option>
-						<option value="9">강원도</option>
-						<option value="10">전라도</option>
-						<option value="11">대전/충청</option>
-						<option value="12">대구/경북</option>
-						<option value="13">부산/경남</option>
-					</select>
-                    <input type="text" class="searchInput" name="keyword">
-                    <span><button type="submit" class = "searchSubmit">검색</button></span>
-                </form>
+                  <!-- 검색 영역 -->
+               <div class = "search_area">
+                   <form class = "searchForm">
+                       <input type="text" class="searchInput">
+                       <span><button type="submit" class = "searchSubmit">검색</button></span>
+                   </form>
+               </div>
             </div>
-            
-            </div>
-        
-            
 
         </section>
-        
-        
-		<script>
+        <script>
 			$(function(){
-				
-				// 페이지 로드시 검색옵션값 설정
-				<% if(headValue != null) {%>
-					$("option[value=<%=headValue%>]").attr("selected", "selected");
-				<% }
-					if(keyword != null) { %>
-					$("input[name=keyword]").val("<%=keyword%>");
-				<% } %>
-				
-				
 				// 게시판 상세보기
 				$(".table_header td").mouseenter(function(){
 					$(this).parent().css({"color":"black", "cursor":"pointer"});
@@ -208,28 +161,23 @@
 					
 					// 로그인 한 사람만 게시글 상세보기 가능
 					<% if(loginUser != null){ %>
-						location.href="<%= request.getContextPath() %>/playgroupWrite.de?bNo="+bNo;
+						location.href="<%= request.getContextPath() %>/sheetapplyWrite.de?bNo="+bNo;
 					<% } else{ %>
 						alert("로그인해야만 상세보기가 가능합니다!");
 					<% } %>
 				});
 				
+				
 				// 페이징바 마우스오버 이벤트
 				$(".clickBtn").mouseenter(function(){
 					$(this).css({"background":"darkgray", "cursor":"pointer"});
 				}).mouseout(function(){
-					$(this).css({"background":"white"});
+					$(this).css({"background":"lightgray"});
 				}); 
-				
-				// 검색시 기존 페이징정보 없애기
-				<%-- $("form[name=searchForm]").submit(function() {
-					<% request.removeAttribute("pInf"); %>
-				}); --%>
 				
 			});
 			
 			
-		</script>
-
+		</script> 
 </body>
 </html>

@@ -8,17 +8,17 @@
 	int horseHeader = 0;
 	
 	switch(header){
-	case "전국": horseHeader = 7; break;
-	case "수도권": horseHeader = 8; break;
-	case "강원도": horseHeader = 9; break;
-	case "전라도": horseHeader = 10; break;
-	case "대전/충청": horseHeader = 11; break;
-	case "대구/경북": horseHeader = 12; break;
-	case "부산/경남": horseHeader = 13; break;
+	case "피아노": horseHeader = 1; break;
+	case "기타": horseHeader = 2; break;
+	case "플루트": horseHeader = 3; break;
+	case "하모니카": horseHeader = 4; break;
+	case "리코더": horseHeader = 5; break;
+	case "ETC": horseHeader = 6; break;
+
 	
 	}
-	String[] selected = new String[7];
-	selected[horseHeader-7] = "selected";
+	String[] selected = new String[6];
+	selected[horseHeader-1] = "selected";
 	
 %>
 <!DOCTYPE html>
@@ -37,20 +37,20 @@
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-            <form action="<%=request.getContextPath()%>/playgroupWrite.up" name="writeFormUpdate" method="post">
+            <form action="<%=request.getContextPath()%>/sheetapplyWrite.up" name="writeFormUpdate" method="post">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
-                	<input type="hidden" name="bNo" value=<%= b.getbNo() %>></th>
-                    <select name="header" id="board_head">
+                	<input type="hidden" name="bNo" value=<%= b.getbNo() %>>
+                        <select name="header" id="board_head">
                         <option value="0" selected>말머리</option>
-                        <option value="7" <%= selected[0] %>>전국</option>
-                        <option value="8" <%= selected[1] %>>수도권</option>
-                        <option value="9" <%= selected[2] %>>강원도</option>
-                        <option value="10" <%= selected[3] %>>전라도</option>
-                        <option value="11" <%= selected[4] %>>대전/충청</option>
-                        <option value="12" <%= selected[5] %>>대구/경북</option>
-                        <option value="13" <%= selected[6] %>>부산/경남</option>
+                        <option value="1" <%= selected[0] %>>피아노</option>
+                        <option value="2" <%= selected[1] %>>기타</option>
+                        <option value="3" <%= selected[2] %>>플루트</option>
+                        <option value="4" <%= selected[3] %>>하모니카</option>
+                        <option value="5" <%= selected[4] %>>리코더</option>
+                        <option value="6" <%= selected[5] %>>ETC</option>
                     </select>
+                    
 
                     <input type="text" name="BTITLE" class="board_title" placeholder="제목" value ="<%=b.getbTitle()%>">
                 </div>
@@ -58,7 +58,7 @@
                 <!-- 본문 글쓰기 -->
                 <div class="board_content_area">
 
-					<%@ include file="playgroupWrite.jsp" %>
+					<%@ include file="../play_group/playgroupWrite.jsp" %>
 
 
                 </div>
@@ -84,7 +84,7 @@
 	} */
 	$("#write_cancle_btn").click(function(){
 		alert("게시글 수정이 취소되었습니다.");
-		location.href='<%= request.getContextPath() %>/playgroupWrite.de?bNo=<%= b.getbNo() %>';
+		location.href='<%= request.getContextPath() %>/sheetapplyWrite.de?bNo=<%= b.getbNo() %>';
 	});
 	</script>
 </body>

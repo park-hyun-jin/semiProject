@@ -18,7 +18,7 @@ import board.model.vo.Board;
 import cash.model.vo.Imp;
 import point.model.vo.Point;
 import user.model.vo.User;
-import user.model.vo.artist;
+import user.model.vo.Artist;
 
 public class UserDao {
    Properties prop = null;
@@ -627,7 +627,7 @@ public Board selectBoard(Connection conn, int bNo) {
 	}
 
 
-	public int certificationSubmit(Connection conn, artist certification, int uNo) {
+	public int certificationSubmit(Connection conn, Artist certification, int uNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("certificationSubmit"); // 쿼리를 가져오는 거 

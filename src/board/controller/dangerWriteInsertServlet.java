@@ -10,38 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
+import board.model.vo.Report;
 
-
-@WebServlet("/playgroupWrite.de")
-public class playgroupDetailServlet extends HttpServlet {
+@WebServlet("/dangerWrite.in")
+public class dangerWriteInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public playgroupDetailServlet() {
+    public dangerWriteInsertServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		BoardService playgroupService = new BoardService();
+		int userNo  = Integer.parseInt(request.getParameter("uNo"));
+		String rpContent = request.getParameter("rpContent");
 		
-		Board board = playgroupService.seletePlayGroup(bNo);
+		Report report = new Report(rpContent, bNo, userNo);
 		
-		RequestDispatcher view = null;
-		String page = "";
+		int result = new BoardService().dangerWriteInsert(report);
 		
-		if(board != null) { // 해당 글이 존재하는 경우
-				System.out.println("해당 글 존재");
-				page = "views/play_group/playgroupDetail.jsp";
-				request.setAttribute("board", board);
-			
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상세 조회 중 에러 발생");
-		}
-		
-		view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		response.getWriter().print(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

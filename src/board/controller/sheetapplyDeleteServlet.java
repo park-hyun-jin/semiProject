@@ -10,38 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
 
-
-@WebServlet("/playgroupWrite.de")
-public class playgroupDetailServlet extends HttpServlet {
+@WebServlet("/sheetapplyWrite.del")
+public class sheetapplyDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public playgroupDetailServlet() {
+       
+    public sheetapplyDeleteServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		BoardService playgroupService = new BoardService();
-		
-		Board board = playgroupService.seletePlayGroup(bNo);
-		
-		RequestDispatcher view = null;
-		String page = "";
-		
-		if(board != null) { // 해당 글이 존재하는 경우
-				System.out.println("해당 글 존재");
-				page = "views/play_group/playgroupDetail.jsp";
-				request.setAttribute("board", board);
-			
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상세 조회 중 에러 발생");
+		int result = new BoardService().deleteSheetApply(bNo);
+		if(result >0) { 
+			request.getSession().setAttribute("msg", "게시글이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/sheetapplyWrite.li"); 
+		}else { 
+			request.setAttribute("msg", "삭제 오류"); 
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
 		}
-		
-		view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
