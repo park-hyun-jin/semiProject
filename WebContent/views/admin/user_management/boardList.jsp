@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" 
-    import="board.model.vo.PageInfo, user.model.vo.User, java.util.ArrayList"%>
-    
+    pageEncoding="UTF-8"
+    import="board.model.vo.PageInfo, board.model.vo.Board, java.util.ArrayList" %>
     
 <%
-	ArrayList<User> list = (ArrayList<User>)request.getAttribute("list");
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("bList");
 	
 	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
 
@@ -15,7 +14,7 @@
 	int endPage = pInf.getEndPage();
 	int limit = pInf.getLimit();
 	int pagingBarSize = pInf.getPagingBarSize();
-%>      
+%>       
     
     
 <!DOCTYPE html>
@@ -26,16 +25,9 @@
 
 	<style>
 	
-	   .page_content {
-	        width: 700px;
-	        height: 900px;
-	        padding: 40px;
-	        padding-top: 8rem;
-	        position: absloute;
-	        margin-left: 350px;
-	    }
-	
-		.userListArea {
+	   
+	/* 
+		.BoardListArea {
 			width: 1200px;
 			height: 800px;
 			position: absloute;
@@ -43,13 +35,13 @@
 			margin-left: 100px;
 			margin-top: 40px;
 		}
-
-		.userListTable, .userListTable td {
+ */
+		.boardListTable, .boardListTable td, .boardListTable th {
 		    border: 1px solid black;  
 		    border-collapse: collapse;
 		
 		}
-		.userListTable td {
+		.boardListTable td {
 		    width: 200px;
 		    height: 40px;
 		    padding: 10px;
@@ -57,7 +49,7 @@
 		    
 		}
 		
-		.userListTable th {
+		.boardListTable th {
 			background-color: lightgray;
 			height: 50px;
 			font-weight: bold;
@@ -79,35 +71,42 @@
 		
 	</style>
 
+
+
 </head>
 <body>
 
-	<%@ include file="../adminNav.jsp" %>
-	
-	<div class="page_content">
-	<div class="userListArea">
-	    <table class="userListTable">
+
+	<div class=BoardListArea serction_wrap">
+	    <table class="boardListTable">
 	        <thead>
-	            <th class="nicknameArea">닉네임</td>
-	            <th class="nameArea">이름</td>
-	            <th class="statusArea">구분</td>
-	            <th class="pointArea">보유 포인트</td>
-	            <th class="cashArea">보유 캐시</td>
+	            <th class="boardTypeArea">게시판 이름</td>
+	            <th class="titleArea">게시글 제목</td>
+	            <th class="contentArea">내용</td>
+	            <th class="writerArea">작성자</td>
+	            <th class="createDateArea">게시일</td>
 	        </tr>
 			<% if(list.isEmpty()){ %>
 			<tr>
-				<td colspan="6">가입된 유저가 없습니다.</td>
+				<td colspan="5">작성된 게시글이 없습니다.</td>
 			</tr>
 			<% }else { %>
 			
-				<% for(User u : list) { %>
+				<% for(Board b : list) { %>
 				<tr>
-					<td><input type="hidden" value="<%= u.getuNo()%>">
-							<%= u.getNickName() %></td>
-					<td><%= u.getUserName() %></td>
-					<td><%= u.getArtist().equals("Y")?"아티스트": "일반" %></td>
-					<td><%= u.getUserPoint() %></td>
-					<td><%= u.getUserCash() %></td>
+					<td><input type="hidden" value="<%= b.getbNo()%>">
+							<%= b.getbType().split(",")[1] %></td>
+					<td><%= b.getbTitle() %></td>
+					<td>
+						<% String content = b.getbContent();
+						if(content.length() > 15) { %>
+						<%= content.subSequence(0, 15) %>
+						<% } else { %>
+						<%= content%>
+						<% } %>
+					</td>
+					<td><%= b.getwriter().split(",")[1] %></td>
+					<td><%= b.getCreateDate() %></td>
 				</tr>
 				<% } %>
 			<% } %>
@@ -136,7 +135,7 @@
 					<span class="pagingBtn selectBtn"><%= p %></span>
 				<% } else{ %>
 					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= p %>'"><%=p%></span>
+						onclick="location.href='<%= request.getContextPath() %>/boardList.ad?currentPage=<%= p %>'"><%=p%></span>
 				<% } %>
 			<%} %>
 			
@@ -145,23 +144,18 @@
 				<span class="pagingBtn"> &gt; </span>
 			<% } else{ %>
 				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= startPage+pagingBarSize %>'">&gt;</span>
+					onclick="location.href='<%= request.getContextPath() %>/boardList.ad?currentPage=<%= startPage+pagingBarSize %>'">&gt;</span>
 			<% } %>
 			
 			<!-- 맨 끝으로(>>) -->
 			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= maxPage %>'">&gt;&gt;</span>
+				onclick="location.href='<%= request.getContextPath() %>/boardList.ad?currentPage=<%= maxPage %>'">&gt;&gt;</span>
 		</div>
-	</div>
-	
-	
-
-	
-	
-	<script>
+		
+			<script>
 		$(function(){
 			// 유저정보 상세보기
-			$(".userListTable td").mouseenter(function(){
+			$(".boardListTable td").mouseenter(function(){
 				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).parent().css({"background":"white"});
@@ -180,8 +174,6 @@
 		});
 		
 	</script>
-	
-	
 
 </body>
 </html>
