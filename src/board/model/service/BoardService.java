@@ -837,5 +837,60 @@ Connection conn = getConnection();
 		return result;
 	}
 
+	public Board boardGroup(int bNo) {
+		Connection conn = getConnection();
+		
+		
+		BoardDao bDao = new BoardDao();
+		
+		
+		Board board = bDao.selectBoardGroup(conn, bNo);
+		
+		
 
-}
+		return board;
+	}
+
+	public int deleteBoadGroup(int bNo) {
+		Connection conn =getConnection();
+		int result = new BoardDao().deleteBoadGroup(conn,bNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int boardReplyInsert(Reply r, int userNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().boardReplyInsert(conn,r,userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	
+
+	public Board updateBoardGroup(int bNo) {
+Connection conn = getConnection();
+		
+		
+		BoardDao bDao = new BoardDao();
+		
+		
+		Board board = bDao.updateBoardGroup(conn, bNo);
+		
+		
+
+		return board;
+	}
+	}
+
+
+
