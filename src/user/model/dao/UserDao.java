@@ -18,7 +18,6 @@ import board.model.vo.Board;
 import board.model.vo.Reply;
 import cash.model.vo.Imp;
 import point.model.vo.Point;
-import user.model.vo.Artist;
 import user.model.vo.User;
 import user.model.vo.Artist;
 
@@ -632,8 +631,8 @@ public Board selectBoard(Connection conn, int bNo) {
 			
 				
 			pstmt.setInt(1, uNo);
-			pstmt.setInt(2, certification.getAccountNumber());
-			pstmt.setString(3, certification.getContent());
+			pstmt.setString(2, certification.getAccount());
+			pstmt.setString(3, certification.getaContent());
 			pstmt.setString(4, certification.getPictureName());
 			pstmt.setString(5,  certification.getUrlName());
 			

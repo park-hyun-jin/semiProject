@@ -208,9 +208,9 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover" href="#">악보신청</a>
+                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>
                     <ul class="detailList">
-                        <li><a href="#">피아노</a></li>
+                        <li><a href="<%=request.getContextPath()%>/sheetapplyWrite.li">피아노</a></li>
                         <li><a href="#">기타</a></li>
                         <li><a href="#">바이올린</a></li>
                         <li><a href="#">플루트</a></li>
@@ -221,8 +221,8 @@
                 <li class="nav-item nav-margin">
                     <a class="nav-link nav-hover" href="#">커뮤니티</a>
                     <ul class="detailList detailList2">
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="<%= request.getContextPath() %>/notice.me">공지사항</a></li>
+                        <li><a href="<%= request.getContextPath() %>/freeBoard.bo">자유게시판</a></li>
                         <li><a href="#">Q&A</a></li>
                     </ul>
                 </li>

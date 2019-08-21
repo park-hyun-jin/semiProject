@@ -52,7 +52,7 @@
                         <option value="13" <%= selected[6] %>>부산/경남</option>
                     </select>
 
-                    <input type="text" name="BTITLE" class="board_title" placeholder="제목" value = "<%=b.getbTitle()%>">
+                    <input type="text" name="BTITLE" class="board_title" placeholder="제목" value ="<%=b.getbTitle()%>">
                 </div>
 
                 <!-- 본문 글쓰기 -->

@@ -117,7 +117,6 @@ public class MyPageDownNote extends HttpServlet {
 				view.forward(request, response);
 						
 	
-						
 	}
 
 	

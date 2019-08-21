@@ -6,7 +6,12 @@ import java.util.ArrayList;
 
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
+
+import user.model.dao.UserDao;
+
 import board.model.vo.Reply;
+import board.model.vo.Report;
+
 
 public class BoardService {
 
@@ -64,11 +69,702 @@ public class BoardService {
 
 		return board;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getNoticeBoardCount() {
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		
+		int boardCount = bDao.getNoticeBoardCount(conn);
+		
+		return boardCount;
+	}
+
+	public ArrayList<Board> selectList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectList(conn);
+		
+		
+		return list;
+		
+		
+		
+	}
+
 
 	
 // ---------------------------------- 수정 영역--------------------------	
 	public int updatePlayGroup(Board playgroupboard) {
-Connection conn = getConnection();
+		Connection conn = getConnection();
 		
 		int result = new BoardDao().updatePlayGroup(conn,playgroupboard);
 		
@@ -410,6 +1106,124 @@ Connection conn = getConnection();
 		ArrayList<Board> playgroupList = new BoardDao().searchPlaygroupList(conn, head, keyword, currentPage, limit);
 		
 		return playgroupList;
+	}
+
+	public int dangerWriteInsert(Report report) {
+		Connection conn = getConnection();
+		int result = new BoardDao().dangerWriteInsert(conn,report);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int insertSheetApply(Board board) {
+		Connection conn = getConnection();
+		int result = new BoardDao().insertSheetApply(conn,board);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int getsheetapplyCount() {
+		Connection conn =getConnection();		
+		int boardCount = new BoardDao().getsheetapplyCount(conn);
+		
+		return boardCount;
+	}
+
+	public ArrayList<Board> selectsheetapplyList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Board> sheetapplyPianoList = new BoardDao().selectsheetapplyList(conn,currentPage,limit);
+		return sheetapplyPianoList;
+	}
+
+	public Board selectSheetApply(int bNo) {
+		Connection conn = getConnection();
+		
+		
+		BoardDao bDao = new BoardDao();
+		
+		
+		Board board = bDao.selectSheetApply(conn, bNo);
+		
+		if(board != null) {
+			int result = bDao.countSheetApply(conn,bNo);
+			
+			if(result >0) {
+				commit(conn);
+				board.setbCount(board.getbCount()+1);
+			}else {
+				
+				rollback(conn);
+				board =null; 
+			}
+		}
+
+		return board;
+	}
+
+	public int updateSheetApply(Board sheetapplyboard) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateSheetApply(conn,sheetapplyboard);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int deleteSheetApply(int bNo) {
+		Connection conn =getConnection();
+		int result = new BoardDao().deleteSheetApply(conn,bNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	
+
+	
+
+
+
+
+	public int getFreeBoardCount() {
+		
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		
+		int boardCount = bDao.getFreeBoardCount(conn);
+		
+		return boardCount;
+	}
+
+	public int insertFreeBoard(Board board) {
+		
+		Connection conn = getConnection();
+		int result = new BoardDao().insertFreeBoard(conn,board);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
 	}
 
 
