@@ -43,7 +43,7 @@
             <div class="cash">
                 <form action="cashChargeForm.me" method="POST" class="cash-form" onsubmit="return checkConfirm();"> 
                 <div class="cash-div">
-                    <input type="radio" name="cash-charge" value="2000" id="2500cash">&nbsp;&nbsp;<label for="2500cash">2500캐시</label>
+                    <input type="radio" name="cash-charge" value="100" id="100cash">&nbsp;&nbsp;<label for="100cash">100캐시</label>
                 </div>
                 <div class="cash-div">
                     <input type="radio" name="cash-charge" value="5000" id="5000cash">&nbsp;&nbsp;<label for="5000cash">5000캐시</label>
@@ -62,7 +62,7 @@
 
 	<script>
 	$(document).ready(function(){
-		$(".absence").addClass("cashCharge");
+		$(".cashCharge").addClass("active");
 	});
 	
 	function checkConfirm(){

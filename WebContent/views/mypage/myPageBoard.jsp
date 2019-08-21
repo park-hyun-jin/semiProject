@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%@page import="board.model.vo.PageInfo"%>
-	<%@page import="board.model.vo.Board"%>
-	<%@page import="java.util.ArrayList"%>  
-     <%
-    	ArrayList<Board> list =(ArrayList<Board>)request.getAttribute("list"); // 그냥 게시물에 대한 정보
+<%@page import="board.model.vo.PageInfo"%>
+<%@page import="board.model.vo.Board"%>
+<%@page import="java.util.ArrayList"%>  
+<%
+
+   	ArrayList<Board> list =(ArrayList<Board>)request.getAttribute("list"); // 그냥 게시물에 대한 정보
      
     PageInfo pInf = (PageInfo)request.getAttribute("pInf");
     
@@ -16,12 +17,9 @@
     int pagingBarSize = pInf.getPagingBarSize();
     
   
-    
     %>
     
-    
-    
-    
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,190 +163,187 @@ section{
 		height : 25px;
 	}
 	
+    * {
+            margin: 0;
+            box-sizing: border-box;
+        }
 
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
 
+        a {
+            text-decoration: none;
+        }
 
-        * {
-                margin: 0;
-                box-sizing: border-box;
-            }
-
-            *:before,
-            *:after {
-                box-sizing: border-box;
-            }
-
-            a {
-                text-decoration: none;
-            }
-
-            .tab-section {
-                margin: 0;
-                position: relative;
-                width: 100%;
-                height: 550px;
-                border: 1px solid #d0d0d0;
-                font-size: 0;
-            }
-            .tab-section::before,
-            .tab-section::after {
-                display: table;
-                content: "";
-            }
-            .tab-section::after {
-                clear: both;
-            }
-            .tab-section .tab-content {
-                width: 100%;
-                font-size: 12px;
-                position: absolute;
-                float: left;
-                padding: 10px;
-                opacity: 0;
-                color:black;
-                -webkit-transition: all .4s ease;
-                transition: all .4s ease;
-            }
-            .tab-section .tab-link {
-                position: relative;
-                display: inline-block;
-                text-align: center;
-                width: 50%;
-                font-size: 15px;
-                background: #e8e8e8;
-                padding: 10px 0;
-                border-bottom: 1px solid #d0d0d0;
-                color: #5b5b5b;
-                overflow: hidden;
-            }
-            .tab-section .tab-link:after {
-                content: "";
-                left: -75px;
-                opacity: 1;
-                position: absolute;
-                top: 0;
-                background: #fff;
-                width: 50%;
-                height: 100%;
-                background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 100%);
-                background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 100%);
-                -webkit-transform: skewX(-25deg);
-                transform: skewX(-25deg);
-                -webkit-transition: all .55s cubic-bezier(0.19, 1, 0.22, 1);
-                transition: all .55s cubic-bezier(0.19, 1, 0.22, 1);
-            }
-            .tab-section .tab-link:hover:after {
-                -webkit-animation: shine .75s;
-                animation: shine .75s;
-            }
-            @-webkit-keyframes shine {
-                100% {
-                    left: 125%;
-                }
-            }
-            @keyframes shine {
-                100% {
-                    left: 125%;
-                }
-            }
-
-            #listArea{
-                width: 100%;
-            }
-
-            .tab-btn:target + .tab-link {
-                background: #fff;
-                font-weight: bold;
-                color: #000;
-            }
-            .tab-btn:target + .tab-link:hover:after {
-                -webkit-animation: -1s;
-                animation: -1s;
-            }
-            .tab-btn:target + .tab-link + .tab-content {
-                opacity: 1;
-            }
-            th{
-                border-bottom: 1px solid gray;
-                padding-bottom: 1%;
-            }
-            td{
+        .tab-section {
+            margin: 0;
+            position: relative;
+            width: 100%;
+            height: 550px;
+            border: 1px solid #d0d0d0;
+            font-size: 0;
+        }
+        .tab-section::before,
+        .tab-section::after {
+            display: table;
+            content: "";
+        }
+        .tab-section::after {
+            clear: both;
+        }
+        .tab-section .tab-content {
+            width: 100%;
+            font-size: 12px;
+            position: absolute;
+            float: left;
+            padding: 10px;
+            opacity: 0;
+            color:black;
+            -webkit-transition: all .4s ease;
+            transition: all .4s ease;
+        }
+        .tab-section .tab-link {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            width: 50%;
             font-size: 15px;
-            border-bottom: 1px solid lightgray;
-            padding-top: 5px;
-            color: rgb(99, 96, 96);
+            background: #e8e8e8;
+            padding: 10px 0;
+            border-bottom: 1px solid #d0d0d0;
+            color: #5b5b5b;
+            overflow: hidden;
+        }
+        .tab-section .tab-link:after {
+            content: "";
+            left: -75px;
+            opacity: 1;
+            position: absolute;
+            top: 0;
+            background: #fff;
+            width: 50%;
+            height: 100%;
+            background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 100%);
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 100%);
+            -webkit-transform: skewX(-25deg);
+            transform: skewX(-25deg);
+            -webkit-transition: all .55s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: all .55s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .tab-section .tab-link:hover:after {
+            -webkit-animation: shine .75s;
+            animation: shine .75s;
+        }
+        @-webkit-keyframes shine {
+            100% {
+                left: 125%;
             }
-            .tab-content th:nth-of-type(1), .tab-content td:nth-of-type(1){
-                width: 7.2%;
+        }
+        @keyframes shine {
+            100% {
+                left: 125%;
             }
-            .tab-content th:nth-of-type(2), .tab-content td:nth-of-type(2){
-                width: 10%;
-            }
-            .tab-content th:nth-of-type(3), .tab-content td:nth-of-type(3){
-                width: 50%;
-            }
-            .tab-content th:nth-of-type(4), .tab-content td:nth-of-type(4){
-                width: 15%;
-            }
-            .tab-content th:nth-of-type(5), .tab-content td:nth-of-type(5){
-                width: 10%;
-            }
-            .tab-content th:nth-of-type(6), .tab-content td:nth-of-type(6){
-                width: 10%;
-            }
+        }
 
-            #writeBtn{
-                float: right;
-                margin-right: 0;
-                margin-left: 0;
-                border-radius: 5px 5px 5px 5px;
-                background-color: rgba(0,0,0,0);
-                width: 100px;
-                height: 40px;
-            }
-            #pagWrap {
-                /* border: 1px solid black; */
-                margin: 0;
-                margin-top: 3%;
-                width:100%;
-                height: 50px;
-                position: relative;
-                text-align: center;
-            }
+        #listArea{
+            width: 100%;
+        }
+
+        .tab-btn:target + .tab-link {
+            background: #fff;
+            font-weight: bold;
+            color: #000;
+        }
+        .tab-btn:target + .tab-link:hover:after {
+            -webkit-animation: -1s;
+            animation: -1s;
+        }
+        .tab-btn:target + .tab-link + .tab-content {
+            opacity: 1;
+        }
+        th{
+            border-bottom: 1px solid gray;
+            padding-bottom: 1%;
+        }
+        td{
+        font-size: 15px;
+        border-bottom: 1px solid lightgray;
+        padding-top: 5px;
+        color: rgb(99, 96, 96);
+        }
+        .tab-content th:nth-of-type(1), .tab-content td:nth-of-type(1){
+            width: 7.2%;
+        }
+        .tab-content th:nth-of-type(2), .tab-content td:nth-of-type(2){
+            width: 10%;
+        }
+        .tab-content th:nth-of-type(3), .tab-content td:nth-of-type(3){
+            width: 50%;
+        }
+        .tab-content th:nth-of-type(4), .tab-content td:nth-of-type(4){
+            width: 15%;
+        }
+        .tab-content th:nth-of-type(5), .tab-content td:nth-of-type(5){
+            width: 10%;
+        }
+        .tab-content th:nth-of-type(6), .tab-content td:nth-of-type(6){
+            width: 10%;
+        }
+
+        #writeBtn{
+            float: right;
+            margin-right: 0;
+            margin-left: 0;
+            border-radius: 5px 5px 5px 5px;
+            background-color: rgba(0,0,0,0);
+            width: 100px;
+            height: 40px;
+        }
+        #pagWrap {
+            /* border: 1px solid black; */
+            margin: 0;
+            margin-top: 3%;
+            width:100%;
+            height: 50px;
+            position: relative;
+            text-align: center;
+        }
 
 
 
 
-            #search{
-                margin: auto;
-                width:1000px;
-                height: 50px;
-                
-                position: relative;
-                text-align: center;
-            }
-            #searchForm{
-                position: absolute;
-                margin: auto;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
+        #search{
+            margin: auto;
+            width:1000px;
+            height: 50px;
+            
+            position: relative;
+            text-align: center;
+        }
+        #searchForm{
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
 
-            }
-            #searchInput{
-                width: 30%;
-                height: 30px;
-                box-sizing: border-box;
-                border: none;
-                background-color: lightgray;
-            }
-            #searchSubmit{
-                border-radius: 5px 5px 5px 5px;
-                background-color: rgba(0,0,0,0);
-                width: 80px;
-                height: 35px;
-            }
+        }
+        #searchInput{
+            width: 30%;
+            height: 30px;
+            box-sizing: border-box;
+            border: none;
+            background-color: lightgray;
+        }
+        #searchSubmit{
+            border-radius: 5px 5px 5px 5px;
+            background-color: rgba(0,0,0,0);
+            width: 80px;
+            height: 35px;
+        }
 
 </style>
 </head>
@@ -427,8 +422,7 @@ section{
 							<td class="b"><%= b.getwriter() %></td> 
 							<td class="b"><%= b.getbCount() %></td> 
 							<td class="b"><%= b.getCreateDate() %></td> 
-						
-							     
+
 						</tr>
 							<% } %>	
 						<% } %>	
@@ -452,7 +446,26 @@ section{
 				        <th width="200px">작성일</th>
 				    </tr>
 				    </thead>
-				   
+				   <%--  <% if(list.isEmpty()){ %>
+						<tr>
+							<td colspan="6">등록된 게시글이 없습니다.</td> --%>
+						</tr>
+			<%-- 			<% }else { %>
+
+							<% for(reply r : list){ %> 
+							
+						<tr>
+							<td class="b"> <input type="checkbox" name="isDelete" value="<%=r.getbNo() %>"> </td> 
+							<td class="b"><%= r.getheader()%></td> 
+							<td class="b"><%= r.getbTitle() %></td>         
+							<td class="b"><%= r.getwriter() %></td> 
+							<td class="b"><%= r.getbCount() %></td> 
+							<td class="b"><%= r.getCreateDate() %></td> 
+
+						</tr>
+							<% } %>	
+						<% } %>	 --%>
+               
 				</table>
 			</div>
 		</div>
@@ -546,7 +559,7 @@ section{
 		$("#listArea1 td").click(function(){
 			var bNo = $(this).parent().children().children().val();
     		console.log(bNo);
-			location.href="<%= request.getContextPath() %>/detail.bo?bNo="+bNo;
+			location.href="<%= request.getContextPath() %>/playgroupWrite.de?bNo="+bNo;
 			
 		}); 
     

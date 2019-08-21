@@ -37,8 +37,10 @@
 </head>
 <body>
 	<%@ include file="../common/nav.jsp" %>
+
 		<div id="iframeWrap">
 			<iframe id="writeForm" src="<%=request.getContextPath()%>/views/play_group/writeForm.jsp" width="1200px" height="900px" scrolling="no"></iframe>   
 		</div>
+
 </body>
 </html>
