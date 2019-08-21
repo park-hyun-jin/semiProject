@@ -1,17 +1,17 @@
 package user.model.vo;
 
-public class artist {
+public class Artist {
 
 	   private String urlName;
 	   private String accountNumber;
 	   private String content;
 	   private String pictureName;
 	   
-	   public artist() {
+	   public Artist() {
 		
 	}
 	   
-	public artist(String urlName, String accountNumber, String content, String pictureName) {
+	public Artist(String urlName, String accountNumber, String content, String pictureName) {
 		super();
 		this.urlName = urlName;
 		this.accountNumber = accountNumber;
