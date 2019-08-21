@@ -38,13 +38,20 @@
                 <div class = "community_board_area">
                     <table align="center" class="community_table">
                         <tr class="table_header">
-                            <th width="100px">번호</th>
-                            <th width="500px">제목</th>
-                            <th width="100px">작성자</th>
-                            <th width="200px">작성일</th>
+                            <th width="10%">글 번호</th>
+                            <th width="10%">말머리</th>
+                             <th width="50%">제목</th>
+                            <th width="10%">작성자</th>
+                             <th width="5%">조회수</th>
+                            <th width="15%">작성일</th>
                         </tr>
                         <tr>
-                            
+                           <td></td>
+                           <td></td> 
+                           <td></td> 
+                           <td></td> 
+                           <td></td> 
+                           <td></td>  
                         </tr>
                     </table>
                 </div>
