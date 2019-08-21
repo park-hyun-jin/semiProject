@@ -48,6 +48,7 @@ public class Artist {
 
 	public void setaContent(String aContent) {
 		this.aContent = aContent;
+
 	}
 
 	public String getPictureName() {
@@ -91,3 +92,4 @@ public class Artist {
 	   
 
 }
+

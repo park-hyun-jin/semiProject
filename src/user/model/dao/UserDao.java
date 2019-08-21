@@ -639,7 +639,7 @@ public Board selectBoard(Connection conn, int bNo) {
 			
 				
 			pstmt.setInt(1, uNo);
-			pstmt.setInt(2, certification.getAccountNumber());
+			pstmt.setString(2, certification.getAccountNumber());
 			pstmt.setString(3, certification.getContent());
 			pstmt.setString(4, certification.getPictureName());
 			pstmt.setString(5,  certification.getUrlName());
