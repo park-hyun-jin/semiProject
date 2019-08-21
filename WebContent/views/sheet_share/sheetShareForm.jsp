@@ -209,7 +209,7 @@
                         <option value="7" >etc</option>
                     </select>
 
-                    <input type="text" name="board_title" class="board_title" placeholder=" <%=request.getParameter("bTitle")%>">
+                    <input type="text" name="board_title" class="board_title" placeholder="제목">
                 </div>
 
                 <!-- 악보 첨부파일 -->
