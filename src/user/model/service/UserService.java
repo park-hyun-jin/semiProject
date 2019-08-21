@@ -7,11 +7,14 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import admin.model.dao.AdminDao;
 import board.model.dao.BoardDao;
+
 import board.model.vo.Board;
 import cash.model.vo.Imp;
 import user.model.dao.UserDao;
 import user.model.vo.User;
+import user.model.vo.Artist;
 
 
 public class UserService {
@@ -24,10 +27,12 @@ public class UserService {
 	* @return result
 	*/
 	public int emailCheck (String joinEmail) {
+		
 		Connection conn = getConnection();
 	   
 		int result = new UserDao().emailCheck(conn, joinEmail);
-		return 0;
+
+		return result;
 	}
 	
 	
@@ -242,6 +247,165 @@ public class UserService {
 			rollback(conn);
 		}		
 		return result;
+	}
+
+	public int certificationSubmit(Artist certification,int uNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new UserDao().certificationSubmit(conn, certification, uNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		return result;
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getReplyCount(int uno) {
+		Connection conn = getConnection();
+		int replyCount = new UserDao().getReplyCount(conn, uno);
+		
+		return replyCount;
+	}
+
+	public ArrayList<ArrayList> replyList(int uno, int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<ArrayList> list = new UserDao().replyList(conn, uno, currentPage, limit);
+		
+		return list;
 	}
   
   

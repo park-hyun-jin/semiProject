@@ -208,9 +208,9 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover" href="#">악보신청</a>
+                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>
                     <ul class="detailList">
-                        <li><a href="#">피아노</a></li>
+                        <li><a href="<%=request.getContextPath()%>/sheetapplyWrite.li">피아노</a></li>
                         <li><a href="#">기타</a></li>
                         <li><a href="#">바이올린</a></li>
                         <li><a href="#">플루트</a></li>
@@ -221,8 +221,8 @@
                 <li class="nav-item nav-margin">
                     <a class="nav-link nav-hover" href="#">커뮤니티</a>
                     <ul class="detailList detailList2">
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="<%= request.getContextPath() %>/notice.me">공지사항</a></li>
+                        <li><a href="<%= request.getContextPath() %>/freeBoard.bo">자유게시판</a></li>
                         <li><a href="#">Q&A</a></li>
                     </ul>
                 </li>
@@ -834,13 +834,13 @@
 		               var userName = res.properties.nickname
 		               console.log("userId / " + userId);
 		               $.ajax({
-		                  url :'<%=request.getContextPath()%>/isKakaoUser.us',
-		               data : {userId: userId},
+		                  url :'<%=request.getContextPath()%>/isSocialUser.us',
+		               data : {userId: userId, sign: "K"},
 		               type: 'post',
 		               success: function(result) {
 		                  console.log("회원가입여부 / " + result);
 		                  if(result > 0) {
-		                     location.href="<%=request.getContextPath()%>/kakaoLogin.us?userId="+userId;
+		                     location.href="<%=request.getContextPath()%>/socialLogin.us?userId="+userId+"&sign=K";
 		                     } else {
 		                        console.log("모달 나오냐 / " + result);
 		                        $("#addInfoModal").css("display", "block");
@@ -877,12 +877,7 @@
 		   
 		   });
 		}
-	   
-	   
-	   
-	   
-	   
-	   
+
 	   
 	   var naverLogin = new naver.LoginWithNaverId({
 	   	clientId : "TyJHkEkL1q5EMX7mTaF3",

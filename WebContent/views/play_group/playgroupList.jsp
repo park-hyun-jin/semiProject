@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
+<%@page import="board.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
 <%
-	ArrayList<Board> playgroup = (ArrayList<Board>)request.getAttribute("playgroup");
-
+	ArrayList<Board> playgroupList = (ArrayList<Board>)request.getAttribute("playgroupList");
+	
+	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
+	
+	int boardCount = pInf.getBoardCount();
+	int currentPage =pInf.getCurrentPage();
+	int maxPage = pInf.getMaxPage();
+	int startPage=pInf.getStartPage();
+	int endPage = pInf.getEndPage();
+	int limit = pInf.getLimit();
+	int pagingBarSize = pInf.getPagingBarSize();
+	
+	
+	String headValue = request.getParameter("headValue");
+	String keyword = request.getParameter("keyword");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,6 +53,18 @@
 		width: 74%;
 		height: 900px;
 	}
+	.pagingBtn{
+		text-decoration: none;
+		background-color:white;
+		color:black;
+		display : inline-block;
+		width : 25px;
+		height : 25px;
+	}
+	.pagingArea{
+		margin : 50px 0 20px 0;
+		padding-right: 100px;
+	}
 	
 </style>
 
@@ -68,12 +94,14 @@
                              <th width="5%">조회수</th>
                             <th width="15%">작성일</th>
                         </tr>
-                         <% if(playgroup.isEmpty()){ %>
+                         <% if(playgroupList.isEmpty()){ %>
 				<tr>
 					<td colspan="6">등록된 게시글이 없습니다.</td>
 				</tr>
 				<% }else { %>
-					<%for(Board b : playgroup){ %>
+				
+					<%for(Board b : playgroupList){ %>
+					
 						  <tr class="table_header">
 							<td width="10%"><%=b.getbNo() %></td>
 							<td width="10%"><%=b.getheader() %></td>							
@@ -88,30 +116,90 @@
                     </table>
                 </div>
                 
+                
+                <!-------- 페이징 바 -------->
+		<!-- 페이징 처리 시작! -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로(<<) -->
+			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=1&headValue=<%=headValue%>&keyword=<%=keyword%>'">&lt;&lt;</span>
+		
+			<!-- 이전 페이지로(<) -->
+			<% if(currentPage <= 1) { %>
+				<span class="pagingBtn">&lt;</span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= currentPage-1 %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&lt;</span>
+			<% } %>
+			
+			<!-- 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage) { %>
+					<span class="pagingBtn selectBtn"><%= p %></span>
+				<% } else{ %>
+					<span class="pagingBtn clickBtn" 
+						onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= p %>&headValue=<%=headValue%>&keyword=<%=keyword%>'"><%=p%></span>
+				<% } %>
+			<%} %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage >= maxPage){ %>
+				<span class="pagingBtn"> &gt; </span>
+			<% } else{ %>
+				<span class="pagingBtn clickBtn" 
+					onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= currentPage+1 %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&gt;</span>
+			<% } %>
+			
+			<!-- 맨 끝으로(>>) -->
+			<span class="pagingBtn clickBtn"
+				onclick="location.href='<%= request.getContextPath() %>/playgroupSearch.bo?currentPage=<%= maxPage %>&headValue=<%=headValue%>&keyword=<%=keyword%>'">&gt;&gt;</span>
+		</div>
+                
+
+                
                 <!-- 글쓰기 버튼 -->
                 <div class="community_footer">
+                 <% if(loginUser != null){ %>
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
+                <%} %>
                     <%-- <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button>  --%>
                 </div>
-               
+               <!-- 검색 영역 -->
+            <div class = "search_area">
+                <form class = "searchForm" method="get" action="<%= request.getContextPath()%>/playgroupSearch.bo" name="searchForm">
+					<select id="searchCondition" name="headValue">
+						<option value="100">통합</option>
+						<option value="7">전국</option>
+						<option value="8">수도권</option>
+						<option value="9">강원도</option>
+						<option value="10">전라도</option>
+						<option value="11">대전/충청</option>
+						<option value="12">대구/경북</option>
+						<option value="13">부산/경남</option>
+					</select>
+                    <input type="text" class="searchInput" name="keyword">
+                    <span><button type="submit" class = "searchSubmit">검색</button></span>
+                </form>
+            </div>
             
             </div>
         
-            <!-- 검색 영역 -->
-            <div class = "search_area">
-                <form class = "searchForm">
-                    <input type="text" class="searchInput">
-                    <span><button type="submit" class = "searchSubmit">검색</button></span>
-                </form>
-                <% if(loginUser != null){ %>
-                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button> 
-                <%} %>
-            </div>
+            
 
         </section>
         
         
 		<script>
 			$(function(){
+				
+				// 페이지 로드시 검색옵션값 설정
+				<% if(headValue != null) {%>
+					$("option[value=<%=headValue%>]").attr("selected", "selected");
+				<% }
+					if(keyword != null) { %>
+					$("input[name=keyword]").val("<%=keyword%>");
+				<% } %>
+				
+				
 				// 게시판 상세보기
 				$(".table_header td").mouseenter(function(){
 					$(this).parent().css({"color":"black", "cursor":"pointer"});
@@ -126,13 +214,17 @@
 					<% } %>
 				});
 				
-				
-				/* // 페이징바 마우스오버 이벤트
+				// 페이징바 마우스오버 이벤트
 				$(".clickBtn").mouseenter(function(){
 					$(this).css({"background":"darkgray", "cursor":"pointer"});
 				}).mouseout(function(){
-					$(this).css({"background":"black"});
-				}); */
+					$(this).css({"background":"white"});
+				}); 
+				
+				// 검색시 기존 페이징정보 없애기
+				<%-- $("form[name=searchForm]").submit(function() {
+					<% request.removeAttribute("pInf"); %>
+				}); --%>
 				
 			});
 			
