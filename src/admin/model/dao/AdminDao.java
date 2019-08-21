@@ -9,9 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import board.model.vo.Reply;
 import user.model.vo.Artist;
 import user.model.vo.User;
 
@@ -274,6 +277,84 @@ public class AdminDao {
 		}
 		
 		return bType;
+	}
+
+
+	public int getReplyCount(Connection conn, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getReplyCount");
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<ArrayList> replyList(Connection conn, int uno, int currentPage, int limit) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("replyList");
+		
+		ArrayList<ArrayList> list = null;
+		
+		try {
+			
+			int startRow = (currentPage -1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow); 
+
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Reply r = new Reply();
+				r.setrNo(rset.getInt(2));
+				r.setbNo(rset.getInt(3));
+				r.setrContent(rset.getString(7));
+				r.setrCreateDate(rset.getDate(8));
+				
+				Board b = new Board();
+				b.setbNo(rset.getInt(3));
+				b.setbType(rset.getInt(4) + "," + rset.getString(5));
+				b.setbTitle(rset.getString(6));
+				
+				ArrayList info = new ArrayList();
+				info.add(r);
+				info.add(b);
+				list.add(info);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	

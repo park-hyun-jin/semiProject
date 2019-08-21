@@ -503,12 +503,11 @@ private Properties prop = new Properties();
 		ResultSet rset = null;
 		int result = 0;
 		String query = prop.getProperty("getSearchPlaygroupCount");
-		if(head.equals("100")) {
+		if(head == null || head.equals("100")) {
 			query += " AND BTITLE LIKE '%" + keyword +"%'";
 		} else {
 			query += " AND HEADER=" + head + " AND BTITLE LIKE '%" + keyword +"%'";
 		}
-		System.out.println(query);
 		
 		try {
 			stmt = conn.createStatement();
@@ -524,7 +523,7 @@ private Properties prop = new Properties();
 			close(rset);
 			close(stmt);
 		}
-		
+		System.out.println("count: " + result);
 		return result;
 	}
 
@@ -539,14 +538,11 @@ private Properties prop = new Properties();
 		int startRow = (currentPage-1)*limit+1;
 		int endRow = startRow+limit -1;
 		
-		if(head.equals("100"))
-			 query += " ORDER BY BNO DESC))"; 
-		else
-			query += "AND HEADER=" + head + " ORDER BY  BNO DESC))"; 
+		if(head != null && !head.equals("100"))
+			query += "AND HEADER=" + head; 
 		
-		query += "WHERE (RNO BETWEEN "+ startRow + " AND " + endRow + ") AND BTITLE LIKE '%" + keyword + "%'";
+		query += " AND BTITLE LIKE '%" + keyword + "%' ORDER BY  BNO DESC)) WHERE (RNO BETWEEN "+ startRow + " AND " + endRow + ")";
 		
-		System.out.println(query);
 		try {
 			stmt = conn.createStatement();
 			

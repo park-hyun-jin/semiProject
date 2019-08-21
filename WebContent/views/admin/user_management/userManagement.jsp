@@ -197,7 +197,7 @@
 	            <input id="tab4" type="radio" name="tabs" value="1">
 	            <label for="tab4">작성한 게시글</label>
 	        
-	            <input id="tab5" type="radio" name="tabs">
+	            <input id="tab5" type="radio" name="tabs" value="1">
 	            <label for="tab5">작성한 댓글</label>
 	        
 	            <input id="tab6" type="radio" name="tabs">
@@ -214,6 +214,23 @@
 					            <th class="titleArea">게시글 제목</td>
 					            <th class="contentArea">내용</td>
 					            <th class="writerArea">작성자</td>
+					            <th class="createDateArea">게시일</td>
+							</thead>
+							<tbody>
+							
+							</tbody>
+						</table>
+						<div class="pagingArea" align="center">
+						</div>
+					</div>	
+		        </section>
+	            <section id="content5">
+            		<div class="replyListArea">
+		            	<table class="replyListTable" border="1" style="text-align:center">
+							<thead>
+								<th class="replyTypeArea">게시판 이름</td>
+					            <th class="titleArea">게시글 제목</td>
+					            <th class="contentArea">댓글 내용</td>
 					            <th class="createDateArea">게시일</td>
 							</thead>
 							<tbody>
@@ -242,7 +259,15 @@
 		
 		
 		
-	
+		// 작성댓글 탭 선택시 목록조회 메소드 호출
+		$("#tab5").click(function() {
+			var movePage = $(this).val();
+			console.log("이동할 페이지 : " + movePage);
+			$(this).replyListShow(movePage);
+		});
+		
+		
+		
 		
 		// 게시글 목록 조회 & 페이징처리 메소드
 		$.fn.boardListShow = function(currNum) {
@@ -260,7 +285,7 @@
 					$tableBody.html("");
 					var result = "";
 					
-					var $pagingArea = $(".pagingArea");
+					var $pagingArea = $(".boardListArea .pagingArea");
 					var pResult = "";
 					$pagingArea.html("");
 					
@@ -323,6 +348,7 @@
 						pResult += "";
 					}
 					
+					// 테이블에 목록조회 결과, 페이징바 삽입
 					$tableBody.append(result);
 					$pagingArea.append(pResult);
 					
@@ -334,7 +360,7 @@
 					});
 					
 					// 페이징 처리. 목록조회 메소드 호출
-					$(".pagingBtn").click(function() {
+					$(".boardListArea .pagingBtn").click(function() {
 						var movePage = $(this).attr('name');
 						console.log("이동할 페이지 : " + movePage);
 						if(movePage == -1) return;
@@ -364,6 +390,135 @@
 			});
 			
 		}
+		
+		
+		// 댓글 목록 조회 & 페이징처리 메소드
+		$.fn.replyListShow = function(currNum) {
+			$.ajax({
+				url: "<%=request.getContextPath()%>/replyList.ad",
+				type: "get",
+				data: {uno: "<%=((User)request.getAttribute("user")).getuNo() %>", currentPage: currNum },
+				dataType : "json",
+				success: function(rMap) {
+					var rInfo = rMap["rInfo"];
+					var pInf = rMap["pInf"];
+					console.log(rInfo);
+					console.log(pInf);
+					
+					var $tableBody = $(".replyListTable tbody");
+					$tableBody.html("");
+					var result = "";
+					
+					var $pagingArea = $(".replyListArea .pagingArea");
+					var pResult = "";
+					$pagingArea.html("");
+					
+					if(rInfo.length > 0) {
+						$.each(rList, function(i) {
+							reply = rInfo[0];
+							board = rInfo[1];
+							result += "<tr>"
+								+ "<td>"
+								+ "<input type='hidden' value=\"" + bList[i].bNo + "\">" 
+								+  String(bList[i].bType).split(",")[1] + "</td>" 
+								+ "<td>" + bList[i].bTitle + "</td>";
+							var content = bList[i].bContent;
+							
+							content = content.replace(/(<([^>]+)>)/ig,"");
+							
+							if(content.length > 15) {
+								result += "<td>" +content.substring(0, 14) + "... </td>";
+							} else { 
+								result += "<td>" + content + "</td>";
+							}
+							result += "<td>" + String(bList[i].writer).split(",")[1] + "</td>" 
+								+ "<td>" + bList[i].createDate + "</td>"
+								+ "</tr>";
+						});
+						
+						
+						// 페이징 바 
+						// 페이징 처리 시작!
+						
+						//<!-- 맨 처음으로(<<) -->
+						pResult += "<span class='pagingBtn clickBtn' name='1'>&lt;&lt;</span>";
+						
+						if(pInf.startPage <= 1) { 
+							pResult += "<span class='pagingBtn' name='-1'>&lt;</span>";
+							
+						} else {
+							pResult = "<span class='pagingBtn clickBtn' name='" + pInf.startPage - pInf.pagingBarSize + "'>&lt;</span>";
+						}
+							
+						for(var p = pInf.startPage; p <= pInf.endPage; p++) {
+							if(p == pInf.currentPage) { 
+									pResult += "<span class='pagingBtn selectBtn' name='-1'>" + p + " </span>";
+							} else {
+								pResult += "<span class='pagingBtn clickBtn' name='" + p + "'>" + p + "</span>";
+							} 
+						} 
+							
+						//<!-- 다음 페이지로(>) -->
+						if(pInf.endPage >= pInf.maxPage) {
+							pResult += "<span class='pagingBtn' name='-1'> &gt; </span>";
+						} else {
+							pResult += "<span class='pagingBtn clickBtn' name='" + pInf.startPage + pInf.pagingBarSize + "'>&gt;</span>";
+						}
+						
+						//<!-- 맨 끝으로(>>) -->
+						pResult += "<span class='pagingBtn clickBtn' name='" + pInf.maxPage + "'>&gt;&gt;</span>";
+					
+					} else {
+						result += "<tr><td colspan='5'>작성된 게시글이 없습니다.</td></tr>";
+						pResult += "";
+					}
+					
+					// 테이블에 목록조회 결과, 페이징바 삽입
+					$tableBody.append(result);
+					$pagingArea.append(pResult);
+					
+					// 페이징 버튼 css
+					$(".replyListArea .clickBtn").mouseenter(function(){
+						$(this).css({"background":"darkgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).css({"background":"white"});
+					});
+					
+					// 페이징 처리. 목록조회 메소드 호출
+					$(".replyListArea .pagingBtn").click(function() {
+						var movePage = $(this).attr('name');
+						console.log("이동할 페이지 : " + movePage);
+						if(movePage == -1) return;
+						
+						$(this).replyListShow(movePage);
+					});
+					
+					// 게시판 상세보기
+					$(".replyListTable td").mouseenter(function(){
+						$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"white"});
+					}).click(function(){
+						var bno = $(this).parent().children().eq(0).children().val();
+						console.log(bno);
+						window.open('<%= request.getContextPath() %>/detailBoard.ad?bno=' + bno, '_blank'); 
+						<%-- location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid; --%>
+					});
+					
+					
+					
+				},
+				error: function(err) {
+					console.log(err);
+				}
+				
+			});
+			
+		}
+		
+		
+		
+		
 	
 	
 	});
