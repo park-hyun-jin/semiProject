@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+
+
+
+ 
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                /* border: 1px solid red; */
+                box-sizing: border-box;
+            }
+
+            #iframeWrap {
+                width: 1000px;
+                /* height: 1100px;
+                	margin-top: 150px; 
+                	padding: 40px;
+                	border: 1px solid red;*/
+                
+                margin: 0 auto;
+                
+               
+            }
+            
+            #writeForm {
+            	border-style: none;
+            	margin-top: 20px;
+            	margin: 0 auto;
+            	position: relative;
+            }
+        </style>
+        
+        
+
+
+</head>
+<body>
+
+	<%@ include file="../common/nav.jsp" %>
+
+
+				<div id="iframeWrap">
+					<iframe id="writeForm" src="<%=request.getContextPath()%>/views/notice/noticewriteForm.jsp" width="1200px" height="900px" scrolling="no"></iframe>   
+				 </div>
+				 
+
+   
+
+
+</body>
+</html>

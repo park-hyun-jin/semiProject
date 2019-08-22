@@ -466,7 +466,7 @@ private Properties prop = new Properties();
 		ResultSet rset = null;
 		int boardCount = 0;
 		
-		String query = prop.getProperty("getWriteBoardCount");
+		String query = prop.getProperty("getNoitceBoardCount");
 		
 		try {
 			
@@ -1106,8 +1106,76 @@ private Properties prop = new Properties();
 	      }
 	      return result;
 	   }
+
+	public ArrayList<Board> noticeSelectList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Board> playgroupList = null;
+		
+		String query = prop.getProperty("noticeBoardSelectList");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			int startRow = (currentPage-1)*limit+1;
+			int endRow = startRow+limit -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			playgroupList = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board bo = new Board(rset.getInt(2),
+									 rset.getString(3),
+									 rset.getString(4),
+									 rset.getString(5),
+									 rset.getString(6),
+									 rset.getInt(7),
+									 rset.getDate(8),
+									 rset.getDate(9),
+									 "Y");
+				playgroupList.add(bo);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return playgroupList;
+	}
+
+	public int insertNoticeBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+	      int result = 0;
+	      
+	      String query = prop.getProperty("insertNoticeBoard");
+	      
+	      try {
+	         pstmt= conn.prepareStatement(query);
+	         
+	         pstmt.setString(1, board.getbTitle());
+	         pstmt.setString(2, board.getbContent());
+	         pstmt.setInt(3,Integer.parseInt(board.getwriter()));
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }
+	      return result;
+	   }
+
+	}
+
 	
 	
 	
-}	
+
 

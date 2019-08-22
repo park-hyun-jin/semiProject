@@ -18,7 +18,11 @@
     int endPage = pInf.getEndPage();
     int limit = pInf.getLimit();
     int pagingBarSize = pInf.getPagingBarSize();
+  
+    int loginUno = ((User)request.getSession().getAttribute("loginUser")).getuNo();
+    // 로그인한 유저의 번호를 가져오겠다.
     
+
   
     %>    
     
@@ -91,25 +95,30 @@
                     <table align="center" class="community_table">
                         <tr class="table_header">
                             <th width="10%">글 번호</th>
-                            <th width="10%">말머리</th>
                              <th width="50%">제목</th>
                             <th width="10%">작성자</th>
                              <th width="5%">조회수</th>
                             <th width="15%">작성일</th>
                         </tr>
-                        <tr>
-                           <td></td>
-                           <td></td> 
-                           <td></td> 
-                           <td></td> 
-                           <td></td> 
-                           <td></td>  
-                        </tr>
+                         <% if(list.isEmpty()){ %>
+				<tr>
+					<td colspan="6">등록된 게시글이 없습니다.</td>
+				</tr>
+				<% }else { %>
+					<%for(Board b : list){ %>
+						  <tr class="table_header">
+							<td width="10%"><%=b.getbNo()%></td>						
+							<td width="50%"><%=b.getbTitle() %></td>
+							<td width="10%"><%=b.getwriter() %></td>
+							<td width="5%"><%=b.getbCount() %></td>
+							<td width="15%"><%=b.getCreateDate()%></td>
+
+						</tr>
+					<%} %>
+
+				<% } %> 
                     </table>
                 </div>
-               
-                <!-- 페이징 처리 영역 -->
-                <div class="pagWrap">
                
                     
                     <!------- 페이징 바 ------->
@@ -150,9 +159,13 @@
 			</div>      
                 </div>
          
-        	 <!-- 글쓰기 버튼 -->
+        	<!-- 글쓰기 버튼 -->
                 <div class="community_footer">
-                    <button class="writeBtn">글쓰기</button> 
+                 <% if(loginUno == 3){ %> 
+                 <!-- 로그인한 유저가 3번 일 때  -->
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/noticeBoardWrite.fo'">글쓰기</button> 
+                <%} %>
+                    <%-- <button class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/playgroupWrite.fo'">글쓰기</button>  --%>
                 </div>
             <!-- 검색 영역 -->
             <div class = "search_area">
@@ -163,6 +176,36 @@
             </div>
 
         </section>
+        
+        <script>
+			$(function(){
+				// 게시판 상세보기
+				$(".table_header td").mouseenter(function(){
+					$(this).parent().css({"color":"black", "cursor":"pointer"});
+				}).click(function(){
+					var bNo = $(this).parent().children().eq(0).text();
+					
+					// 로그인 한 사람만 게시글 상세보기 가능
+					<% if(loginUser != null){ %>
+						location.href="<%= request.getContextPath() %>/noteBoardgroupWrite.de?bNo="+bNo;
+					<% } else{ %>
+						alert("로그인해야만 상세보기가 가능합니다!");
+					<% } %>
+				});
+				
+				
+				// 페이징바 마우스오버 이벤트
+				$(".clickBtn").mouseenter(function(){
+					$(this).css({"background":"darkgray", "cursor":"pointer"});
+				}).mouseout(function(){
+					$(this).css({"background":"lightgray"});
+				}); 
+				
+			});
+			
+			
+		</script>
+    
     
     
 

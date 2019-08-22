@@ -1,0 +1,59 @@
+package board.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import board.model.service.BoardService;
+import board.model.vo.Board;
+import user.model.vo.User;
+@WebServlet("/noticeWrite.in")
+public class noticeGroupInsertServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public noticeGroupInsertServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String bTitle = request.getParameter("BTITLE");
+		String bContent =request.getParameter("content");
+		HttpSession session = request.getSession(); // 세션 가져오는 거 
+		User loginUser = (User)session.getAttribute("loginUser");
+		int writer = loginUser.getuNo();
+		
+		Board board = new Board();
+
+		board.setbTitle(bTitle);
+		board.setbContent(bContent);
+		board.setwriter(writer+"");
+		
+		
+
+		int result = new BoardService().insertNoticeBoard(board); //insertPlayGroup
+
+
+		if(result>0) { // insert 성공시
+			// 어떤 페이지, 어떤 url 사용할지 생각  메세지도 전달할지 생각
+			request.getSession().setAttribute("msg", "게시글이 등록되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/notice.me");
+		}else {
+			request.setAttribute("msg", " 등록 실패 ");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response); // 'http://localhost:8080/jspProject/'
+		}
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}
