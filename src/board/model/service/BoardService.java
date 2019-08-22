@@ -1,14 +1,14 @@
 package board.model.service;
 import static common.JDBCTemplate.*;
 
+import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
-
+import board.model.vo.Note;
 import user.model.dao.UserDao;
-
 import board.model.vo.Reply;
 import board.model.vo.Report;
 
@@ -815,9 +815,119 @@ public class BoardService {
 	}
 	
 	
+	public int dangerWriteInsert(Report report) {
+		Connection conn = getConnection();
+		int result = new BoardDao().dangerWriteInsert(conn,report);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int insertSheetApply(Board board) {
+		Connection conn = getConnection();
+		int result = new BoardDao().insertSheetApply(conn,board);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int getsheetapplyCount() {
+		Connection conn =getConnection();		
+		int boardCount = new BoardDao().getsheetapplyCount(conn);
+		
+		return boardCount;
+	}
+
+	public ArrayList<Board> selectsheetapplyList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Board> sheetapplyPianoList = new BoardDao().selectsheetapplyList(conn,currentPage,limit);
+		return sheetapplyPianoList;
+	}
+
+	public Board selectSheetApply(int bNo) {
+		Connection conn = getConnection();
+		
+		
+		BoardDao bDao = new BoardDao();
+		
+		
+		Board board = bDao.selectSheetApply(conn, bNo);
+		
+		if(board != null) {
+			int result = bDao.countSheetApply(conn,bNo);
+			
+			if(result >0) {
+				commit(conn);
+				board.setbCount(board.getbCount()+1);
+			}else {
+				
+				rollback(conn);
+				board =null; 
+			}
+		}
+
+		return board;
+	}
+
+	public int updateSheetApply(Board sheetapplyboard) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateSheetApply(conn,sheetapplyboard);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int deleteSheetApply(int bNo) {
+		Connection conn =getConnection();
+		int result = new BoardDao().deleteSheetApply(conn,bNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int insertQnA(Board board) {
+		Connection conn = getConnection();
+		int result = new BoardDao().insertQnA(conn,board);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
+	public int qnaCount() {
+		Connection conn =getConnection();		
+		int boardCount = new BoardDao().qnaCount(conn);
+		
+		return boardCount;
+	}
 	
 	
+	public ArrayList<Board> selectQnAList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Board> qnaList = new BoardDao().selectQnAList(conn,currentPage,limit);
+		return qnaList;
+	}
 	
 	
 	
@@ -892,35 +1002,37 @@ public class BoardService {
 	
 	
 	
+	public int insertPdfBoard(Board board, Note note) {
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		int result1 = bDao.insertPdfBoard(conn, board);
+		int result2 = bDao.insertPdfBoard(conn, note);
+				
+		if(result1>0 && result2 > 0) {
+			commit(conn);
+		}else {
+			String savePath = note.getFilePath();
+			String saveFile = note.getChangeName();
+			File failedFile = new File(savePath + saveFile);
+			
+			failedFile.delete();
+			
+			result1 = 0;
+			rollback(conn);
+		}
+		return result1;
+	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Note selectSheetSharePdf(int bNo) {
+		Connection conn = getConnection();
+		
+		Note note = new BoardDao().selectSheetSharePdf(conn, bNo);
+		
+		
+		return note;
+	}
 	
 	
 	
@@ -1108,98 +1220,17 @@ public class BoardService {
 		return playgroupList;
 	}
 
-	public int dangerWriteInsert(Report report) {
-		Connection conn = getConnection();
-		int result = new BoardDao().dangerWriteInsert(conn,report);
-		
-		if(result >0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		return result;
-	}
-
-	public int insertSheetApply(Board board) {
-		Connection conn = getConnection();
-		int result = new BoardDao().insertSheetApply(conn,board);
-		
-		if(result >0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		return result;
-	}
-
-	public int getsheetapplyCount() {
-		Connection conn =getConnection();		
-		int boardCount = new BoardDao().getsheetapplyCount(conn);
-		
-		return boardCount;
-	}
-
-	public ArrayList<Board> selectsheetapplyList(int currentPage, int limit) {
-		Connection conn = getConnection();
-		ArrayList<Board> sheetapplyPianoList = new BoardDao().selectsheetapplyList(conn,currentPage,limit);
-		return sheetapplyPianoList;
-	}
-
-	public Board selectSheetApply(int bNo) {
-		Connection conn = getConnection();
-		
-		
-		BoardDao bDao = new BoardDao();
-		
-		
-		Board board = bDao.selectSheetApply(conn, bNo);
-		
-		if(board != null) {
-			int result = bDao.countSheetApply(conn,bNo);
-			
-			if(result >0) {
-				commit(conn);
-				board.setbCount(board.getbCount()+1);
-			}else {
-				
-				rollback(conn);
-				board =null; 
-			}
-		}
-
-		return board;
-	}
-
-	public int updateSheetApply(Board sheetapplyboard) {
-		Connection conn = getConnection();
-		
-		int result = new BoardDao().updateSheetApply(conn,sheetapplyboard);
-		
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		return result;
-	}
-
-	public int deleteSheetApply(int bNo) {
-		Connection conn =getConnection();
-		int result = new BoardDao().deleteSheetApply(conn,bNo);
-		
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		return result;
-	}
-
 	
 
 	
 
-
+	
+	
+	
+	
+	
+	
+	
 
 
 	public int getFreeBoardCount() {
