@@ -864,8 +864,8 @@ private Properties prop = new Properties();
 								rset.getString(8),
 								rset.getString(9),
 								rset.getInt(10),
-								rset.getInt(11),
-								rset.getInt(12)
+								rset.getInt(12),
+								rset.getInt(14)
 						);
 			}
 			

@@ -37,7 +37,7 @@ public class SheetShareWriteServlet extends HttpServlet {
 
 
 			String root= request.getServletContext().getRealPath("/");
-			String savePath = root+"sheetPdf/";
+			String savePath = root+"sheetPdf\\";
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 			
 			int uNo = ((User)request.getSession().getAttribute("loginUser")).getuNo();	

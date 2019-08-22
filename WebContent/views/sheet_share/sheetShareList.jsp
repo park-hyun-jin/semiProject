@@ -111,7 +111,7 @@
 				
 					<%for(Board b : SheetList){ %>
 					
-						  <tr class="table_header">
+						  <tr class="table_header" id="<%=b.getbNo()%>">
 							<td>[<%=b.getheader() %>]</td>
 							<td><%=b.getbTitle() %></td>	
 							<% if(b.getDivide().equals("P")){ %>						
@@ -214,11 +214,11 @@ $(function(){
 	$(".table_header td").mouseenter(function(){
 		$(this).parent().css({"color":"black", "cursor":"pointer"});
 	}).click(function(){
-		var bNo = $(this).parent().children().eq(0).text();
+		var bNo = $(this).parent().attr("id");
 		
 		// 로그인 한 사람만 게시글 상세보기 가능
 		<% if(loginUser != null){ %>
-			location.href="<%= request.getContextPath() %>/playgroupWrite.de?bNo="+bNo;
+			location.href="<%= request.getContextPath() %>/sheetShareDetail.de?bNo="+bNo;
 		<% } else{ %>
 			alert("로그인해야만 상세보기가 가능합니다!");
 		<% } %>

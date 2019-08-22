@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="board.model.vo.Board"%>
+<%@page import="board.model.vo.Note"%>
+<%
+
+Board b = (Board)request.getAttribute("board");
+Note n = (Note)request.getAttribute("note");
+String filename = (String)request.getAttribute("pdfFilename");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +26,7 @@
                     <div class ="Detail_Header_TI">
                         <!-- 제목  -->
                         <div class="Detail_Header_Title">
-                             <span>Way Back Home - 숀</span>
+                             <span><%=b.getbTitle() %></span>
                         </div>
                         <div class="Detail_Header_Icon"><img src="../image/download.png"></div>
                         <div class="Detail_Header_Icon"><img src="../image/like.png" class = "changeImg" onclick="changeImg();"></div>
@@ -26,8 +34,8 @@
                     </div>
                     <!-- 작성일 작성자 -->
                     <div class ="Detail_Header_WD">
-                        <div class="Detail_Header_Writer">작성자</div>
-                        <div class="Detail_Header_Date">작성일</div>
+                        <div class="Detail_Header_Writer">작성자 : <%=loginUser.getNickName() %></div>
+                        <div class="Detail_Header_Date">작성일 : <%=b.getCreateDate() %></div>
                     </div>
                    
     
@@ -36,13 +44,13 @@
                 <!-- detail안에 내용 들어오는 부분 -->
                 <div class= "Detail_Content">
                     <div class = "Detail_Content_Comment">
-                        <div class ="Comment_composer" > 작곡가 : </div>
-                        <div class ="Comment_title" > 제목 : </div>
-                        <div class ="Comment_genre" > 장르 : </div>
-                        <div class ="Comment_instrument" > 악기 : </div>
+                        <div class ="Comment_composer" > 작곡가 : <br><%=n.getnComposer() %></div>
+                        <div class ="Comment_title" > 제목 : <br><%=n.getnTitle() %></div>
+                        <div class ="Comment_genre" > 장르 : <br><%=n.getnGenre() %></div>
+                        <div class ="Comment_instrument" > 악기 : <br><%=n.getnInstrument() %></div>
                     </div>
-                    <div class = "Detail_Content_SheetImg"> 악보 사진</div>
-                    <div class="Detail_Content_Etc">설명</div>
+                    <div class = "Detail_Content_SheetImg"><img src="<%=filename %>.png" class="imgPdf"></div>
+                    <div class="Detail_Content_Etc"><%=b.getbContent() %></div>
                 </div>
 
                 <!-- 댓글 -->
