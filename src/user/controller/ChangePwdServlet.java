@@ -13,7 +13,7 @@ import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/changePwd.me")
+@WebServlet(urlPatterns="/changePwd.me", name="ChangePwdServlet")
 public class ChangePwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

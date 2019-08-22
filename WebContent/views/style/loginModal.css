@@ -131,8 +131,8 @@ div {
 /* 소셜 로그인 div 영역 */
 #social_login {
     width : 100%;
-    height : 150px;
-    padding: 0px 35px 10px 35px;
+    height : 140px;
+    padding: 0px 35px 0px 35px;
 }
 
 #kakao_area img {

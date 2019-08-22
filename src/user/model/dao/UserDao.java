@@ -115,7 +115,6 @@ public class UserDao {
 			pstmt.setString(2, joinUser.getUserPwd());
 			pstmt.setString(3, joinUser.getUserName());
 			pstmt.setString(4, joinUser.getNickName());
-			pstmt.setString(5, joinUser.getSign());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

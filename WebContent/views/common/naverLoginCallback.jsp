@@ -253,7 +253,8 @@
 	               success: function(result) {
 	                  console.log("회원가입여부 / " + result);
 	                  if(result > 0) {
-	                     location.href="<%=request.getContextPath()%>/socialLogin.us?userId="+unqId+"&sign=N";
+	                	  var thisUrl = '<%=request.getParameter("thisUrl")%>';
+	                     location.href="<%=request.getContextPath()%>/socialLogin.us?userId="+unqId+"&sign=N&thisUrl="+thisUrl;
                      } else {
                         console.log("모달 나오냐 / " + result);
                         $("#addInfoModal").css("display", "block");
@@ -281,9 +282,6 @@
    </script>
    
    
-   
-   
-   
    <!-- 닉네임 설정 위한 모달창 -->
    <div id="addInfoModal" class="all-area-modal2"> 
     
@@ -297,6 +295,7 @@
 				<div id="addInfoForm">
 					<!-- 추가정보 입력폼 -->
 					<form id="addForm" method="post" action="<%=request.getContextPath() %>/socialJoin.us">
+						<input type="hidden" name="thisUrl" value="" id="thisUrl"></input>
 						<input type="hidden" name="socialUserId" value=""></input>
 						<input type="hidden" name="socialUserName" value=""></input>
 						<input type="hidden" name="addJoinEmail" value=""></input>
@@ -325,16 +324,17 @@
 	
 	<script>
 	
+	// 소셜로그인시 추가정보 입력 모달. x를 누르면 모달 닫기.
+    function exitAddInfoModal() {
+        document.getElementById('addInfoModal').style.display = 'none';
+        $(".addChkMsg").text("");
+        $("#addInfoModal form").each(function() {
+			this.reset();
+		});
+        location.href='<%=request.getParameter("thisUrl")%>';
+	}
 	$(function() {
 		
-		// 소셜로그인시 추가정보 입력 모달. x를 누르면 모달 닫기.
-	    function exitAddInfoModal() {
-	        document.getElementById('addInfoModal').style.display = 'none';
-	        $(".addChkMsg").text("");
-	        $("#addInfoModal form").each(function() {
-				this.reset();
-			});
-		}
 		
 		
 	   // 닉네임 중복확인 검사 
@@ -372,6 +372,7 @@
 		   // 닉네임 중복검사
 		   if(!addNickNameC) {
 		      $("#addNickName").focus();
+		      $("#thisUrl").val($(location).attr('href'));
 		      return false;
 		   }
 		});
