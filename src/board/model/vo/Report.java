@@ -5,7 +5,8 @@ public class Report {
 	private String rpContent;
 	private int bNo;
 	private int userNo;
-	
+	private String bType;
+	private String nickName;
 	
 	public Report() {
 		// TODO Auto-generated constructor stub
@@ -66,6 +67,26 @@ public class Report {
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+
+
+	public String getbType() {
+		return bType;
+	}
+
+
+	public void setbType(String bType) {
+		this.bType = bType;
+	}
+	
+
+	public String getNickName() {
+		return nickName;
+	}
+
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 

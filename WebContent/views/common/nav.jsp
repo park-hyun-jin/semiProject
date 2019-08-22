@@ -366,7 +366,10 @@
             	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
             		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
             	</div>
-            
+            	
+            	<% if(loginUser.getuNo() == 3) { %>
+            		<button onclick="location.href='<%=request.getContextPath()%>/updatedInfo.ad'">관리자</button>
+            	<% } %>
             <% } %>
         </div>
         </div>
