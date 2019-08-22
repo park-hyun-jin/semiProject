@@ -1,4 +1,4 @@
-package user.controller;
+package board.controller;
 
 import java.io.IOException;
 
@@ -13,18 +13,19 @@ import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/abc.me")
-public class test3 extends HttpServlet {
+@WebServlet("/test.bo")
+public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public test3() {
+    public TestServlet() {
         super();
         
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		User loginUser = (User)request.getSession().getAttribute("loginUser");
 		int uNo = loginUser.getuNo();
 		
@@ -32,11 +33,11 @@ public class test3 extends HttpServlet {
 		RequestDispatcher view = null;
 
 		if(user != null) {
-			view = request.getRequestDispatcher("views/mypage/test.jsp");
+			view = request.getRequestDispatcher(request.getContextPath()+"/views/sheet_share/sheetShareFormIframe.jsp");
 			request.setAttribute("user", user);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "회원 정보 조회 실패");			
+					
 		}
 		
 		view.forward(request, response);

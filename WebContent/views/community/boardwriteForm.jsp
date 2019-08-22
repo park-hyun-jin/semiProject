@@ -63,7 +63,7 @@
             }
 
             .board_title {
-                width: 80%;
+                width: 100%;
                 height: 100%;
                 margin-top: 0;
                 top: 0;
@@ -191,37 +191,23 @@
 
 
 <body>
-
+	
     <!-- 악보공유 글쓰기 화면 -->
     <div class="write_form_wrap">
         <!-- 화면 정보 -->
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-             <form name="writeForm" action="<%=request.getContextPath()%>/playgroupWrite.in" method="post">
+             <form name="writeForm" action="<%=request.getContextPath()%>/boardWrite.in" method="post">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
-                
-                    <select name="header" id="board_head">
-                        <option value="0" selected>말머리</option>
-                        <option value="7">전국</option>
-                        <option value="8">수도권</option>
-                        <option value="9">강원도</option>
-                        <option value="10">전라도</option>
-                        <option value="11">대전/충청</option>
-                        <option value="12">대구/경북</option>
-                        <option value="13">부산/경남</option>
-                    </select>
-
-                    <input type="text" name="BTITLE" class="board_title" placeholder="제목" required>
+                    <input type="text" name="BTITLE" class="board_title" placeholder="제목">
                 </div>
-
-                
 
                 <!-- 본문 글쓰기 -->
                 <div class="board_content_area">
 
-					<%@ include file="playgroupWrite.jsp" %>
+					<%@ include file="boardgroupWrite.jsp" %>
 
 
                 </div>

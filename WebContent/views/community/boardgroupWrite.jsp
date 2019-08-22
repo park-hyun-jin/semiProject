@@ -21,37 +21,40 @@
 
 </head>
 <body>
-<textarea name="content" id="summernote" ></textarea>
+<textarea name="content" id="summernote"></textarea>
 
-    <script>
+
+<script>
 	$(function(){
 		$('#summernote').summernote({
-	        height : 350,
+	        height:450,
+	       	callbacks:{
 	        onImageUpload: function(files, editor, welEditable) {
 	            for (var i = files.length - 1; i >= 0; i--) {
 	            	sendFile(files[i], editor, welEditable,this);
-	            }
-	        }
+	            	}
+	        	}
+	       	}
 	    });
-
 	});
 	
-	function sendFile(file, editor, welEditable,el) {
+	function sendFile(file, editor, welEditable,img) {
+
    // 파일 전송을 위한 폼생성
 	form_data = new FormData();
 	form_data.append("image", file);
 	$.ajax({
         data: form_data,
         type: "post",
-        url: "<%=request.getContextPath()%>/sheetSharePdf.ch",
+        url: "<%=request.getContextPath()%>/playgroupImg.ch",
         dataType: "text",
         cache: false,
         contentType: false,
         enctype: "multipart/form-data",
         processData: false,
         success: function(savename) {
-        	$(el).summernote('editor.imsertImg',savename);
-        	$("#imageBoard>ul").append('<li><img src ="' + savename +'width="250px" height= "250px" /></li>');
+        	$(img).summernote('editor.insertImage',savename);
+        	$("#imageBoard>ul").append('<li><img src ="'+savename +'"/></li>');
         },
         error: function() {
         	alert('error');

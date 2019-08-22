@@ -1,4 +1,4 @@
-package user.controller;
+package board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,17 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.service.BoardService;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/myPageDownNote.me")
-public class MyPageDownNote extends HttpServlet {
+@WebServlet("/notice.me")
+public class notice extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-    public MyPageDownNote() {
+    public notice() {
         super();
         
     }
@@ -30,16 +31,16 @@ public class MyPageDownNote extends HttpServlet {
 		
 		
 		// 서비스 객체 생성
-				UserService uService = new UserService();
+				BoardService bService = new BoardService();
 				
 				//--------------- 페이징 처리------------------ 
 				// 전체 게시글 수 구하기 
 				
-				int writer = ((User)request.getSession().getAttribute("loginUser")).getuNo();
+//				int writer = ((User)request.getSession().getAttribute("loginUser")).getuNo();
 				
-				System.out.println(writer);
 				
-				int boardCount = uService.getWriteBoardCount(writer);
+				
+				int boardCount = bService.getNoticeBoardCount();
 				System.out.println(boardCount);
 				// 페이징 처리용 변수 선언 
 				int limit = 10;  				// 한 페이지에 보여질 게시글 수 
@@ -72,7 +73,7 @@ public class MyPageDownNote extends HttpServlet {
 																	   // double 붙이고 올림 ceil 사용 ceil도 더블형이기에 
 																		// int형으로 형변환
 				
-//				maxPage = (maxPage == 0) ? 1 : maxPage;
+				maxPage = (maxPage == 0) ? 1 : maxPage;
 				// startpage - 페이징바 시작 페이지 번호
 				// 페이징바에 숫자가 10개씩 표시되는 경우 
 				// 1, 11, 21, 31... → 10(n-1) + 1
@@ -96,15 +97,14 @@ public class MyPageDownNote extends HttpServlet {
 				// ---------- 페이징바 처리 끝 ------------
 				
 				//--------- 게시글 목록 조회 시작---------------
-				ArrayList<Board> list = uService.selectList(writer, currentPage,limit);// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
+				ArrayList<Board> list = bService.selectList();// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
 				
-				System.out.println("작성 게시글 수 : " +list.size());
 				RequestDispatcher view = null;
 				
 				// 게시글 목록 조회 결과에 따른 view 연결 처리 
 				String page = "";
 				if(list !=null) {
-				page="views/mypage/myPageDownNote.jsp";
+				page="views/community/noticeList.jsp";
 //					page="views/mypage/myPageBoard.jsp";
 					request.setAttribute("list", list);
 					request.setAttribute("pInf", pInf);
@@ -117,6 +117,7 @@ public class MyPageDownNote extends HttpServlet {
 				view.forward(request, response);
 						
 	
+						
 	}
 
 	
