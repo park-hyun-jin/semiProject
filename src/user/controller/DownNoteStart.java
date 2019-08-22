@@ -1,6 +1,8 @@
 package user.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,33 +13,34 @@ import user.model.service.UserService;
 import user.model.vo.User;
 
 
-@WebServlet("/quit.me")
-public class QuitUserServlet extends HttpServlet {
+@WebServlet("/noteDownStart.me")
+public class DownNoteStart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public QuitUserServlet() {
+    public DownNoteStart() {
         super();
         
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
 		User loginUser = (User)request.getSession().getAttribute("loginUser");
 		int uNo = loginUser.getuNo();
-		int result = new UserService().quitUser(uNo);
 		
-		if(result > 0) {
-			request.setAttribute("msg", "사요나라.. "+ loginUser.getNickName());
-			
-			
-			response.sendRedirect(request.getContextPath());
-			request.getSession().invalidate(); // 세션 무효화
+		User user = new UserService().selectUser(uNo);
+		RequestDispatcher view = null;
+
+		if(user != null) {
+			view = request.getRequestDispatcher("views/mypage/myPageDownNote.jsp");
+			request.setAttribute("user", user);
 		}else {
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg", "회원 정보 조회 실패");			
 		}
+		
+		view.forward(request, response);
+		
 		
 	}
 

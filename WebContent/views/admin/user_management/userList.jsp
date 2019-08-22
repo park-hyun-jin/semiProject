@@ -26,6 +26,11 @@
 
 	<style>
 	
+		#nav_user_management a{
+			/* background-color: rgb(121, 149, 232);  */
+			/* color: orangered; */
+		}
+	
 	   .page_content {
 	        width: 700px;
 	        height: 900px;
@@ -160,6 +165,12 @@
 	
 	<script>
 		$(function(){
+			
+			
+			
+			$("#nav_user_management a").css("color", "rgb(235, 199, 91)");
+
+			
 			// 유저정보 상세보기
 			$(".userListTable td").mouseenter(function(){
 				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});

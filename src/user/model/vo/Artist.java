@@ -26,6 +26,16 @@ public class Artist {
 		this.urlName = urlName;
 	}
 
+	
+	
+
+	public Artist(String account, String aContent, String pictureName, String urlName) {
+		this.account = account;
+		this.aContent = aContent;
+		this.pictureName = pictureName;
+		this.urlName = urlName;
+	}
+
 	public int getuNo() {
 		return uNo;
 	}
