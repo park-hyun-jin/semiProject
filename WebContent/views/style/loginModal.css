@@ -5,7 +5,7 @@
 }
 
 div {
-    /* border: 1px solid red; */
+    /*  border: 1px solid red;  */
 }
 
 /* 중앙정렬에 관한 설정 */
@@ -35,16 +35,38 @@ div {
     box-sizing: border-box;
 }
 
+/* 모달창 닫기 버튼 영역 */
+#loginHeader {
+    width: 100%;
+    height: 30px;
+    background-color: black;
+}
+
+/* 모달창 닫기 버튼 */
+#loginClose {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;   
+    display: block;
+    float: right;
+    padding: 0;
+    margin-right: 5px;
+}
+
+#loginClose:hover{
+    color: red;
+    cursor: pointer;
+}
+
 /* 로그인버튼 누르면 뜰 로그인 창 바탕*/
 #login-form{
     background-color: white;
     width: 400px;
-    height: 520px;
+    height: 540px;
     /* top: 100px; */
     left: 35%;
     padding: 0;
     border-radius: 5px;
-    padding: 30px 35px 20px 35px;
 
 }
 
@@ -55,12 +77,12 @@ div {
 #login-form button:hover {
     cursor: pointer;
 }
-
 /* 로그인 창의 이메일(ID), 비밀번호 입력 폼 영역*/
 #login-input-email-pwd {
     width: 100%;
-    height: 260px;
+    height: 290px;
     box-sizing: border-box;
+    padding: 20px 35px 0px 35px;
 }
 
 /* 로그인, 비밀번호 레이블 설정 */
@@ -110,6 +132,7 @@ div {
 #social_login {
     width : 100%;
     height : 140px;
+    padding: 0px 35px 0px 35px;
 }
 
 #kakao_area img {
@@ -130,17 +153,18 @@ div {
 #login_form_footer {
     width : 100%;
     border-top : 1px solid darkgray;
-    height : 80px;
-    padding : 20px 20px;
+    height : 60px;
+    padding : 10px 30px 10px 30px;
 }
 
 /* 회원가입, 아이디비번 찾기 영역 */
 #join_search_btn_area {
     display: inline-block;
-    height : 80%;
+    height : 100%;
+    width: 100%;
     position: relative;
     font-size : small;
-    margin-left: 15%;
+    padding-left: 50px;
 
 }
 
@@ -156,6 +180,7 @@ div {
     font-size : small;
     font-weight : bold;
     padding : 5px 5px;
+    margin-left: 5px;
 }
 
 /* 모달 공통적인 기능 */

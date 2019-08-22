@@ -22,10 +22,13 @@ public class SocialLoginServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       String userId = request.getParameter("userId");
       String sign = request.getParameter("sign");
+      
+      String thisUrl = request.getParameter("thisUrl");
+      
       User loginUser = new UserService().socialLoginUser(userId, sign);
       
       request.getSession().setAttribute("loginUser", loginUser);
-      response.sendRedirect(request.getContextPath());
+      response.sendRedirect(thisUrl);
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
