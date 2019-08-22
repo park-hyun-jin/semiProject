@@ -153,10 +153,20 @@ public class Board {
 	}
 
 	
-
+	
+	
 
 
 	
+
+
+
+	public Board(String bTitle, String bContent, String writer) {
+		super();
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.writer = writer;
+	}
 
 
 
@@ -170,6 +180,23 @@ public class Board {
 		this.writer = writer;
 		this.bCount = bCount;	
 		this.createDate = createDate;
+	}
+
+
+	
+	
+	
+
+	public Board(int bNo, String bTitle, String bContent, String writer, int bCount, Date createDate, Date modifyDate) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.writer = writer;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		
 	}
 
 

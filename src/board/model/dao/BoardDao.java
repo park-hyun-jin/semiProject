@@ -279,6 +279,305 @@ private Properties prop = new Properties();
 	
 	
 	
+	public int dangerWriteInsert(Connection conn, Report report) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("dangerWriteInsert");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, report.getRpContent());
+			pstmt.setInt(2, report.getbNo());
+			pstmt.setInt(3, report.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertSheetApply(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertSheetApply");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3, Integer.parseInt(board.getheader()));
+			pstmt.setInt(4,Integer.parseInt(board.getwriter()));
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int getsheetapplyCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null; 
+		
+		int boardCount = 0;
+		
+		String query = prop.getProperty("getsheetapplyCount");
+		try {
+			stmt=conn.createStatement();
+			rset =stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardCount =rset.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return boardCount;
+	}
+
+	public ArrayList<Board> selectsheetapplyList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Board> sheetapplyList = null;
+		
+		String query = prop.getProperty("selectsheetapplyList");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			int startRow = (currentPage-1)*limit+1;
+			int endRow = startRow+limit -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			sheetapplyList = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board bo = new Board(rset.getInt(2),
+									 rset.getString(3),
+									 rset.getString(4),
+									 rset.getString(5),
+									 rset.getString(6),
+									 rset.getInt(7),
+									 rset.getDate(8),
+									 rset.getDate(9),
+									 "Y");
+				sheetapplyList.add(bo);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sheetapplyList;
+	}
+
+	public Board selectSheetApply(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Board board = null;
+		
+		String query = prop.getProperty("selectSheetApply");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				board = new Board(rset.getInt(1),
+								  rset.getString(2),
+								  rset.getString(3),
+								  rset.getString(4),
+								  rset.getString(5) + ","+ rset.getString(6),
+								  rset.getInt(7),
+								  rset.getDate(8)
+				);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+	}
+		return board;
+	}
+
+	public int countSheetApply(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countSheetApply");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	public int updateSheetApply(Connection conn, Board sheetapplyboard) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateSheetApply");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			pstmt.setInt(1,Integer.parseInt(sheetapplyboard.getheader()));
+			pstmt.setString(2, sheetapplyboard.getbTitle());
+			pstmt.setString(3, sheetapplyboard.getbContent());
+			pstmt.setInt(4, sheetapplyboard.getbNo());
+			
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteSheetApply(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteSheetApply");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertQnA(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertQnA");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3,Integer.parseInt(board.getwriter()));
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int qnaCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null; 
+		
+		int boardCount = 0;
+		
+		String query = prop.getProperty("qnaCount");
+		try {
+			stmt=conn.createStatement();
+			rset =stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardCount =rset.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return boardCount;
+	}
+	
+
+	public ArrayList<Board> selectQnAList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Board> qnaList = null;
+		
+		String query = prop.getProperty("selectQnAList");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			int startRow = (currentPage-1)*limit+1;
+			int endRow = startRow+limit -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			qnaList = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board bo = new Board(rset.getInt(2),
+									 rset.getString(3),
+									 rset.getString(4),
+									 rset.getString(5),
+									 rset.getInt(6),
+									 rset.getDate(7),
+									 rset.getDate(8));
+				qnaList.add(bo);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return qnaList;
+	}
+
 	
 	
 	
@@ -579,647 +878,15 @@ private Properties prop = new Properties();
 		return list;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-
-	public int dangerWriteInsert(Connection conn, Report report) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("dangerWriteInsert");
-		
-		try {
-			pstmt= conn.prepareStatement(query);
-			pstmt.setString(1, report.getRpContent());
-			pstmt.setInt(2, report.getbNo());
-			pstmt.setInt(3, report.getUserNo());
-			
-			result = pstmt.executeUpdate();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public int insertSheetApply(Connection conn, Board board) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertSheetApply");
-		
-		try {
-			pstmt= conn.prepareStatement(query);
-			pstmt.setString(1, board.getbTitle());
-			pstmt.setString(2, board.getbContent());
-			pstmt.setInt(3, Integer.parseInt(board.getheader()));
-			pstmt.setInt(4,Integer.parseInt(board.getwriter()));
-			
-			result = pstmt.executeUpdate();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
-	public int getsheetapplyCount(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null; 
-		
-		int boardCount = 0;
-		
-		String query = prop.getProperty("getsheetapplyCount");
-		try {
-			stmt=conn.createStatement();
-			rset =stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				boardCount =rset.getInt(1);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-		return boardCount;
-	}
-
-	public ArrayList<Board> selectsheetapplyList(Connection conn, int currentPage, int limit) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		ArrayList<Board> sheetapplyList = null;
-		
-		String query = prop.getProperty("selectsheetapplyList");
-		
-		try {
-			pstmt= conn.prepareStatement(query);
-			
-			int startRow = (currentPage-1)*limit+1;
-			int endRow = startRow+limit -1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset=pstmt.executeQuery();
-			
-			sheetapplyList = new ArrayList<Board>();
-			
-			while(rset.next()) {
-				Board bo = new Board(rset.getInt(2),
-									 rset.getString(3),
-									 rset.getString(4),
-									 rset.getString(5),
-									 rset.getString(6),
-									 rset.getInt(7),
-									 rset.getDate(8),
-									 rset.getDate(9),
-									 "Y");
-				sheetapplyList.add(bo);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return sheetapplyList;
-	}
-
-	public Board selectSheetApply(Connection conn, int bNo) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		Board board = null;
-		
-		String query = prop.getProperty("selectSheetApply");
-		
-		try {
-			pstmt=conn.prepareStatement(query);
-			
-			pstmt.setInt(1, bNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				
-				board = new Board(rset.getInt(1),
-								  rset.getString(2),
-								  rset.getString(3),
-								  rset.getString(4),
-								  rset.getString(5) + ","+ rset.getString(6),
-								  rset.getInt(7),
-								  rset.getDate(8)
-				);
-				
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-	}
-		return board;
-	}
-
-	public int countSheetApply(Connection conn, int bNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("countSheetApply");
-		
-		try {
-			pstmt= conn.prepareStatement(query);
-			pstmt.setInt(1, bNo);
-			
-			result = pstmt.executeUpdate();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-		
-	}
-
-	public int updateSheetApply(Connection conn, Board sheetapplyboard) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateSheetApply");
-		
-		try {
-			pstmt= conn.prepareStatement(query);
-			
-			pstmt.setInt(1,Integer.parseInt(sheetapplyboard.getheader()));
-			pstmt.setString(2, sheetapplyboard.getbTitle());
-			pstmt.setString(3, sheetapplyboard.getbContent());
-			pstmt.setInt(4, sheetapplyboard.getbNo());
-			
-			result=pstmt.executeUpdate();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
-	public int deleteSheetApply(Connection conn, int bNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("deleteSheetApply");
-		
-		try {
-			pstmt=conn.prepareStatement(query);
-			pstmt.setInt(1, bNo);
-			
-			result=pstmt.executeUpdate();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
 
 	
-
-
+	
+	
+	
+	
+	
+	
+	
 
 }
 

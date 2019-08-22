@@ -223,7 +223,7 @@
                     <ul class="detailList detailList2">
                         <li><a href="#">공지사항</a></li>
                         <li><a href="#">자유게시판</a></li>
-                        <li><a href="#">Q&A</a></li>
+                        <li><a href="<%=request.getContextPath()%>/qnaWrite.li">Q&A</a></li>
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">
