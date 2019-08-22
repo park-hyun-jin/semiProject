@@ -35,7 +35,7 @@ String nickName = writer[1];
                     <div class ="Detail_Header_TI">
                         <!-- 제목  -->
                         <div class="Detail_Header_Title">
-                        	<p>[<%= b.getheader() %>]</p>
+                        	<%-- <p>[<%= b.getheader() %>]</p> --%>
                              <span><%= b.getbTitle() %></span>
                         </div>
                         <div class="Detail_Header_Icon"><img src="views/image/download.png"></div>
@@ -139,6 +139,38 @@ String nickName = writer[1];
 			}
 		}
         
+    	// 게시글 신고
+    	$(".danger").click(function(){
+    		var uNo = <%= loginUser.getuNo()%>
+			var bNo = <%=b.getbNo()%>
+    		var rpContent = prompt( '신고 사유를 작성해주세요');
+    		
+    		if(rpContent == null){
+    			alert("게시글 신고 작성이 취소되었습니다.")
+    			return false;
+    		}
+    		
+    		$.ajax({
+				url : "freeBoarddangerWrite.in",
+				type : "POST",
+				data : {uNo : uNo, rpContent : rpContent , bNo:bNo},
+				success : function(result){
+					if(result>0){
+						alert("신고 등록 완료");
+					}else{
+						console.log("신고 등록 에러 발생");
+					}
+				}
+				
+			});
+    	      
+    	});
+        
+        
+        
+        
+        
+        
         
         // 댓글 등록
         $("#reply_Submit").click(function(){
@@ -172,7 +204,7 @@ String nickName = writer[1];
         	function selectRlist(){
     			var bNo = <%= b.getbNo()%>
     			$.ajax({
-    				url: "boardReply.in",
+    				url: "boardReply.li",
     				type:"POST",
     				dataType:"json",
     				data : {bNo : bNo},

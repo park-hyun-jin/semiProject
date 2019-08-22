@@ -25,7 +25,7 @@ public class boardgroupInsertServlet extends HttpServlet {
 
 		String bTitle = request.getParameter("BTITLE");
 		String bContent =request.getParameter("content");
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); // 세션 가져오는 거 
 		User loginUser = (User)session.getAttribute("loginUser");
 		int writer = loginUser.getuNo();
 		

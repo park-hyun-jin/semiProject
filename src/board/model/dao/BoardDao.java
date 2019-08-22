@@ -96,22 +96,23 @@ private Properties prop = new Properties();
 
 	public Board seletePlayGroup(Connection conn, int bNo) {
 		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+		PreparedStatement pstmt = null; // 번호가 뭔데? 그 뭔데인 물음표를 쓰기 위해서 프리페어를 쓰기 위해서 
+		ResultSet rset = null;     // 가져올 거를 담아올거가 필요하기에 리절트 셋 필요
 		
 		Board board = null;
 		
-		String query = prop.getProperty("selectPlayGroup");
+		String query = prop.getProperty("selectPlayGroup"); // bNo에 맞는 이름 등등을 갖기 위한 쿼리문  bno?는 번호가 뭐다 
+		
 		
 		try {
 			pstmt=conn.prepareStatement(query);
 			
-			pstmt.setInt(1, bNo);
+			pstmt.setInt(1, bNo); // bno 값을 담아준다. 
 			
-			rset = pstmt.executeQuery();
+			rset = pstmt.executeQuery(); //rset에 
 			
 			if(rset.next()) {
-				
+						// 한 줄씩 담아준다. 쿼리문 순서대로 
 				board = new Board(rset.getInt(1),
 								  rset.getString(2),
 								  rset.getString(3),
@@ -129,7 +130,7 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 	}
-		return board;
+		return board; // 보드에 담아서 서블릿으로 넘길게~
 	}
 
 
@@ -1041,78 +1042,78 @@ private Properties prop = new Properties();
 		return boardCount;
 	}
 
-	public ArrayList<Board> selectList(Connection conn) {
+	public ArrayList<Board> selectList(Connection conn,int currentPage, int limit) {
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<Board> list = null;
+		ArrayList<Board> playgroupList = null;
 		
-		String query = prop.getProperty("selectList");
-		
-		
-		   try {
-		         stmt = conn.createStatement();
-		      
-		         rset = stmt.executeQuery(query);
-		         
-		         list = new ArrayList<Board>();
-		       
-		         
-		         while(rset.next()) {
-		       
-		            Board b = new Board(
-		            		
-		            		rset.getInt(2),
-		            		rset.getString(3),
-		            		rset.getInt(4),
-		            		rset.getDate(5),
-		            		rset.getString(6)
-		            		);
-		           
-		            		
-		            		list.add(b);
-
-		         }      
-		         
-		      
-		      } catch (Exception e) {
-		         
-		      }finally {
-		         close(rset);
-		         close(stmt);
-		      }
-		      
-		      
-	      return list;
-	   }
-		
-		
-	
-
-	// -------------------------------추가한 영역------------------------------------------------
-	public int updatePlayGroup(Connection conn, Board playgroupboard) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updatePlayGroup");
+		String query = prop.getProperty("freeBoardSelectList");
 		
 		try {
 			pstmt= conn.prepareStatement(query);
 			
-			pstmt.setInt(1,Integer.parseInt(playgroupboard.getheader()));
+			int startRow = (currentPage-1)*limit+1;
+			int endRow = startRow+limit -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			playgroupList = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board bo = new Board(rset.getInt(2),
+									 rset.getString(3),
+									 rset.getString(4),
+									 rset.getString(5),
+									 rset.getString(6),
+									 rset.getInt(7),
+									 rset.getDate(8),
+									 rset.getDate(9),
+									 "Y");
+				playgroupList.add(bo);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return playgroupList;
+	}
+
+	// -------------------------------추가한 영역------------------------------------------------
+	public int updatePlayGroup(Connection conn, Board playgroupboard) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		// 넣기만 하고 받아올게 없기 때문에  리절트셋을 아니고 리절트에 0 있는지 없는지 결과값을 확인하기 위해
+		// 리절트 셋은 넣고 받고 
+		// 받아오는 경우에는 셀렉트처럼 글 번호에 맞게 제목이랑 내용등등이 글 번호에 맞는거에 갖고 와야 되는데 담아올 게 있어야 한다. 장바구니 필요 
+		//		한 개가 들어왔는 개수로만 파악할 경우에는 
+		String query = prop.getProperty("updatePlayGroup");
+		
+		try {
+			pstmt= conn.prepareStatement(query); // 쿼리를 갖고 와야 해 
+			
+			// 물음표 4개니깐 그 물음표에 넣어줘라
+			pstmt.setInt(1,Integer.parseInt(playgroupboard.getheader())); // 그냥 숫자가 안 담아줘기에 다운캐스팅을 해서 형을 맞게 한다. 스트링인데 인트로 담아야 한다. 그래서 형벼환
 			pstmt.setString(2, playgroupboard.getbTitle());
 			pstmt.setString(3, playgroupboard.getbContent());
 			pstmt.setInt(4, playgroupboard.getbNo());
+//			나는 갱신할거야 어떤걸? 보드를 거기에서 애랑 애랑 애랑 애랑 세트로 묶어서 업데이트를 해버릴거야 뭐에 맞게? 글번호에 맞게? 이것들을 전부다 보드에서 바꿔버릴거야~ 글 번호 기준으로 
+			result=pstmt.executeUpdate(); // 그거를 결과에 담아서 업데이트 시켜줄거야
 			
-			result=pstmt.executeUpdate();
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
 		
-		return result;
+		return result; // 그리고 이 결과를 리턴해줄거야
 	}
 
 	public int deletePlayGroup(Connection conn, int bNo) {
@@ -2229,23 +2230,13 @@ private Properties prop = new Properties();
 				board = new Board();
 				
 				board.setbNo(bNo);
-				board.setbTitle(rset.getString("Bno"));
+				board.setbTitle(rset.getString("bTitle"));
 				board.setbContent(rset.getString("bContent"));
 				board.setbCount(rset.getInt("bCount"));
 				board.setCreateDate(rset.getDate("create_Date"));
 				board.setwriter(rset.getInt("writer")+","+rset.getString("nickname"));
 				
-				
-							
-						
-//						rset.getInt(1),
-//								  rset.getString(2),
-//								  rset.getString(3),
-//								  rset.getInt(4),
-//								  rset.getDate(5),
-//								  rset.getString(6)
-//								  
-		
+	
 				
 			}
 			
@@ -2359,7 +2350,38 @@ private Properties prop = new Properties();
 	}
 		return board;
 	}
+
+	public int updatBoardGroup(Connection conn, Board playgroupboard) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		// 넣기만 하고 받아올게 없기 때문에  리절트셋을 아니고 리절트에 0 있는지 없는지 결과값을 확인하기 위해
+		// 리절트 셋은 넣고 받고 
+		// 받아오는 경우에는 셀렉트처럼 글 번호에 맞게 제목이랑 내용등등이 글 번호에 맞는거에 갖고 와야 되는데 담아올 게 있어야 한다. 장바구니 필요 
+		//		한 개가 들어왔는 개수로만 파악할 경우에는 
+		String query = prop.getProperty("updateBoardGroup");
+		
+		try {
+			pstmt= conn.prepareStatement(query); // 쿼리를 갖고 와야 해 
+			
+			// 물음표 4개니깐 그 물음표에 넣어줘라
+			pstmt.setString(1, playgroupboard.getbTitle());
+			pstmt.setString(2, playgroupboard.getbContent());
+			pstmt.setInt(3, playgroupboard.getbNo());
+//			나는 갱신할거야 어떤걸? 보드를 거기에서 애랑 애랑 애랑 애랑 세트로 묶어서 업데이트를 해버릴거야 뭐에 맞게? 글번호에 맞게? 이것들을 전부다 보드에서 바꿔버릴거야~ 글 번호 기준으로 
+			result=pstmt.executeUpdate(); // 그거를 결과에 담아서 업데이트 시켜줄거야
+			
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result; // 그리고 이 결과를 리턴해줄거야
 	}
+	}
+	
 	
 	
 	

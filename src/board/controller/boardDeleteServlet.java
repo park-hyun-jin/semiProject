@@ -26,7 +26,7 @@ public class boardDeleteServlet extends HttpServlet {
 		
 		if(result >0) { 
 			request.getSession().setAttribute("msg", "게시글이 삭제되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/playgroupWrite.li"); 
+			response.sendRedirect(request.getContextPath() + "/freeBoard.bo"); 
 		}else { 
 			request.setAttribute("msg", "삭제 오류"); 
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
