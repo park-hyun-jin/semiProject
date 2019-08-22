@@ -26,7 +26,7 @@ public class playgroupSearchServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		if(keyword == null) keyword = ""; 
 		BoardService bService = new BoardService();
-		
+		if(head == null) head = "100";
 		int searchCount = bService.getSearchPlaygroupCount(head, keyword);
 		
 		int limit = 10; 		

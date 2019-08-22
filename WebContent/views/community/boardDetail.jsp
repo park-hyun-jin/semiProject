@@ -35,7 +35,7 @@ String nickName = writer[1];
                     <div class ="Detail_Header_TI">
                         <!-- 제목  -->
                         <div class="Detail_Header_Title">
-                        	<p>[<%= b.getheader() %>]</p>
+                        	<p></p>
                              <span><%= b.getbTitle() %></span>
                         </div>
                         <div class="Detail_Header_Icon"><img src="views/image/download.png"></div>
