@@ -286,7 +286,7 @@
   	$(document).ready(function(){
   		var cash = $("#price_cash").val().trim(); 
   		console.log(cash);
-		 $("#radio_cash").val(cash);
+		 $("#radio_cash").val("cash");
 	 
   	});
   function radioCheck(){
