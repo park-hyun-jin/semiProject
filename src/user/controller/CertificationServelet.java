@@ -8,9 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import user.model.vo.Artist;
 import user.model.vo.User;
 import user.model.service.UserService;
-import user.model.vo.artist;
 
 @WebServlet("/certificationInput.do")
 public class CertificationServelet extends HttpServlet {
@@ -36,7 +37,7 @@ public class CertificationServelet extends HttpServlet {
 	    
 	   
 	   
-	    artist certification = new artist(urlName,accountNumber, content, pictureName);
+	    Artist certification = new Artist(urlName,accountNumber, content, pictureName);
 
 	    int result = new UserService().certificationSubmit(certification, uNo);
 	    
