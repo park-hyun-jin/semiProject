@@ -1045,6 +1045,67 @@ private Properties prop = new Properties();
 	}
 
 	
+	public Board updateBoardGroup(Connection conn, int bNo) {
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      
+	      Board board = null;
+	      
+	      String query = prop.getProperty("updateBoardGroup");
+	      
+	      try {
+	         pstmt=conn.prepareStatement(query);
+	         
+	         pstmt.setInt(1, bNo);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()) {
+	            
+	            board = new Board(rset.getInt(1),
+	                          rset.getString(2),
+	                          rset.getString(3),
+	                          rset.getString(4),
+	                          rset.getString(5) + ","+ rset.getString(6),
+	                          rset.getInt(7),
+	                          rset.getDate(8)
+	            );
+	            
+	         }
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(rset);
+	         close(pstmt);
+	   }
+	      return board;
+	   }
+	
+	
+	public int insertFreeBoard(Connection conn, Board board) {
+	      
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      
+	      String query = prop.getProperty("insertFreeBoard");
+	      
+	      try {
+	         pstmt= conn.prepareStatement(query);
+	         
+	         pstmt.setString(1, board.getbTitle());
+	         pstmt.setString(2, board.getbContent());
+	         pstmt.setInt(3,Integer.parseInt(board.getwriter()));
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }
+	      return result;
+	   }
 	
 	
 	
