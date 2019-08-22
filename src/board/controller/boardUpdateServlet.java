@@ -24,15 +24,14 @@ public class boardUpdateServlet extends HttpServlet {
 		Board playgroupboard = new Board();
 		
 		playgroupboard.setbNo(Integer.parseInt(request.getParameter("bNo")));
-		
 		playgroupboard.setbTitle(request.getParameter("BTITLE"));
 		playgroupboard.setbContent(request.getParameter("content"));
 		
-		int result = new BoardService().updatePlayGroup(playgroupboard);
+		int result = new BoardService().updatBoardGroup(playgroupboard);
 		
 		if(result >0) {
 			request.getSession().setAttribute("msg", "게시글이 수정되었습니다");
-			response.sendRedirect("playgroupWrite.de?bNo=" + playgroupboard.getbNo());
+			response.sendRedirect("boardgroupWrite.de?bNo=" + playgroupboard.getbNo());
 		}else {
 			request.setAttribute("msg", "수정 에러");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
