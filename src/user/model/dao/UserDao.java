@@ -15,9 +15,9 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Reply;
 import cash.model.vo.Imp;
 import point.model.vo.Point;
-import user.model.vo.Artist;
 import user.model.vo.User;
 import user.model.vo.Artist;
 
@@ -269,23 +269,16 @@ public class UserDao {
 		         
 		         list = new ArrayList<Board>();
 		       
-		         System.out.println(query+"    "+"쿼리");
 		         while(rset.next()) {
-		         System.out.println(rset.getString(3));
-		            Board b = new Board(
-		            		
-		            		rset.getInt(2),
-		            		rset.getString(3),
-		            		rset.getInt(4),
-		            		rset.getDate(5),
-		            		rset.getInt(6),
-		            		rset.getString(7),
-		            		rset.getString(9)
-		            		);
-		           
-		            		
-		            		list.add(b);
-
+			        Board b = new Board();
+			        
+					b.setbNo(rset.getInt(2));
+					b.setbType(rset.getInt(10) + "," + rset.getString(8));
+					b.setbTitle(rset.getString(3));
+					b.setbCount(rset.getInt(4));
+					b.setCreateDate(rset.getDate(5));
+					b.setheader(rset.getString("HTYPE"));
+					list.add(b);
 		         }      
 		         
 		         System.out.println("list : " +list);
@@ -295,7 +288,6 @@ public class UserDao {
 		         close(rset);
 		         close(pstmt);
 		      }
-		      
 		      
 		      return list;
 		   }
@@ -653,6 +645,154 @@ public Board selectBoard(Connection conn, int bNo) {
 		}
 		
 		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getReplyCount(Connection conn, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getReplyCount");
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<ArrayList> replyList(Connection conn, int uno, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("replyList");
+		
+		ArrayList<ArrayList> list = null;
+		
+		try {
+			
+			int startRow = (currentPage -1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow); 
+
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Reply r = new Reply();
+				r.setrNo(rset.getInt(2));
+				r.setbNo(rset.getInt(3));
+				r.setrContent(rset.getString(7));
+				r.setrCreateDate(rset.getDate(8));
+				
+				Board b = new Board();
+				b.setbNo(rset.getInt(3));
+				b.setbType(rset.getInt(4) + "," + rset.getString(5));
+				b.setbTitle(rset.getString(6));
+				
+				ArrayList info = new ArrayList();
+				info.add(r);
+				info.add(b);
+				list.add(info);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 		
 		

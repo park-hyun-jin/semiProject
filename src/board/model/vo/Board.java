@@ -174,6 +174,38 @@ public class Board {
 
 
 
+	public Board(int bNo, String bTitle, Date createDate) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.createDate = createDate;
+		
+	}
+
+
+
+	public Board(int bNo, String bTitle, int bCount, Date createDate, String writer) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.writer = writer;
+		
+	}
+
+
+
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, String writer) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.writer = writer;
+		
+	}
+
+
+
 	public int getbNo() {
 		return bNo;
 	}

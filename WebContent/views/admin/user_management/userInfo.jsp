@@ -123,6 +123,13 @@
 	    </div>
 	</div>
 	
+	<script>
+		$(function() {
+			$("#nav_user_management a").css("color", "rgb(235, 199, 91)");
+		});
+	
+	</script>
+	
 
 </body>
 </html>

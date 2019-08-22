@@ -48,7 +48,7 @@
 </head>
 <body>
 
-	<%@ include file="../common/nav.jsp" %>
+		<%@ include file="../common/nav.jsp" %>
 
 
 				<div id="iframeWrap">
