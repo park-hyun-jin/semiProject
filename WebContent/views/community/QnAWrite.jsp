@@ -189,7 +189,7 @@
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-             <form name="sheetapplyWriteForm" action="<%=request.getContextPath()%>/qnaWrite.in" method="post">
+             <form name="qnaWriteForm" action="<%=request.getContextPath()%>/qnaWrite.in" method="post">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
                     <input type="text" name="BTITLE" class="board_title" placeholder="제목" >
@@ -212,8 +212,8 @@
     
     <script>
     	function goSubmit() {
-    		document.sheetapplyWriteForm.target="_parent";
-    		document.sheetapplyWriteForm.submit();
+    		document.qnaWriteForm.target="_parent";
+    		document.qnaWriteForm.submit();
     	}
     </script>
 

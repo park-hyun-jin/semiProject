@@ -8,9 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import user.model.vo.Artist;
 import user.model.vo.User;
 import user.model.service.UserService;
-import user.model.vo.Artist;
 
 @WebServlet("/certificationInput.do")
 public class CertificationServelet extends HttpServlet {

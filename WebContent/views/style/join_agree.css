@@ -6,7 +6,7 @@
 }
 
 div {
-    /* border: 1px solid red; */
+  /*   border: 1px solid red;  */
 }
 
 /* 중앙정렬에 관한 설정 */
@@ -23,12 +23,11 @@ div {
 #agree-form{
     background-color: white;
     width: 400px;
-    height: 520px;
+    height: 540px;
     /* top: 100px; */
     left: 35%;
     padding: 0;
     border-radius: 5px;
-    padding: 30px 35px 20px 35px;
 
 }
 
@@ -36,6 +35,7 @@ div {
 #terms-of-service{
     width: 100%;
     height: 50%;
+    padding: 15px 35px 5px 35px;
     box-sizing: border-box;
 }
 
@@ -49,7 +49,7 @@ div {
 /* 이용약관 영역 */
 #tos_content_area {
     width: 100%;
-    height: 70%;
+    height: 75%;
 }
 
 /* 이용약관 칸(textarea 크기 설정) */
@@ -61,14 +61,15 @@ div {
 /* 동의버튼 영역 */
 #tos_agree_area {
     width: 100%;
-    height: 100%;
-    padding: 10px;
+    height: 15%;
+    padding: 5px;
 }
 
 /* 회원가입 수단 관련 영역 */
 #join_way {
     width: 100%;
-    height: 49%;
+    height: 48%;
+    padding: 10px 35px 0px 35px; 
 }
 
 .join_way_label {
@@ -76,12 +77,11 @@ div {
     color : black;
     font-weight: bold;
     font-size: 1.2em;
-    margin-top: 10px;
 }
 
 /* 가입수단 버튼 영역 */
 .join_btn_area{
-    margin-top : 20px;
+    margin-top : 15px;
     width: 100%;
     height: 45px;
     box-sizing: border-box; 

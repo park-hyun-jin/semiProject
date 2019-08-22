@@ -276,6 +276,7 @@ section{
         border-bottom: 1px solid lightgray;
         padding-top: 5px;
         color: rgb(99, 96, 96);
+        height: 46px;
         }
         .table1 th:nth-of-type(1), .table1 td:nth-of-type(1){
             width: 7.2%;
@@ -380,7 +381,7 @@ section{
         <div class="content">
 			<div class="tab-section">
 				<span id="tab-1" class="tab-btn"></span>
-				<a href="#tab-1" class="tab-link tab1" value="1">내가 작성한 게시글 보기</a>
+				<a href="#tab-1" class="tab-link tab1" value="1" id="tmp1">내가 작성한 게시글 보기</a>
 				<div class="tab-content table1">
 					<table align="center" id ="listArea1">
 						<thead>
@@ -401,7 +402,7 @@ section{
 				</div>
                         
 				<span id="tab-2" class="tab-btn"></span>
-				<a href="#tab-2" class="tab-link tab2" value="1">내가 작성한 댓글 보기</a>
+				<a href="#tab-2" class="tab-link tab2" value="1" id="tmp2">내가 작성한 댓글 보기</a>
 				<div class="tab-content table2">
 				<table align="center" id ="listArea2">
 				    <thead>
@@ -435,6 +436,11 @@ section{
     </section>
     
     <script>
+    
+   
+    
+    
+    
         (function() {
         // 처음 탭만 활성화 시켜놓음
         if (!!location.hash) return;
@@ -510,10 +516,11 @@ section{
 		$(".tab2").click(function() {
 			var movePage = $(this).val();
 			console.log("이동할 페이지 : " + movePage);
-			$(this).replyListShow(movePage);
+			$(".tab2").replyListShow(1);
 		});
 		 
 		
+	
 		
 		
 		// 게시글 목록 조회 & 페이징처리 메소드
@@ -747,7 +754,7 @@ section{
 						var bno = $(this).parent().children().eq(0).children().eq(0).val();
 						var bType = $(this).parent().children().eq(0).children().eq(1).val();
 						console.log(bno);
-						location.href = '<%= request.getContextPath() %>/detailBoard.me?bno=' + bno + '&bType=' + bType, '_blank'); 
+						location.href = '<%= request.getContextPath() %>/detailBoard.me?bno=' + bno + '&bType=' + bType; 
 						<%-- location.href="<%= request.getContextPath() %>/detail.bo?bid="+bid; --%>
 					});
 					
@@ -764,8 +771,17 @@ section{
 		
 		$(".myBoard").addClass("active");
 		
+		var url = document.URL;
+		url = url.substring(url.length-1);
+		if(url == 2){
+			$(".tab2").get(0).click();
+		} else {
+			$(".tab1").get(0).click();
+		}
+		
 	});	
-							
+		
+			
     </script>
 
 </body>

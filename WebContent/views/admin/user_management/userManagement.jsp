@@ -283,6 +283,8 @@
 	<script>
 	
 	$(function() {
+		$("#nav_user_management a").css("color", "rgb(235, 199, 91)");
+		
 		
 		// 작성게시글 탭 선택시 목록조회 메소드 호출
 		$("#tab4").click(function() {

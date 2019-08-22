@@ -26,10 +26,10 @@ public class DetailBoardServlet extends HttpServlet {
 		String page = "";
 		switch(bType) {
 		
-		case 1 : 
-		case 2 : 
-		case 3 : 
-		case 4 : 
+		case 1 : break;
+		case 2 : page = "/sheetapplyWrite.de?bNo="+bno; break;
+		case 3 : break;
+		case 4 : page = "/boardgroupWrite.de?bNo="+bno; break;
 		case 5 : break;
 		case 6 : page = "/playgroupWrite.de?bNo="+bno; break;
 		default : request.setAttribute("msg", "게시글 상세보기 오류"); page = "/views/common/errorPage.jsp"; 
