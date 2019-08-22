@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.concurrent.locks.StampedLock;
 
 import board.model.vo.Board;
+import board.model.vo.Note;
 import board.model.vo.Reply;
 import board.model.vo.Report;
 
@@ -2146,6 +2147,278 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int insertPdfBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertPdfBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3, 1);
+			pstmt.setInt(4, Integer.parseInt(board.getheader()));
+			pstmt.setInt(5, Integer.parseInt(board.getwriter()));
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		
+		return result;
+	}
+
+	public int insertPdfBoard(Connection conn, Note note) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPdf");
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, note.getOriginName());
+			pstmt.setString(2, note.getChangeName());
+			pstmt.setString(3, note.getFilePath());
+			pstmt.setString(4, note.getnTitle());
+			pstmt.setString(5, note.getnComposer());
+			pstmt.setString(6, note.getnGenre());
+			pstmt.setString(7, note.getnInstrument());
+			pstmt.setString(8, note.getDivide());
+			pstmt.setInt(9, note.getnPrice());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		
+		return result;
+	}
+
+	public Note selectSheetSharePdf(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectSheetSharePdf");
+		Note note = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				note = new Note(rset.getInt(1),
+								rset.getString(2),
+								rset.getString(3),
+								rset.getString(4),
+								rset.getString(5),
+								rset.getString(6),
+								rset.getString(7),
+								rset.getString(8),
+								rset.getString(9),
+								rset.getInt(10),
+								rset.getInt(11),
+								rset.getInt(12)
+						);
+			}
+			
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}				
+		return note;
 	}
 
 	

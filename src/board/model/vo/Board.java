@@ -151,14 +151,14 @@ public class Board {
 		this.header = header;
 		this.writer = writer;
 	}
-
 	
-
-
-
-	
-
-
+	public Board(String bTitle, String bContent, String bType, String header, String writer) {
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bType = bType;
+		this.header = header;
+		this.writer = writer;
+	}
 
 	public Board(int bNo, String header,String bTitle, String bContent, String writer,int bCount, Date createDate
 			) {
