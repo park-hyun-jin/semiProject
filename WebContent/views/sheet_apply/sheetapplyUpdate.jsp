@@ -10,9 +10,9 @@
 	switch(header){
 	case "피아노": horseHeader = 1; break;
 	case "기타": horseHeader = 2; break;
-	case "플루트": horseHeader = 3; break;
-	case "하모니카": horseHeader = 4; break;
-	case "리코더": horseHeader = 5; break;
+	case "바이올린": horseHeader = 3; break;
+	case "플루트": horseHeader = 4; break;
+	case "하모니카": horseHeader = 5; break;
 	case "ETC": horseHeader = 6; break;
 
 	
@@ -45,9 +45,9 @@
                         <option value="0" selected>말머리</option>
                         <option value="1" <%= selected[0] %>>피아노</option>
                         <option value="2" <%= selected[1] %>>기타</option>
-                        <option value="3" <%= selected[2] %>>플루트</option>
-                        <option value="4" <%= selected[3] %>>하모니카</option>
-                        <option value="5" <%= selected[4] %>>리코더</option>
+                        <option value="3" <%= selected[2] %>>바이올린</option>
+                        <option value="4" <%= selected[3] %>>플루트</option>
+                        <option value="5" <%= selected[4] %>>하모니카</option>
                         <option value="6" <%= selected[5] %>>ETC</option>
                     </select>
                     

@@ -25,6 +25,7 @@ public class NaverLoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String nickname = request.getParameter("nickname");
 		String unqId = request.getParameter("unqId");
+		String thisUrl = request.getParameter("thisUrl");
 		
 		UserService uService = new UserService();
 		
@@ -41,7 +42,7 @@ public class NaverLoginServlet extends HttpServlet {
 		if(result > 0) {
 			user = uService.socialLoginUser(unqId, "N");
 			request.getSession().setAttribute("loginUser", user);
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(thisUrl);
 			System.out.println("가입되어 있음");
 		} else {
 			
@@ -60,7 +61,7 @@ public class NaverLoginServlet extends HttpServlet {
 					System.out.println("가입성공");
 					user = uService.socialLoginUser(unqId, "N");
 					request.getSession().setAttribute("loginUser", user);
-					response.sendRedirect(request.getContextPath());
+					response.sendRedirect(thisUrl);
 				} else {
 					System.out.println("가입실패");
 					request.setAttribute("msg", "회원가입실패");

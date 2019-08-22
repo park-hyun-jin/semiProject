@@ -28,14 +28,14 @@ public class SocialJoinServlet extends HttpServlet {
 		String userSign = request.getParameter("sign");
 		User joinUser =  new User(userId, userEmail, userName, userNickName, userSign);
 		
-		
+		String thisUrl = request.getParameter("thisUrl");
 		
 		System.out.println(joinUser);
 		int result = new UserService().socialJoin(joinUser);
 		System.out.println(result);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/socialLogin.us?userId="+userId+"&sign="+userSign);
+			response.sendRedirect(request.getContextPath()+"/socialLogin.us?userId="+userId+"&sign="+userSign+"&thisUrl="+thisUrl);
 		} else {
 			request.setAttribute("msg", "소셜회원가입 실패");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);

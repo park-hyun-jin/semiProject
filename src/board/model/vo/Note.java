@@ -1,36 +1,75 @@
 package board.model.vo;
 
+import java.sql.Date;
+
 public class Note {
 
 	private int nNo;
-	private String nCountent;
-	private String nVideo;
-	private String nDivide;
+	private String originName;
+	private String changeName;
+	private String filePath;
+	private String nTitle;
+	private String nComposer;
+	private String nGenre;
+	private String nInstrument;
+	private String divide;
 	private int nPrice;
+	private Date uploadDate;
+	private int downloadCount;
+	private String nStatus;
 	private int bNo;
-	private int fNo;
 	
 	public Note() {	}
-	
-	public Note(String nCountent, String nVideo, String nDivide, int nPrice, int bNo, int fNo) {
-		super();
-		this.nCountent = nCountent;
-		this.nVideo = nVideo;
-		this.nDivide = nDivide;
+
+	public Note(int nNo, String originName, String changeName, String filePath, String nTitle, String nComposer,
+			String nGenre, String nInstrument, String divide, int nPrice, Date uploadDate,
+			int downloadCount, String nStatus, int bNo) {
+		this.nNo = nNo;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.nTitle = nTitle;
+		this.nComposer = nComposer;
+		this.nGenre = nGenre;
+		this.nInstrument = nInstrument;
+		this.divide = divide;
 		this.nPrice = nPrice;
+		this.uploadDate = uploadDate;
+		this.downloadCount = downloadCount;
+		this.nStatus = nStatus;
 		this.bNo = bNo;
-		this.fNo = fNo;
 	}
 
-	public Note(int nNo, String nCountent, String nVideo, String nDivide, int nPrice, int bNo, int fNo) {
-		super();
-		this.nNo = nNo;
-		this.nCountent = nCountent;
-		this.nVideo = nVideo;
-		this.nDivide = nDivide;
+	public Note(String originName, String changeName, String filePath, String nTitle, String nComposer, String nGenre,
+			String nInstrument, String divide, int nPrice) {
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.nTitle = nTitle;
+		this.nComposer = nComposer;
+		this.nGenre = nGenre;
+		this.nInstrument = nInstrument;
+		this.divide = divide;
 		this.nPrice = nPrice;
+	}
+	
+	
+	
+
+	public Note(int nNo, String originName, String changeName, String filePath, String nTitle, String nComposer,
+			String nGenre, String nInstrument, String divide, int nPrice, int downloadCount, int bNo) {
+		this.nNo = nNo;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.nTitle = nTitle;
+		this.nComposer = nComposer;
+		this.nGenre = nGenre;
+		this.nInstrument = nInstrument;
+		this.divide = divide;
+		this.nPrice = nPrice;
+		this.downloadCount = downloadCount;
 		this.bNo = bNo;
-		this.fNo = fNo;
 	}
 
 	public int getnNo() {
@@ -41,28 +80,68 @@ public class Note {
 		this.nNo = nNo;
 	}
 
-	public String getnCountent() {
-		return nCountent;
+	public String getOriginName() {
+		return originName;
 	}
 
-	public void setnCountent(String nCountent) {
-		this.nCountent = nCountent;
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 
-	public String getnVideo() {
-		return nVideo;
+	public String getChangeName() {
+		return changeName;
 	}
 
-	public void setnVideo(String nVideo) {
-		this.nVideo = nVideo;
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
 
-	public String getnDivide() {
-		return nDivide;
+	public String getFilePath() {
+		return filePath;
 	}
 
-	public void setnDivide(String nDivide) {
-		this.nDivide = nDivide;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getnTitle() {
+		return nTitle;
+	}
+
+	public void setnTitle(String nTitle) {
+		this.nTitle = nTitle;
+	}
+
+	public String getnComposer() {
+		return nComposer;
+	}
+
+	public void setnComposer(String nComposer) {
+		this.nComposer = nComposer;
+	}
+
+	public String getnGenre() {
+		return nGenre;
+	}
+
+	public void setnGenre(String nGenre) {
+		this.nGenre = nGenre;
+	}
+
+	public String getnInstrument() {
+		return nInstrument;
+	}
+
+	public void setnInstrument(String nInstrument) {
+		this.nInstrument = nInstrument;
+	}
+
+	public String getDivide() {
+		return divide;
+	}
+
+	public void setDivide(String divide) {
+		this.divide = divide;
 	}
 
 	public int getnPrice() {
@@ -73,6 +152,30 @@ public class Note {
 		this.nPrice = nPrice;
 	}
 
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	public int getDownloadCount() {
+		return downloadCount;
+	}
+
+	public void setDownloadCount(int downloadCount) {
+		this.downloadCount = downloadCount;
+	}
+
+	public String getnStatus() {
+		return nStatus;
+	}
+
+	public void setnStatus(String nStatus) {
+		this.nStatus = nStatus;
+	}
+
 	public int getbNo() {
 		return bNo;
 	}
@@ -81,14 +184,13 @@ public class Note {
 		this.bNo = bNo;
 	}
 
-	public int getfNo() {
-		return fNo;
+	@Override
+	public String toString() {
+		return "Note [nNo=" + nNo + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
+				+ filePath + ", nTitle=" + nTitle + ", nComposer=" + nComposer + ", nGenre=" + nGenre + ", nInstrument="
+				+ nInstrument + ", divide=" + divide + ", nPrice=" + nPrice + ", uploadDate=" + uploadDate
+				+ ", downloadCount=" + downloadCount + ", nStatus=" + nStatus + ", bNo=" + bNo + "]";
 	}
 
-	public void setfNo(int fNo) {
-		this.fNo = fNo;
-	}
-	
-	
 	
 }

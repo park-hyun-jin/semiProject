@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import user.model.service.UserService;
 import user.model.vo.User;
 
-@WebServlet("/emailJoin.do")
+@WebServlet(urlPatterns="/emailJoin.do", name="EmailJoinUserServlet")
 public class EmailJoinUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,8 @@ public class EmailJoinUserServlet extends HttpServlet {
 	    String userPwd = request.getParameter("joinPwd");
 	    String userName = request.getParameter("joinName");
 	    String nickName = request.getParameter("nickName");
-	   
+	    String thisUrl = request.getParameter("thisUrl");
+	    
 	    User joinUser = new User(email, userPwd, userName, nickName, sign);
 
 	    int result = new UserService().emailJoin(joinUser);
@@ -40,7 +41,7 @@ public class EmailJoinUserServlet extends HttpServlet {
 	    	request.getSession().setAttribute("msg",  "가입실패. 다시 시도해주세요.");
 	    }
 	    
-	    response.sendRedirect(request.getContextPath());
+	    response.sendRedirect(thisUrl);
 	    	
 	      
 	}

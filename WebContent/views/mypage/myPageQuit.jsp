@@ -57,9 +57,9 @@ if(msg != "null") { // msg 값이 있을 경우
                     </p>
                     <br><br>
 
-                    <label>비밀번호를 입력하세요</label>
+                    <label>"탈퇴하겠습니다." 를 입력해주세요.</label>
                     <form action="<%=request.getContextPath() %>/quit.me" method="post" class="quit-form" onsubmit="return quit();">
-                        <input type="password" class="quit-password">
+                        <input type="type" class="quit-message">
                         <br><br>                    
                         <input type="submit" value="탈퇴하기">
                     </form>
@@ -77,11 +77,12 @@ if(msg != "null") { // msg 값이 있을 경우
 
 	});
 	function quit(){
-		var pwd = $(".quit-password").val().trim();
-		console.log("<%=userPwd%>");
-		if("<%=userPwd%>" == pwd){
+		var quitMsg = $(".quit-message").val().trim();
+		console.log(quitMsg);
+		if("xkfxhlgkrpTtmqslek." == quitMsg || "탈퇴하겠습니다." == quitMsg){
 			return true;
 		}else{
+			$(".quit-message").val("");
 			return false;
 		}
 	}

@@ -207,9 +207,9 @@
                         <option value="0" selected>말머리</option>
                         <option value="1">피아노</option>
                         <option value="2">기타</option>
-                        <option value="3">플루트</option>
-                        <option value="4">하모니카</option>
-                        <option value="5">리코더</option>
+                        <option value="3">바이올린</option>
+                        <option value="4">플루트</option>
+                        <option value="5">하모니카</option>
                         <option value="6">ETC</option>
                     </select>
 

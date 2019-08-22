@@ -13,21 +13,18 @@ import board.model.service.BoardService;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 
-@WebServlet("/playgroupSearch.bo")
-public class playgroupSearchServlet extends HttpServlet {
+@WebServlet("/qnaWrite.li")
+public class qnaListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public playgroupSearchServlet() {
+    public qnaListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String head = request.getParameter("headValue");
-		String keyword = request.getParameter("keyword");
-		if(keyword == null) keyword = ""; 
-		BoardService bService = new BoardService();
-		if(head == null) head = "100";
-		int searchCount = bService.getSearchPlaygroupCount(head, keyword);
+		BoardService QnA = new BoardService();
+		
+		int boardCount = QnA.qnaCount();
 		
 		int limit = 10; 		
 		int pagingBarSize=10; 	
@@ -39,10 +36,10 @@ public class playgroupSearchServlet extends HttpServlet {
 		
 		if(request.getParameter("currentPage") == null) {
 			currentPage = 1;
-		} else {
+		}else {
 			currentPage= Integer.parseInt(request.getParameter("currentPage"));
 		}
-		maxPage = (int)Math.ceil((double)searchCount / limit);
+		maxPage = (int)Math.ceil((double)boardCount / limit);
 		 maxPage = (maxPage == 0) ? 1 : maxPage;
 
 		startPage = ((currentPage-1) /  limit)*pagingBarSize+1;
@@ -52,15 +49,15 @@ public class playgroupSearchServlet extends HttpServlet {
 			endPage = maxPage; 
 		}
 		
-		PageInfo pInf = new PageInfo(searchCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
+		PageInfo pInf = new PageInfo(boardCount, limit, pagingBarSize, currentPage, maxPage, startPage, endPage);
 		
-		ArrayList<Board> playgroupList = bService.searchPlaygroupList(head, keyword, currentPage, limit);
+		ArrayList<Board> qnaList = QnA.selectQnAList(currentPage,limit);
 		
 		String page="";
 		
-		if(playgroupList!=null) { // 정상적으로 조회된 경우
-			page = "views/play_group/playgroupList.jsp?headValue=" + head + "&keyword=" + keyword;
-			request.setAttribute("playgroupList", playgroupList);
+		if(qnaList!=null) { // 정상적으로 조회된 경우
+			page = "views/community/QnAList.jsp";
+			request.setAttribute("qnaList", qnaList);
 			request.setAttribute("pInf", pInf);
 		}else {
 			page="views/common/errorPage.jsp";
@@ -68,6 +65,8 @@ public class playgroupSearchServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

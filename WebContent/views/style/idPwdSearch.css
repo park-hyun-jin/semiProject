@@ -16,12 +16,11 @@ div {
 .id_pwd_search_area{
     background-color: white;
     width: 400px;
-    height: 520px;
+    height: 540px;
     /* top: 100px; */
     left: 25%;
     padding: 0;
     border-radius: 5px;
-    padding: 30px 30px 30px 30px;
     margin-right:50px;
     margin-bottom:50px;
     display: inline-block;
@@ -33,15 +32,16 @@ div {
     color: black;
     font-weight: bold;
     font-size: 1.4em;
-    margin-bottom : 20px;
+    margin : 20px 0px 20px 30px;
     display: inline-block;
 }
 
 /* ID / PWD 찾기 정보 영역*/
 .id_pwd_search_form{
     width: 100%;
-    height: 70%;
+    height: 60%;
     box-sizing: border-box;
+    padding: 20px 30px 30px 30px;
 }
 
 /* id_pwd_search_form 영역의 input 레이블 설정 */
@@ -110,14 +110,14 @@ div {
     color : dimgray;
     font-weight : bold;
     font-size: 0.9em;
-    margin-left: 10px;
+    float: right;
 }
 
 /* 로그인 버튼 영역 */
 .id_pwd_search_footer {
     width: 100%;
-    height: 90px;
-    padding-top: 15px;
+    height: 120px;
+    padding : 10px 30px 10px 30px;
 }
 
 /* 구분선 영역 */
