@@ -1,20 +1,17 @@
-package admin.controller;
+package user.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import admin.model.service.AdminService;
-
-@WebServlet("/detailBoard.ad")
-public class DetailBoardServlet extends HttpServlet {
+@WebServlet("/detailBoard.me")
+public class DetailUserBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public DetailBoardServlet() {
+    public DetailUserBoardServlet() {
         super();
     }
 
@@ -23,6 +20,7 @@ public class DetailBoardServlet extends HttpServlet {
 		
 		int bType = Integer.parseInt(request.getParameter("bType"));
 		
+		System.out.println("bno: " + bno + " / bType : " + bType);
 		String page = "";
 		switch(bType) {
 		
@@ -39,6 +37,7 @@ public class DetailBoardServlet extends HttpServlet {
 		if(page.equals("")) response.sendRedirect(request.getContextPath());
 		else request.getRequestDispatcher(page).forward(request, response);
 		
+	
 	
 	}
 

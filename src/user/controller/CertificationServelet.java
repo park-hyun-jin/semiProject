@@ -8,15 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import user.model.vo.Artist;
 import user.model.vo.User;
 import user.model.service.UserService;
-import user.model.vo.artist;
 
 @WebServlet("/certificationInput.do")
-public class test2 extends HttpServlet {
+public class CertificationServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public test2() {
+    public CertificationServelet() {
     	super();
     	
     }
@@ -36,7 +37,7 @@ public class test2 extends HttpServlet {
 	    
 	   
 	   
-	    artist certification = new artist(urlName,accountNumber, content, pictureName);
+	    Artist certification = new Artist(urlName,accountNumber, content, pictureName);
 
 	    int result = new UserService().certificationSubmit(certification, uNo);
 	    
@@ -45,7 +46,7 @@ public class test2 extends HttpServlet {
 	    
 	    String page = "";
 	    if(result >0) {
-			page="views/mypage/test.jsp";
+			page="views/mypage/myPageCertification.jsp";
 			request.setAttribute("user", user);
 			request.getSession().setAttribute("msg" , "성공적으로 회원 정보를 수정하였습니다."); // nav가 인쿠르드가 다 되어있으니 메세지를 쏴주기면 하면 된다. jsp에서 
 																					// 별도의 받는 작업을 안 해도 된다.

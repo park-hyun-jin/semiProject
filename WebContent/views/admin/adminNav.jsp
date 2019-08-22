@@ -11,7 +11,7 @@
     </head>
 
     <style>
-        body {
+	body {
         padding: 20px;
         margin: 0;
     }
@@ -222,8 +222,6 @@
       
 
     } 
-
-      
     
     </style>
     <body>

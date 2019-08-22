@@ -26,7 +26,7 @@ public class playgroupSearchServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		if(keyword == null) keyword = ""; 
 		BoardService bService = new BoardService();
-		
+		if(head == null) head = "100";
 		int searchCount = bService.getSearchPlaygroupCount(head, keyword);
 		
 		int limit = 10; 		
@@ -59,7 +59,7 @@ public class playgroupSearchServlet extends HttpServlet {
 		String page="";
 		
 		if(playgroupList!=null) { // 정상적으로 조회된 경우
-			page = "views/play_group/playgroupList.jsp";
+			page = "views/play_group/playgroupList.jsp?headValue=" + head + "&keyword=" + keyword;
 			request.setAttribute("playgroupList", playgroupList);
 			request.setAttribute("pInf", pInf);
 		}else {
