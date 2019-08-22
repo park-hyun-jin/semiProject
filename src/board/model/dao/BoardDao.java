@@ -807,7 +807,7 @@ private Properties prop = new Properties();
 		} else {
 			query += " AND HEADER=" + head + " AND BTITLE LIKE '%" + keyword +"%'";
 		}
-		System.out.println(query);
+		
 		
 		try {
 			stmt = conn.createStatement();
@@ -845,7 +845,7 @@ private Properties prop = new Properties();
 		
 		query += "WHERE (RNO BETWEEN "+ startRow + " AND " + endRow + ") AND BTITLE LIKE '%" + keyword + "%'";
 		
-		System.out.println(query);
+		
 		try {
 			stmt = conn.createStatement();
 			
