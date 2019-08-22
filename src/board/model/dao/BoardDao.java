@@ -40,7 +40,7 @@ private Properties prop = new Properties();
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
-      pstmt.setInt(3,Integer.parseInt(board.getheader()));
+			pstmt.setInt(3,Integer.parseInt(board.getheader()));
 			pstmt.setInt(4,Integer.parseInt(board.getwriter()));
 			
 			result = pstmt.executeUpdate();

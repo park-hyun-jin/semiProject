@@ -136,17 +136,17 @@ div {
 }
 
 #kakao_area img {
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
+   width: 100%;
+   height: 100%;
+   cursor: pointer;
 }
 /* 카카오버튼 안보이게. */
 #kakao-login-btn {
-	display: none;
+   display: none;
 }
 
 #naver_area:hover {
-	cursor : pointer;
+   cursor : pointer;
 }
 
 /* 회원가입, 비밀번호 찾기 div 영역 */
@@ -199,4 +199,3 @@ div {
     }
 }
 /* 모달 설정 종료--------------------------------------------- */
-
