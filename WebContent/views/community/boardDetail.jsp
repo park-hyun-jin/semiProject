@@ -40,7 +40,9 @@ String nickName = writer[1];
                         </div>
                         <div class="Detail_Header_Icon"><img src="views/image/download.png"></div>
                         <div class="Detail_Header_Icon"><img src="views/image/like.png" class = "changeImg" onclick="changeImg();"></div>
-                        <div class="Detail_Header_Icon"><img src="views/image/danger.png"></div>
+                        <div class="Detail_Header_Icon"><img src="views/image/danger.png" class= "danger"></div>
+                        
+                        
                     </div>
                     <!-- 작성일 작성자 -->
                     <div class ="Detail_Header_WD">
@@ -139,7 +141,7 @@ String nickName = writer[1];
 			}
 		}
         
-    	// 게시글 신고
+     // 게시글 신고
     	$(".danger").click(function(){
     		var uNo = <%= loginUser.getuNo()%>
 			var bNo = <%=b.getbNo()%>
@@ -151,7 +153,7 @@ String nickName = writer[1];
     		}
     		
     		$.ajax({
-				url : "freeBoarddangerWrite.in",
+				url : "dangerWrite.in",
 				type : "POST",
 				data : {uNo : uNo, rpContent : rpContent , bNo:bNo},
 				success : function(result){

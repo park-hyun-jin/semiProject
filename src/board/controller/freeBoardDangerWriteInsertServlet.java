@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 import board.model.vo.Report;
 
-@WebServlet("/freeBoarddangerWrite.in")
+@WebServlet("/freeBoardDangerWrite.in")
 public class freeBoardDangerWriteInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public freeBoardDangerWriteInsertServlet() {
