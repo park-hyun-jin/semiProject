@@ -197,15 +197,7 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover " href="#">악보공유</a>
-                    <ul class="detailList">
-                        <li><a href="<%=request.getContextPath()%>/views/sheet_share/sheetShareFormIframe.jsp">피아노</a></li>
-                        <li><a href="#">기타</a></li>
-                        <li><a href="#">바이올린</a></li>
-                        <li><a href="#">플루트</a></li>
-                        <li><a href="#">하모니카</a></li>
-                        <li><a href="#">etc</a></li>
-                    </ul>
+                    <a class="nav-link nav-hover " href="<%=request.getContextPath()%>/sheetShare.bo">악보공유</a>
                 </li>
                 <li class="nav-item nav-margin">
                     <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>

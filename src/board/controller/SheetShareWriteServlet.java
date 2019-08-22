@@ -44,21 +44,19 @@ public class SheetShareWriteServlet extends HttpServlet {
 			String header = multiRequest.getParameter("header");
 			String title = multiRequest.getParameter("board_title");
 			String content = multiRequest.getParameter("content");
-			System.out.println(multiRequest.getParameter("sheetFile1"));
 			
-			String[] price = multiRequest.getParameterValues("price");
+			String price = multiRequest.getParameter("price");
 
 			int nPrice = 0;
 			String nDivide = null;
-			if(price[0]!=null) {
+			System.out.println(price);
+			if(price.equals("point")) {
 				nPrice = 150;
 				nDivide = "P";
 			}else {
-				nPrice = Integer.parseInt(price[1]);
+				nPrice = Integer.parseInt(price);
 				nDivide = "C";
 			}
-			nPrice = 150;
-			nDivide = "P";
 			String[] nContent = multiRequest.getParameterValues("msInfo_comp");
 
 			
@@ -80,6 +78,7 @@ public class SheetShareWriteServlet extends HttpServlet {
 					originFile = multiRequest.getOriginalFileName(name);
 				}
 			}
+			
 			int result = 0;
 			if(saveFile!=null) {
 				Note note = new Note(originFile, saveFile, savePath, nContent[0], nContent[1], nContent[2], nContent[3], nDivide, nPrice);
@@ -87,7 +86,8 @@ public class SheetShareWriteServlet extends HttpServlet {
 			}
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath());
+				request.getSession().setAttribute("msg", "게시글이 등록되었습니다.");
+				response.sendRedirect(request.getContextPath() + "/sheetShare.bo");
 			}else {
 				request.setAttribute("msg", "게시글 작성 에러");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

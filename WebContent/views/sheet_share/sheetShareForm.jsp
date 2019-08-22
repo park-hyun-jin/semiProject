@@ -198,7 +198,7 @@
         <span id="form_title">글쓰기</span>
         <!-- 악보공유 글쓰기 폼 -->
         <div class="write_input_form">
-            <form action="<%=request.getContextPath()%>/sheetShareWrite.bo" method="post" enctype="multipart/form-data" onsubmit="return radioCheck();">
+            <form action="<%=request.getContextPath()%>/sheetShareWrite.bo" method="post" enctype="multipart/form-data" onsubmit="return radioCheck();" name="writeForm">
                 <!-- header: 말머리, 제목 -->
                 <div class="input_form_header">
                       <select name="header" id="board_head">
@@ -272,7 +272,7 @@
                 <div class="write_input_footer">
                     <div class="write_btn_area">
                         <button type="button" id="write_cancle_btn">취소</button>
-                        <button type="sumbit" id="write_submit_btn">등록</button>
+                        <button type="sumbit" id="write_submit_btn" onclick="goSubmit()">등록</button>
                     </div>
                 </div>
 
@@ -284,7 +284,9 @@
   
   <script>
   	$(document).ready(function(){
-	 $("#radio_cash").val().trim() = $("#price_cash").val().trim(); 
+  		var cash = $("#price_cash").val().trim(); 
+  		console.log(cash);
+		 $("#radio_cash").val(cash);
 	 
   	});
   function radioCheck(){
@@ -294,6 +296,10 @@
 	  }else{
 		  return true;
 	  }
+  }
+  function goSubmit(){
+	  document.writeForm.target="_parent";
+	  document.writeForm.submit();
   }
   
   </script>

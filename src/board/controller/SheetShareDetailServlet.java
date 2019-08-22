@@ -3,6 +3,7 @@ package board.controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 
 import board.model.service.BoardService;
+import board.model.vo.Board;
 import board.model.vo.Note;
 
 
@@ -50,6 +52,9 @@ public class SheetShareDetailServlet extends HttpServlet {
 		ImageIOUtil.writeImage( bim, pdfFilename + ".png", 100 );
 
 		document.close();
+		
+		Board board = bService.detailSheetShareBoard(bNo);
+		
 		
 		
 	}

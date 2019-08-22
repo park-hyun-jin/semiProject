@@ -41,7 +41,7 @@ a {
     position: absolute;
     float: left;
     padding: 10px;
-
+	width:100%;
     color:black;
     -webkit-transition: all .4s ease;
     transition: all .4s ease;
@@ -130,7 +130,7 @@ color: rgb(99, 96, 96);
 }
 
 
-.pagWrap{
+#pagWrap{
     /* border: 1px solid black; */
     margin: auto;
     margin-top: 3%;
