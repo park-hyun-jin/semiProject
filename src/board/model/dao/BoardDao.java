@@ -15,6 +15,7 @@ import board.model.vo.Board;
 import board.model.vo.Note;
 import board.model.vo.Reply;
 import board.model.vo.Report;
+import user.model.vo.User;
 
 public class BoardDao {
 	
@@ -1294,6 +1295,104 @@ private Properties prop = new Properties();
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public Note pdfDownload(Connection conn, int nNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Note note = null;
+		String query = prop.getProperty("pdfDownload");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, nNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				note = new Note(rset.getString(1), 
+								rset.getString(2), 
+								rset.getString(3), 
+								rset.getString(4), 
+								rset.getInt(5), 
+								rset.getInt(6));
+			}
+			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return note;
+	}
+
+	public int downloadCount(Connection conn, int nNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("downloadCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, nNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+
+	public int usePoint(Connection conn, int getnPrice, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("usePoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, getnPrice);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int useCash(Connection conn, int getnPrice, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("useCash");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, getnPrice);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
 		return result;
 	}
 	

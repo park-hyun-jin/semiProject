@@ -8,6 +8,9 @@ Board b = (Board)request.getAttribute("board");
 Note n = (Note)request.getAttribute("note");
 String filename = (String)request.getAttribute("pdfFilename");
 int writer = Integer.parseInt(b.getwriter());
+String divide = n.getDivide();
+int price = n.getnPrice();
+User user = (User)request.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +52,7 @@ int writer = Integer.parseInt(b.getwriter());
                         </div>
                         <div class="Detail_Header_Icon"><img src="<%=request.getContextPath() %>/views/image/download.png" onclick="downloadPdf();"></div>
                         <div class="Detail_Header_Icon"><img src="<%=request.getContextPath() %>/views/image/like.png" class = "changeImg" onclick="changeImg();"></div>
-                        <div class="Detail_Header_Icon"><img src="<%=request.getContextPath() %>/views/image/danger.png"></div>
+                        <div class="Detail_Header_Icon"><img src="<%=request.getContextPath() %>/views/image/danger.png" class="danger"></div>
                     </div>
                     <!-- 작성일 작성자 -->
                     <div class ="Detail_Header_WD">
@@ -67,10 +70,10 @@ int writer = Integer.parseInt(b.getwriter());
                         <div class ="Comment_title" > 제목 : <br><%=n.getnTitle() %></div>
                         <div class ="Comment_genre" > 장르 : <br><%=n.getnGenre() %></div>
                         <div class ="Comment_instrument" > 악기 : <br><%=n.getnInstrument() %></div>
-                        <% if(n.getDivide().equals("P")){ %>
-                        <div class ="Nprice"> 가격 : <br><%=n.getnPrice() %>P</div>
+                        <% if(divide.equals("P")){ %>
+                        <div class ="Nprice"> 가격 : <br><%=price %>P</div>
                         <%} else{ %>
-                        <div class ="Nprice"> 가격 : <br><%=n.getnPrice() %>원</div>
+                        <div class ="Nprice"> 가격 : <br><%=price %>원</div>
                         <%} %>
                     </div>
                     <div class = "Detail_Content_SheetImg"><img src="<%=request.getContextPath() %>/sheetPdf/<%=n.getChangeName() %>.png" class="imgPdf"></div>
@@ -119,6 +122,21 @@ int writer = Integer.parseInt(b.getwriter());
     </section>
 
     <script>
+    function downloadPdf(){
+    	<% if(divide.equals("P")){ %>
+    	<% if(price<=user.getUserPoint()){ %>
+    		location.href="<%=request.getContextPath()%>/pdfDownload.bo?nNo=<%= n.getnNo()%>";
+    	<%} else{%>
+    		alert("포인트가 부족합니다!");
+    	<%}%>
+    	<%}else{%>
+    	<% if(price<=user.getUserCash()){ %>
+			location.href="<%=request.getContextPath()%>/pdfDownload.bo?nNo=<%= n.getnNo()%>";
+    	<%} else{%>
+    		alert("캐시가 부족합니다!");
+    	<%}%>
+   	<%}%>
+    }
     
     function goList(){
     	location.href='<%= request.getContextPath() %>/sheetShare.bo';

@@ -43,7 +43,7 @@ public class SheetShareDetailServlet extends HttpServlet {
 		// DB에서 아이디가 일치하는 회원 정보 읽어오기
 		UserService uService = new UserService();
 		
-		loginUser = uService.selectUser(uNo);
+		User user = uService.selectUser(uNo);
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		BoardService bService = new BoardService();
 		Note note = bService.selectSheetSharePdf(bNo);
@@ -54,7 +54,6 @@ public class SheetShareDetailServlet extends HttpServlet {
 
 		PDFRenderer pdfRenderer = new PDFRenderer( document );
 
-		System.out.println( "전체페이지 수 : " + document.getNumberOfPages() );
 
 		BufferedImage bim = pdfRenderer.renderImageWithDPI( 0, 100, ImageType.RGB );
 
@@ -77,7 +76,7 @@ public class SheetShareDetailServlet extends HttpServlet {
 				page = "views/sheet_share/sheetShareDetail.jsp";
 				request.setAttribute("board", board);
 				request.setAttribute("note", note);
-				request.setAttribute("loginUser", loginUser);
+				request.setAttribute("user", user);
 			} else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("msg", "상세 조회 중 에러 발생");

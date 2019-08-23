@@ -71,6 +71,18 @@ public class Note {
 		this.downloadCount = downloadCount;
 		this.bNo = bNo;
 	}
+	
+	
+	
+
+	public Note(String originName, String changeName, String filePath, String divide, int nPrice, int bNo) {
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.divide = divide;
+		this.nPrice = nPrice;
+		this.bNo = bNo;
+	}
 
 	public int getnNo() {
 		return nNo;

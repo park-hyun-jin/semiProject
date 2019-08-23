@@ -9,6 +9,7 @@ import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import board.model.vo.Note;
 import user.model.dao.UserDao;
+import user.model.vo.User;
 import board.model.vo.Reply;
 import board.model.vo.Report;
 
@@ -1186,6 +1187,49 @@ public class BoardService {
 		
 		return SheetList;
 	}
+
+	public Note pdfDownload(int nNo) {
+		Connection conn = getConnection();
+		BoardDao bDao = new BoardDao();
+		Note note = bDao.pdfDownload(conn, nNo);
+		int result = bDao.downloadCount(conn, nNo);
+		if(result >0) {
+			commit(conn);
+		}else {
+			note = null;
+			rollback(conn);
+		}
+		
+		return note;
+	}
+
+	public int usePoint(int getnPrice, int uNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().usePoint(conn, getnPrice, uNo);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int useCash(int getnPrice, int uNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().useCash(conn, getnPrice, uNo);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	
 	
 	
 	

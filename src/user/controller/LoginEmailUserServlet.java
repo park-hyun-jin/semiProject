@@ -34,7 +34,6 @@ public class LoginEmailUserServlet extends HttpServlet {
 	
 		loginUser = new UserService().loginUser(loginUser);
 	
-		System.out.println(inputPwd);
 		HttpSession session = request.getSession();
 		
 		session.setMaxInactiveInterval(3600); // 단위 : per sec
