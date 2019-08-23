@@ -10,6 +10,8 @@ String[] writer = b.getwriter().split(",");
 int uNo = Integer.parseInt(writer[0]);
 String nickName = writer[1]; 
 
+int loginUno = ((User)request.getSession().getAttribute("loginUser")).getuNo();
+
 %>
 <!DOCTYPE html>
 <html lang = "ko">
@@ -94,10 +96,19 @@ String nickName = writer[1];
                 <!-- 목록 버튼 -->
                 <div class= "Btn_Wrap">
                     <button class="List_Back_Btn" onclick="goList();">목록</button>
-                    <% if(nickName.equals(loginUser.getNickName())) { %>
-						<button class="List_Back_Btn2" type="button" onclick="updateBoard();">수정</button>
-						<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
-					<%}%>
+                    <%-- <% if(nickName.equals(loginUser.getNickName())) { %> --%>
+                    	 <% if(loginUno == 3){ %> 
+                 
+                   
+               		<button class="List_Back_Btn2" type="button" onclick="updateBoard();">수정</button>
+					<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
+               
+                <%} %>
+						
+						
+						
+				<%-- 	<%}%> --%>
+				
                 </div>
             </div> 
     </section>

@@ -99,6 +99,8 @@ String nickName = writer[1];
 						<button class="List_Back_Btn2" type="button" onclick="updateBoard();">수정</button>
 						<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
 					<%}%>
+					
+					
                 </div>
             </div> 
     </section>
@@ -200,6 +202,9 @@ String nickName = writer[1];
 			});
 		});
         
+   
+        
+    
         // 댓글 출력 
        
         	function selectRlist(){

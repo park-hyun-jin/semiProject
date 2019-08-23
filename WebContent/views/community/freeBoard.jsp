@@ -267,8 +267,8 @@
 	
 	<aside>
         <div class="vertical-menu">
-        <a href="#" class="active">공지사항</a>
-        <a href="#">자유게시판</a>
+        <a href="<%= request.getContextPath() %>/notice.me" >공지사항</a>
+        <a href="#" class="active">자유게시판</a>
         <a href="#">Q & A</a>
        </div>
    		</aside>
