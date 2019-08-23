@@ -15,6 +15,8 @@ public class Board {
 	private String bType;
 	private String header;
 	private String writer;
+	private String divide;
+	private int nPrice;
 
 
 	
@@ -22,8 +24,31 @@ public class Board {
 	// int writer; 아니고 조인 결과 값이 int writer;로 함
 	public Board( ) {}
 	
+	
+	
 
 	
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, Date modifyDate, String bStatus,
+			int rpCount, String bType, String header, String writer, String divide, int nPrice) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.bStatus = bStatus;
+		this.rpCount = rpCount;
+		this.bType = bType;
+		this.header = header;
+		this.writer = writer;
+		this.divide = divide;
+		this.nPrice = nPrice;
+	}
+
+
+
+
+
 	public Board(String bTitle, String bContent, int bCount, Date createDate, String bType, String writer) {
 		super();
 		this.bTitle = bTitle;
@@ -227,7 +252,27 @@ public class Board {
 		this.writer = writer;
 		
 	}
+	
+	
+	
 
+
+
+	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, int rpCount, String header,
+			String writer) {
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.rpCount = rpCount;
+		this.header = header;
+		this.writer = writer;
+	}
+
+	
+	
+	
 
 
 	public int getbNo() {
@@ -312,12 +357,107 @@ public class Board {
 	}
 
 
+
+
+
+	public int getRpCount() {
+		return rpCount;
+	}
+
+
+
+
+
+	public void setRpCount(int rpCount) {
+		this.rpCount = rpCount;
+	}
+
+
+
+
+
+	public String getHeader() {
+		return header;
+	}
+
+
+
+
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+
+
+
+
+	public String getWriter() {
+		return writer;
+	}
+
+
+
+
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+
+
+
+
+	public String getDivide() {
+		return divide;
+	}
+
+
+
+
+
+	public void setDivide(String divide) {
+		this.divide = divide;
+	}
+
+
+
+
+
+	public int getnPrice() {
+		return nPrice;
+	}
+
+
+
+
+
+	public void setnPrice(int nPrice) {
+		this.nPrice = nPrice;
+	}
+
+
+
+
+
+	public void setbStatus(String bStatus) {
+		this.bStatus = bStatus;
+	}
+
+
+
+
+
 	@Override
 	public String toString() {
-		return "Board [bNo=" + bNo + ", bType=" + bType + ", header=" + header + ", bTitle=" + bTitle
-				+ ", bContent=" + bContent + ", writer=" + writer + ", bCount=" + bCount
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", bstatus=" + bStatus + "]";
+		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCount=" + bCount
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", bStatus=" + bStatus + ", rpCount="
+				+ rpCount + ", bType=" + bType + ", header=" + header + ", writer=" + writer + ", divide=" + divide
+				+ ", nPrice=" + nPrice + "]";
 	}
+
+
+	
 
 	
 }

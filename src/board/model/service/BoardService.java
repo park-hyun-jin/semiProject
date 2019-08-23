@@ -1037,174 +1037,6 @@ public class BoardService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public int getSearchPlaygroupCount(String head, String keyword) {
 		Connection conn = getConnection();
 		
@@ -1324,8 +1156,67 @@ public class BoardService {
 		}
 		return result;
 	}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  public Board detailSheetShareBoard(int bNo) {
+		Connection conn = getConnection();
+		
+		Board board = new BoardDao().detailSheetShareBoard(conn, bNo);
+				
+		return board;
 	}
 	
+	
+	public int searchSheet(String head, String keyword) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().searchSheet(conn, head, keyword);
+		
+		return result;
+	}
+	
+	
+	public ArrayList<Board> SheetList(String head, String keyword, int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Board> SheetList = new BoardDao().SheetList(conn, head, keyword, currentPage, limit);
+		
+		return SheetList;
+	}
+	
+	
+	
+}
 
 
 

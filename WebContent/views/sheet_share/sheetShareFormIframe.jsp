@@ -52,7 +52,7 @@
 
 
 				<div id="iframeWrap">
-					<iframe id="writeForm" src="sheetShareForm.jsp" width="1200px" height="1300px" scrolling="no"></iframe>   
+					<iframe id="writeForm" src="<%=request.getContextPath() %>/views/sheet_share/sheetShareForm.jsp" width="1200px" height="1300px" scrolling="no"></iframe>   
 				 </div>
 				 
 
