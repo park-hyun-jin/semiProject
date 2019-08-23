@@ -97,7 +97,7 @@ public class notice extends HttpServlet {
 				// ---------- 페이징바 처리 끝 ------------
 				
 				//--------- 게시글 목록 조회 시작---------------
-				ArrayList<Board> list = bService.selectList();// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
+				ArrayList<Board> list = bService.selectList(currentPage,limit);// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
 				
 				RequestDispatcher view = null;
 				
