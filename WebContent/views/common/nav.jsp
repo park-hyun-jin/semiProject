@@ -297,7 +297,7 @@
 	var msg = "<%= msg%>";
 	
 	if(msg != "null") { // msg 값이 있을 경우
-		alert(msg);	
+		alert(msg, "noreduck message");	
 		<% session.removeAttribute("msg"); %>
 	}
 </script>
