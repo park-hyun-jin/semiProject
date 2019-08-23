@@ -67,4 +67,22 @@
                             </table>
                         </div>
                     </div>
+                    <!-- 목록 버튼 -->
+                <div class= "Btn_Wrap">
+                    <button class="List_Back_Btn" onclick="goList();">목록</button>
+					<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
+                </div>
+            </div> 
+    </section>
+	<script>
+	function goList(){
+		location.href='<%= request.getContextPath() %>/qnaWrite.li';
+	}
+
+	function deleteBoard(){
+		if(confirm('정말 삭제하시겠습니까?')){
+			location.href='<%= request.getContextPath() %>/qnaWrite.del?bNo=<%= b.getbNo() %>';
+		}
+	}
+	</script>
 </html>

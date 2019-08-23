@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import board.model.vo.Board;
 import board.model.vo.Reply;
+import board.model.vo.Report;
 import user.model.vo.Artist;
 import user.model.vo.User;
 
@@ -353,6 +354,75 @@ public class AdminDao {
 		}
 		return list;
 	}
+
+
+	public int getReportCount(Connection conn) {
+		int reportCount = -1;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getReportCount");
+		
+		try {
+			
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) reportCount = rset.getInt(1);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(rset);
+			close(stmt);
+			
+		}
+		
+		return reportCount;
+	}
+
+
+	public ArrayList<Report> reportSelectList(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Report> reportList = null;
+		
+		String query = prop.getProperty("reportSelectList");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			int startRow = (currentPage-1)*limit+1;
+			int endRow = startRow+limit -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			reportList = new ArrayList<Report>();
+			
+			while(rset.next()) {
+				Report re = new Report(rset.getInt(2),
+									 rset.getString(3) + "," + rset.getString(4) + "," + rset.getString(5),
+									 rset.getInt(6)+"");
+				reportList.add(re);
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return reportList;
+	}
+
+
+	
 	
 	
 }

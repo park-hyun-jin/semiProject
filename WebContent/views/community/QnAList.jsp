@@ -87,6 +87,13 @@
                             <th width="5%">조회수</th>
                             <th width="15%">작성일</th>
                         </tr>
+                        <!-- <tr class="table_header">
+                            <td width="10%">*</td>
+                            <td width="60%">FAQ 자주 묻는 질문</td>
+                            <td width="10%">관리자</td>
+                            <td width="5%"></td>
+                            <td width="15%"></td>
+                        </tr> -->
                 <% if(qnaList.isEmpty()){ %>
 				<tr>
 					<td colspan="6">등록된 게시글이 없습니다.</td>
@@ -142,15 +149,11 @@
 		</div>
                <!-- 글쓰기 버튼 -->
                <div class="community_footer">
+               <% if(loginUser != null){ %>
                     <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/qnaWrite.fo'">글쓰기</button> 
+                <%} %>
                 </div>
-                  <!-- 검색 영역 -->
-               <div class = "search_area">
-                   <form class = "searchForm">
-                       <input type="text" class="searchInput">
-                       <span><button type="submit" class = "searchSubmit">검색</button></span>
-                   </form>
-               </div>
+                
             </div>
 
         </section>
@@ -180,6 +183,9 @@
 	    			alert("관리자만 열람 가능합니다.");
 	    		<% } %>
     		});
+            
+
+            
          // 페이징바 마우스오버 이벤트
     		$(".clickBtn").mouseenter(function(){
     			$(this).css({"background":"darkgray", "cursor":"pointer"});

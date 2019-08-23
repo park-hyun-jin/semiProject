@@ -59,8 +59,8 @@ String nickName = writer[1];
                 </div>
 
                 <!-- 댓글 -->
-                <div class="reply_Wrap">
-                    <!-- 댓글 리스트 -->
+<!--                 <div class="reply_Wrap">
+                    댓글 리스트
                     <div class = "reply_List">
                         <div class = "reply_List_TItle">
                             <table>
@@ -72,16 +72,16 @@ String nickName = writer[1];
                         </div>
                         <div class = "reply_List_Content" >
                             <table id = "reply_List_Content">
-                               <!--  <tr>
+                                <tr>
                                     <th width="600px">내용</th>
                                     <th width="150px">작성자</th>
                                     <th width="150px">작성일</th>
-                                </tr>  -->
+                                </tr> 
                                 
                             </table>
                         </div>
                     </div>
-                    <!-- 댓글 달기 -->
+                    댓글 달기
                     <div class="reply">
                         <div class="reply_Write">
                             <textarea name="reply" class= "reply_textarea" resize="none" id = "reply_textarea"></textarea>
@@ -90,7 +90,7 @@ String nickName = writer[1];
                             <button type="submit" class="reply_Submit" id ="reply_Submit">댓글</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
                 <!-- 목록 버튼 -->
@@ -172,7 +172,7 @@ String nickName = writer[1];
 			});
     	      
     	});
-        // 댓글 등록
+<%--         // 댓글 등록
         $("#reply_Submit").click(function(){
 			var uNo = <%= loginUser.getuNo()%>
 			var bNo = <%=b.getbNo()%>
@@ -239,7 +239,7 @@ String nickName = writer[1];
     			selectRlist();
     		},3000);
 
-    		// 댓글 수정
+    		// 댓글 수정 --%>
     		
     		
     </script>

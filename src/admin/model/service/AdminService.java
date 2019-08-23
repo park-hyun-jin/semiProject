@@ -6,8 +6,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import admin.model.dao.AdminDao;
+import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import board.model.vo.Reply;
+import board.model.vo.Report;
 import user.model.dao.UserDao;
 import user.model.vo.Artist;
 import user.model.vo.User;
@@ -138,5 +140,30 @@ public class AdminService {
 		
 		return list;
 	}
+
+	
+	// -----------------------------추가
+	/**
+	 * 신고게시판 전체 개수 
+	 * @return
+	 */
+	public int getReportCount() {
+		Connection conn = getConnection();
+		int result = new AdminDao().getReportCount(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Report> reportSelectList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Report> reportList = new AdminDao().reportSelectList(conn,currentPage,limit);
+		return reportList;
+	}
+
+
+
+
+
+	
 
 }

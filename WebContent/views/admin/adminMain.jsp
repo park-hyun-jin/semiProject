@@ -49,7 +49,7 @@
 
 <body>
 
-	<%@ include file="adminNav.jsp" %>
+	<%@ include file="ADMINNAV.JSP" %>
 	
 	<div class= "section_wrap">
 	    <div class = "main_money">

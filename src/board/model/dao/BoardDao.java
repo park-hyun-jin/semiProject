@@ -871,8 +871,7 @@ private Properties prop = new Properties();
 								  rset.getString(3),
 								  rset.getString(4) + ","+ rset.getString(5),
 								  rset.getInt(6),
-								  rset.getDate(7),
-								  rset.getDate(8)
+								  rset.getDate(7)
 				);
 				
 			}
@@ -1060,6 +1059,26 @@ private Properties prop = new Properties();
 		}
 		return board;
 
+	}
+
+	public int deleteQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteQnA");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

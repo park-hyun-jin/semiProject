@@ -126,7 +126,7 @@ String nickName = writer[1];
 
     	// 게시글 목록, 수정 ,삭제 이동 
         function goList(){
-        	location.href='<%= request.getContextPath() %>/playgroupWrite.li';
+        	location.href='<%= request.getContextPath() %>/playgroupSearch.bo';
         }
         function updateBoard(){
         	location.href='<%= request.getContextPath() %>/playgroupWriteForm.up?bNo=<%= b.getbNo() %>';
@@ -156,6 +156,7 @@ String nickName = writer[1];
 				success : function(result){
 					if(result>0){
 						alert("신고 등록 완료");
+						var dangerImg = $(".danger").css("background-color","red");
 					}else{
 						console.log("신고 등록 에러 발생");
 					}

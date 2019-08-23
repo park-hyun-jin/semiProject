@@ -1335,7 +1335,21 @@ Connection conn = getConnection();
 
 		return board;
 	}
+
+	public int deleteQnA(int bNo) {
+		Connection conn =getConnection();
+		int result = new BoardDao().deleteQnA(conn,bNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
 	}
+
+
+}
 
 
 
