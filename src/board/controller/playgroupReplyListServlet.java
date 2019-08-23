@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 import board.model.service.BoardService;
 import board.model.vo.Reply;
 
-@WebServlet("/boardReply.li")
+@WebServlet("playgroupReply.li")
 public class playgroupReplyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public playgroupReplyListServlet() {
