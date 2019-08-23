@@ -21,7 +21,7 @@ public class dangerWriteInsertServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		int userNo  = Integer.parseInt(request.getParameter("uNo"));
+		String userNo  = request.getParameter("uNo");
 		String rpContent = request.getParameter("rpContent");
 		
 		Report report = new Report(rpContent, bNo, userNo);

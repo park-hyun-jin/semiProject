@@ -58,41 +58,7 @@ String nickName = writer[1];
                     <div class="Detail_Content_Etc"><%=b.getbContent() %></div>
                 </div>
 
-                <!-- 댓글 -->
-                <div class="reply_Wrap">
-                    <!-- 댓글 리스트 -->
-                    <div class = "reply_List">
-                        <div class = "reply_List_TItle">
-                            <table>
-                                <tr>
-                                    <td>댓글</td>
-                                    
-                                </tr>
-                            </table>
-                        </div>
-                        <div class = "reply_List_Content" >
-                            <table id = "reply_List_Content">
-                               <!--  <tr>
-                                    <th width="600px">내용</th>
-                                    <th width="150px">작성자</th>
-                                    <th width="150px">작성일</th>
-                                </tr>  -->
-                                
-                            </table>
-                        </div>
-                    </div>
-                    <!-- 댓글 달기 -->
-                    <div class="reply">
-                        <div class="reply_Write">
-                            <textarea name="reply" class= "reply_textarea" resize="none" id = "reply_textarea"></textarea>
-                        </div>
-                        <div class="reply_Btn">
-                            <button type="submit" class="reply_Submit" id ="reply_Submit">댓글</button>
-                        </div>
-                    </div>
-                </div>
-
-
+                
                 <!-- 목록 버튼 -->
                 <div class= "Btn_Wrap">
                     <button class="List_Back_Btn" onclick="goList();">목록</button>
@@ -172,74 +138,7 @@ String nickName = writer[1];
 			});
     	      
     	});
-        // 댓글 등록
-        $("#reply_Submit").click(function(){
-			var uNo = <%= loginUser.getuNo()%>
-			var bNo = <%=b.getbNo()%>
-			var content = $("#reply_textarea").val();
-			
-			if(content.trim() == ""){
-				alert("빈 댓글은 입력 할 수 없습니다.");
-				return false;
-			}
-			
-			$.ajax({
-				url : "playgroupReply.in",
-				type : "POST",
-				data : {uNo : uNo, content : content , bNo:bNo},
-				success : function(result){
-					if(result>0){
-						$("#reply_textarea").val("");
-						selectRlist();
-					}else{
-						console.log("댓글 등록 에러 발생");
-					}
-				}
-				
-			});
-		});
         
-        // 댓글 출력 
-        	function selectRlist(){
-    			var bNo = <%= b.getbNo()%>
-    			$.ajax({
-    				url: "playgroupReply.li",
-    				type:"POST",
-    				dataType:"json",
-    				data : {bNo : bNo},
-    				success : function(rList){
-    					var $reply_List_Content=$("#reply_List_Content");
-    					$reply_List_Content.html(""); // 기존 테이블 내용 초기화
-    					
-    					$.each(rList,function(i){
-    						var $tr = $("<tr>");
-    						var $writerTd=$("<td id ='rContentTd'>").html(rList[i].rContent).css("width","500px");
-    						var $contentTd =$("<td>").text(rList[i].nickName).css("width","150px");
-    						var $dateTd = $("<td>").text(rList[i].rCreateDate).css("width","150px");
-    						$tr.append($writerTd);
-    						$tr.append($contentTd);
-    						$tr.append($dateTd);
-    						 if(rList[i].nickName == "<%=loginUser.getNickName()%>") {
-    							var $update = $("<td>").html('<button type = "button" class ="replyUpdate">[수정]</button>').css("width","50px");
-    							var $delete = $("<td>").html('<button type = "button" class ="replyDelete">[삭제]</button>').css("width","50px");
-    							$tr.append($update);
-        						$tr.append($delete);
-    						}
-    						
-    						$reply_List_Content.append($tr);
-    					});
-    				}
-    			});
-    		}
-        	// 화면 로드 시 댓글 출력 부분 호출
-    		selectRlist();
-    		
-    		//일정 시간마다 댓글 출력부 갱신
-    		setInterval(function(){
-    			selectRlist();
-    		},3000);
-
-    		// 댓글 수정
     		
     		
     </script>

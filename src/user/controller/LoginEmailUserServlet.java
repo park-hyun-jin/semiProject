@@ -34,22 +34,18 @@ public class LoginEmailUserServlet extends HttpServlet {
 	
 		loginUser = new UserService().loginUser(loginUser);
 	
-		System.out.println(inputPwd);
+		HttpSession session = request.getSession();
+		
+		session.setMaxInactiveInterval(3600); // 단위 : per sec
 		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			
-			session.setMaxInactiveInterval(3600); // 단위 : per sec
 			
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(thisUrl);
 			
 		} else {
-			request.setAttribute("msg", "로그인 실패");
-
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
+			session.setAttribute("msg", "아이디 혹은 비밀번호가 잘못 입력되었습니다.");
 		}
+		response.sendRedirect(thisUrl);
 	
 	}
 

@@ -267,9 +267,9 @@
 	
 	<aside>
         <div class="vertical-menu">
-        <a href="<%= request.getContextPath() %>/notice.me" >공지사항</a>
-        <a href="#" class="active">자유게시판</a>
-        <a href="#">Q & A</a>
+        <a href="<%= request.getContextPath() %>/notice.me">공지사항</a>
+        <a href="<%= request.getContextPath() %>/freeBoard.bo" class="freeboard">자유게시판</a>
+        <a href="<%= request.getContextPath() %>/qnaWrite.li">Q & A</a>
        </div>
    		</aside>
 
@@ -372,6 +372,8 @@
         
         <script>
 			$(function(){
+				
+				$(".freeboard").addClass("active");
 				// 게시판 상세보기
 				$(".table_header td").mouseenter(function(){
 					$(this).parent().css({"color":"black", "cursor":"pointer"});

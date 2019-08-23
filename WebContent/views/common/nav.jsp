@@ -289,12 +289,12 @@
 
 
 <script>
-   var msg = "<%= msg%>";
-   
-   if(msg != "null") { // msg 값이 있을 경우
-      alert(msg);   
-      <% session.removeAttribute("msg"); %>
-   }
+	var msg = "<%= msg%>";
+	
+	if(msg != "null") { // msg 값이 있을 경우
+		alert(msg, "noreduck message");	
+		<% session.removeAttribute("msg"); %>
+	}
 </script>
 
 
@@ -311,15 +311,7 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover " href="#">악보공유</a>
-                    <ul class="detailList">
-                        <li><a href="#">피아노</a></li>
-                        <li><a href="#">기타</a></li>
-                        <li><a href="#">바이올린</a></li>
-                        <li><a href="#">플루트</a></li>
-                        <li><a href="#">하모니카</a></li>
-                        <li><a href="#">etc</a></li>
-                    </ul>
+                    <a class="nav-link nav-hover " href="<%=request.getContextPath()%>/sheetShare.bo">악보공유</a>
                 </li>
                 <li class="nav-item nav-margin">
                     <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>
@@ -337,7 +329,7 @@
                     <ul class="detailList detailList2">
                         <li><a href="<%= request.getContextPath() %>/notice.me">공지사항</a></li>
                         <li><a href="<%= request.getContextPath() %>/freeBoard.bo">자유게시판</a></li>
-                        <li><a href="#">Q&A</a></li>
+                        <li><a href="<%= request.getContextPath() %>/qnaWrite.li">Q&A</a></li>
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">
@@ -353,22 +345,20 @@
            <% if(loginUser == null) { %>
                <button class="sign_in_btn">sign in</button>
             <% } else { %>
-               <!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
-               <div id="mypageDiv" class="userFuncArea" 
-                  onclick="location.href='<%=request.getContextPath()%>/myPage.me'">
-                  <img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>   
-               </div>
-               <div id="logoutDiv" class="userFuncArea" onclick="logout()">
-                  <img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
-               </div>
-       -      
-               <% if(loginUser.getuNo() == 3) { %>
-               
-               <button onclick = "location.href='<%= request.getContextPath() %>/views/admin/adminMain.jsp'">관리자</button>
-               
-            
-            <% } %> 
-          <% } %>  
+            	<!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
+            	<div id="mypageDiv" class="userFuncArea" 
+            		onclick="location.href='<%=request.getContextPath()%>/myPage.me'">
+            		<img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>	
+            	</div>
+            	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
+            		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
+            	</div>
+            	
+            	<% if(loginUser.getuNo() == 3) { %>
+            		<button onclick="location.href='<%=request.getContextPath()%>/updatedInfo.ad'">관리자</button>
+            	<% } %>
+
+            <% } %>
         </div>
         </div>
 

@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.concurrent.locks.StampedLock;
 
 import board.model.vo.Board;
 import board.model.vo.Note;
 import board.model.vo.Reply;
 import board.model.vo.Report;
+import user.model.vo.User;
 
 public class BoardDao {
 	
@@ -169,7 +169,7 @@ private Properties prop = new Properties();
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, report.getRpContent());
 			pstmt.setInt(2, report.getbNo());
-			pstmt.setInt(3, report.getUserNo());
+			pstmt.setString(3, report.getUserNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -865,8 +865,8 @@ private Properties prop = new Properties();
 								rset.getString(8),
 								rset.getString(9),
 								rset.getInt(10),
-								rset.getInt(11),
-								rset.getInt(12)
+								rset.getInt(12),
+								rset.getInt(14)
 						);
 			}
 			
@@ -1013,6 +1013,7 @@ private Properties prop = new Properties();
 		
 		return result;
   }
+
 
 	public int updatBoardGroup(Connection conn, Board playgroupboard) {
 		
@@ -1174,6 +1175,295 @@ private Properties prop = new Properties();
 
 	}
 
+	
+	
+
+	public Board detailSheetShareBoard(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectSheetShareBoard");
+		Board board = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				board = new Board(bNo, 
+								rset.getString(2), 
+								rset.getString(3), 
+								rset.getInt(4), 
+								rset.getDate(5), 
+								rset.getInt(6), 
+								rset.getInt(7)+"", 
+								rset.getInt(8)+"");								
+			}
+						
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}		
+		
+		return board;
+	}
+
+	
+	public int searchSheet(Connection conn, String head, String keyword) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("searchSheet");
+		if(head == null || head.equals("100")) {
+			query += " AND BTITLE LIKE '%" + keyword +"%'";
+		} else {
+			query += " AND HEADER=" + head + " AND BTITLE LIKE '%" + keyword +"%'";
+		}
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Board> SheetList(Connection conn, String head, String keyword, int currentPage, int limit) {
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("SheetList");
+		
+		ArrayList<Board> list = null;
+		
+		int startRow = (currentPage-1)*limit+1;
+		int endRow = startRow+limit -1;
+		
+		if(head != null && !head.equals("100"))
+			query += "AND HEADER=" + head; 
+		
+		query += " AND BTITLE LIKE '%" + keyword + "%' ORDER BY  BNO DESC)) WHERE (RNO BETWEEN "+ startRow + " AND " + endRow + ")";
+		
+
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board bo = new Board();
+				bo.setbNo(rset.getInt(2));
+				bo.setheader(rset.getString(3));
+				bo.setbTitle(rset.getString(5));
+				bo.setwriter(rset.getString(6));
+				bo.setCreateDate(rset.getDate(7));
+				bo.setbCount(rset.getInt(8));
+				bo.setDivide(rset.getString(9));
+				bo.setnPrice(rset.getInt(10));
+				list.add(bo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+		
+	}
+	
+	public int countQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+ 		String query = prop.getProperty("countQnA");
+
+ 		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+
+ 			result = pstmt.executeUpdate();
+
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+ 		return result;
+	}
+
+ 	public Board selectQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+ 		Board board = null;
+
+ 		String query = prop.getProperty("selectQnA");
+
+ 		try {
+			pstmt=conn.prepareStatement(query);
+
+ 			pstmt.setInt(1, bNo);
+
+ 			rset = pstmt.executeQuery();
+
+ 			if(rset.next()) {
+
+ 				board = new Board(rset.getInt(1),
+								  rset.getString(2),
+								  rset.getString(3),
+								  rset.getString(4) + ","+ rset.getString(5),
+								  rset.getInt(6),
+								  rset.getDate(7)
+				);
+
+ 			}
+
+ 		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+	}
+		return board;
+	}
+ 	
+ 	
+ 	public int deleteQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+ 		String query = prop.getProperty("deleteQnA");
+
+ 		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+
+ 			result=pstmt.executeUpdate();
+
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Note pdfDownload(Connection conn, int nNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Note note = null;
+		String query = prop.getProperty("pdfDownload");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, nNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				note = new Note(rset.getString(1), 
+								rset.getString(2), 
+								rset.getString(3), 
+								rset.getString(4), 
+								rset.getInt(5), 
+								rset.getInt(6));
+			}
+			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return note;
+	}
+
+	public int downloadCount(Connection conn, int nNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("downloadCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, nNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+
+	public int usePoint(Connection conn, int getnPrice, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("usePoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, getnPrice);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int useCash(Connection conn, int getnPrice, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("useCash");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, getnPrice);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
 	
 	
 	

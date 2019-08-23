@@ -8,6 +8,13 @@
         <title> </title>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+        
     </head>
 
     <style>
@@ -239,7 +246,7 @@
                 <!-- 내비 -->
                 <ul id="nav_aside_list">
                     <li id="nav_go_main">
-                        <a href="<%=request.getContextPath()%>/views/admin/adminMain.jsp">메인 페이지</a>
+                        <a href="<%=request.getContextPath()%>/updatedInfo.ad">메인 페이지</a>
                     </li>
                     
                     <span class="nav_divide_line"><hr></span>

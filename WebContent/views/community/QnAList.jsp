@@ -63,12 +63,12 @@
     <body>
     <%@ include file="../common/nav.jsp" %>
             <aside>
-                    <div class="vertical-menu">
-                        <a href="#" >공지사항</a>
-                        <a href="#">자유게시판</a>
-                        <a href="#" class="active">Q & A</a>
-                    </div>
-                </aside>
+                <div class="vertical-menu">
+                    <a href="#" >공지사항</a>
+                    <a href="<%= request.getContextPath() %>/freeBoard.bo">자유게시판</a>
+                    <a href="<%= request.getContextPath() %>/qnaWrite.li" class="qna">Q & A</a>
+                </div>
+            </aside>
         <section class="community_content">
             <!-- 커뮤니티 게시판 -->
             <div class= "community_wrap">
@@ -142,21 +142,17 @@
 		</div>
                <!-- 글쓰기 버튼 -->
                <div class="community_footer">
-                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/qnaWrite.fo'">글쓰기</button> 
+               		<% if(loginUser != null){ %>
+                    <button type = "button"class="writeBtn" onclick="location.href='<%=request.getContextPath()%>/qnaWrite.fo'">글쓰기</button>
+                    <%} %> 
                 </div>
-                  <!-- 검색 영역 -->
-               <div class = "search_area">
-                   <form class = "searchForm">
-                       <input type="text" class="searchInput">
-                       <span><button type="submit" class = "searchSubmit">검색</button></span>
-                   </form>
-               </div>
+                
             </div>
 
         </section>
         <script>
         $(function() {
-        	$(".cashCharge").addClass("active");
+        	$(".qna").addClass("active");
             
             
             $(".table_header td").mouseenter(function(){

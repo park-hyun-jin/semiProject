@@ -9,6 +9,7 @@ import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import board.model.vo.Note;
 import user.model.dao.UserDao;
+import user.model.vo.User;
 import board.model.vo.Reply;
 import board.model.vo.Report;
 
@@ -197,70 +198,43 @@ public class BoardService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Board selectQnA(int bNo) {
+		Connection conn = getConnection();
+
+
+ 		BoardDao bDao = new BoardDao();
+
+
+ 		Board board = bDao.selectQnA(conn, bNo);
+
+ 		if(board != null) {
+			int result = bDao.countQnA(conn,bNo);
+
+ 			if(result >0) {
+				commit(conn);
+				board.setbCount(board.getbCount()+1);
+			}else {
+
+ 				rollback(conn);
+				board =null; 
+			}
+		}
+
+ 		return board;
+	}
+	
+	
+	public int deleteQnA(int bNo) {
+		Connection conn =getConnection();
+		int result = new BoardDao().deleteQnA(conn,bNo);
+
+ 		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}		
 	
 	
 	
@@ -1038,174 +1012,6 @@ public class BoardService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public int getSearchPlaygroupCount(String head, String keyword) {
 		Connection conn = getConnection();
 		
@@ -1326,6 +1132,7 @@ public class BoardService {
 		return result;
 	}
 
+
 	public ArrayList<Board> noticeSelectList(int currentPage, int limit) {
 		
 		Connection conn = getConnection();
@@ -1339,17 +1146,90 @@ public class BoardService {
 	public int insertNoticeBoard(Board board) {
 		Connection conn = getConnection();
 		int result = new BoardDao().insertNoticeBoard(conn,board);
-		
-		if(result >0) {
+    if(result >0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		return result;
 	}
-
+      
+    
+  
+  public Board detailSheetShareBoard(int bNo) {
+		Connection conn = getConnection();
+		
+		Board board = new BoardDao().detailSheetShareBoard(conn, bNo);
+				
+		return board;
 	}
 	
+	
+	public int searchSheet(String head, String keyword) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().searchSheet(conn, head, keyword);
+		
+		return result;
+	}
+	
+	
+	public ArrayList<Board> SheetList(String head, String keyword, int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Board> SheetList = new BoardDao().SheetList(conn, head, keyword, currentPage, limit);
+		
+		return SheetList;
+	}
+
+	public Note pdfDownload(int nNo) {
+		Connection conn = getConnection();
+		BoardDao bDao = new BoardDao();
+		Note note = bDao.pdfDownload(conn, nNo);
+		int result = bDao.downloadCount(conn, nNo);
+		if(result >0) {
+			commit(conn);
+		}else {
+			note = null;
+			rollback(conn);
+		}
+		
+		return note;
+	}
+
+	public int usePoint(int getnPrice, int uNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().usePoint(conn, getnPrice, uNo);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+
+		return result;
+	}
+
+
+
+	public int useCash(int getnPrice, int uNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().useCash(conn, getnPrice, uNo);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+
+	}
+
+	
+	
+	
+	
+}
 
 
 
