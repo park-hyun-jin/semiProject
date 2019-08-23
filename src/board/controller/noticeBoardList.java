@@ -18,10 +18,10 @@ import user.model.vo.User;
 
 
 @WebServlet("/notice.me")
-public class notice extends HttpServlet {
+public class noticeBoardList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-    public notice() {
+    public noticeBoardList() {
         super();
         
     }
@@ -40,7 +40,7 @@ public class notice extends HttpServlet {
 				
 				
 				
-				int boardCount = bService.getNoticeBoardCount();
+				int boardCount = bService.getNoticeBoardCount(); // 페이징 처리해 줘야 되니 게시글 갯수를 가져온다. 
 				System.out.println(boardCount);
 				// 페이징 처리용 변수 선언 
 				int limit = 10;  				// 한 페이지에 보여질 게시글 수 
@@ -97,14 +97,14 @@ public class notice extends HttpServlet {
 				// ---------- 페이징바 처리 끝 ------------
 				
 				//--------- 게시글 목록 조회 시작---------------
-				ArrayList<Board> list = bService.selectList(currentPage,limit);// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
+				ArrayList<Board> list = bService.noticeSelectList(currentPage,limit);// 현재 페이지에서 보여지는 개수만 가져오겠다. 두개만 
 				
 				RequestDispatcher view = null;
 				
 				// 게시글 목록 조회 결과에 따른 view 연결 처리 
 				String page = "";
 				if(list !=null) {
-				page="views/community/noticeList.jsp";
+				page="views/notice/noticeList.jsp";
 //					page="views/mypage/myPageBoard.jsp";
 					request.setAttribute("list", list);
 					request.setAttribute("pInf", pInf);

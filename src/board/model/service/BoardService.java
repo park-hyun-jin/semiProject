@@ -712,6 +712,7 @@ public class BoardService {
 	
 
 	public int getNoticeBoardCount() {
+		
 		Connection conn = getConnection();
 		
 		BoardDao bDao = new BoardDao();
@@ -1131,37 +1132,29 @@ public class BoardService {
 		return result;
 	}
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+	public ArrayList<Board> noticeSelectList(int currentPage, int limit) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().noticeSelectList(conn, currentPage,limit);
+		
+		
+		return list;
+	}
+
+	public int insertNoticeBoard(Board board) {
+		Connection conn = getConnection();
+		int result = new BoardDao().insertNoticeBoard(conn,board);
+    if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+      
+    
   
   public Board detailSheetShareBoard(int bNo) {
 		Connection conn = getConnection();
@@ -1212,9 +1205,11 @@ public class BoardService {
 		}else {
 			rollback(conn);
 		}
-		
+
 		return result;
 	}
+
+
 
 	public int useCash(int getnPrice, int uNo) {
 		Connection conn = getConnection();
@@ -1227,6 +1222,7 @@ public class BoardService {
 		}
 		
 		return result;
+
 	}
 
 	

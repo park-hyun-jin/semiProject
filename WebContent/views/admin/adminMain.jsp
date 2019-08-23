@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="board.model.vo.Board, java.util.ArrayList, board.model.vo.Report, cash.model.vo.Imp"%>
-    
+    import="board.model.vo.Board, java.util.ArrayList, board.model.vo.Report, cash.model.vo.Imp"%>    
 <%
 
 	ArrayList<Board> boardList = (ArrayList<Board>)request.getAttribute("boardList");
@@ -67,6 +66,8 @@
 <body>
 
 	<%@ include file="adminNav.jsp" %>
+	
+	
 	
 	<div class= "section_wrap">
 	    <div class = "main_money">

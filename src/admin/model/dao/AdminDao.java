@@ -536,7 +536,6 @@ public class AdminDao {
 		}
 		return reportList;
 	}
-
 	
 	
 }

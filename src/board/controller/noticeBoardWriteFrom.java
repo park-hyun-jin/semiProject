@@ -9,26 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
-import board.model.vo.Report;
-
-@WebServlet("/freeBoardDangerWrite.in")
-public class freeBoardDangerWriteInsertServlet extends HttpServlet {
+@WebServlet("/noticeBoardWrite.fo")
+public class noticeBoardWriteFrom extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public freeBoardDangerWriteInsertServlet() {
+       
+    public noticeBoardWriteFrom() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String userNo  = request.getParameter("uNo");
-		String rpContent = request.getParameter("rpContent");
-		
-		Report report = new Report(rpContent, bNo, userNo);
-		
-		int result = new BoardService().dangerWriteInsert(report);
-		
-		response.getWriter().print(result);
+		RequestDispatcher view = request.getRequestDispatcher("views/notice/noticewriteForm.jsp");
+		view.forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

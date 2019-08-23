@@ -10,25 +10,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
-import board.model.vo.Report;
+import board.model.vo.Board;
 
-@WebServlet("/freeBoardDangerWrite.in")
-public class freeBoardDangerWriteInsertServlet extends HttpServlet {
+
+@WebServlet("/noteBoardgroupWrite.de")
+public class noticeBoardDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public freeBoardDangerWriteInsertServlet() {
+    public noticeBoardDetailServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String userNo  = request.getParameter("uNo");
-		String rpContent = request.getParameter("rpContent");
 		
-		Report report = new Report(rpContent, bNo, userNo);
 		
-		int result = new BoardService().dangerWriteInsert(report);
+		BoardService boardgroupService = new BoardService();
 		
-		response.getWriter().print(result);
+		Board board = boardgroupService.boardGroup(bNo);
+		
+		RequestDispatcher view = null;
+		String page = "";
+		System.out.println(board);
+		if(board != null) { // 해당 글이 존재하는 경우
+			
+				page = "views/notice/noteBoardDetail.jsp";
+				request.setAttribute("board", board);
+			
+		} else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "상세 조회 중 에러 발생");
+		}
+		
+		view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

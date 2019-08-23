@@ -10,6 +10,8 @@ String[] writer = b.getwriter().split(",");
 int uNo = Integer.parseInt(writer[0]);
 String nickName = writer[1]; 
 
+int loginUno = ((User)request.getSession().getAttribute("loginUser")).getuNo();
+
 %>
 <!DOCTYPE html>
 <html lang = "ko">
@@ -37,8 +39,7 @@ String nickName = writer[1];
                         <div class="Detail_Header_Title">
                              <span><%= b.getbTitle() %></span>
                         </div>
-                        <div class="Detail_Header_Icon"><img src="views/image/download.png"></div>
-                        <div class="Detail_Header_Icon"><img src="views/image/like.png" class = "changeImg" onclick="changeImg();"></div>
+                     
                         <div class="Detail_Header_Icon"><img src="views/image/danger.png" class= "danger"></div>
                         
                         
@@ -95,12 +96,19 @@ String nickName = writer[1];
                 <!-- 목록 버튼 -->
                 <div class= "Btn_Wrap">
                     <button class="List_Back_Btn" onclick="goList();">목록</button>
-                    <% if(nickName.equals(loginUser.getNickName())) { %>
-						<button class="List_Back_Btn2" type="button" onclick="updateBoard();">수정</button>
-						<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
-					<%}%>
-					
-					
+                    <%-- <% if(nickName.equals(loginUser.getNickName())) { %> --%>
+                    	 <% if(loginUno == 3){ %> 
+                 
+                   
+               		<button class="List_Back_Btn2" type="button" onclick="updateBoard();">수정</button>
+					<button class="List_Back_Btn2" type="button" onclick="deleteBoard();">삭제</button>
+               
+                <%} %>
+						
+						
+						
+				<%-- 	<%}%> --%>
+				
                 </div>
             </div> 
     </section>
@@ -131,7 +139,7 @@ String nickName = writer[1];
             changeImg[0].src="views/image/liked.png";
         } */
         function goList(){
-        	location.href='<%= request.getContextPath() %>/freeBoard.bo?bNo=<%= b.getbNo() %>';
+        	location.href='<%= request.getContextPath() %>/notice.me?bNo=<%= b.getbNo() %>';
         }
         function updateBoard(){
         	location.href='<%= request.getContextPath() %>/boardWriteForm.up?bNo=<%= b.getbNo() %>';
@@ -202,9 +210,6 @@ String nickName = writer[1];
 			});
 		});
         
-   
-        
-    
         // 댓글 출력 
        
         	function selectRlist(){
