@@ -10,36 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.model.service.AdminService;
-import board.model.vo.PageInfo;
-import user.model.vo.User;
+import point.model.vo.Point;
 
-@WebServlet("/userList.ad")
-public class UserListServlet extends HttpServlet {
+@WebServlet("/userPointList.ad")
+public class UserPointListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public UserListServlet() {
+    public UserPointListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AdminService aService = new AdminService();
-	
-		ArrayList<User> list = aService.userSelectList();
 		
-		String page = "";
-		if(list != null) {
-			page = "views/admin/user_management/userList.jsp";
-			
-			request.setAttribute("list",  list);
-			
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시판 목록 조회 실패");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+		int uno = Integer.parseInt("uno");
+		ArrayList<Point> pointList = new AdminService().userPointList(uno);
 		
-
-	
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

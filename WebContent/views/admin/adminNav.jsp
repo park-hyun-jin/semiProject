@@ -9,6 +9,12 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+        
     </head>
 
     <style>
@@ -32,7 +38,7 @@
     #admin_nav_wrap .main_nav_aside {
         width: 20%;
         height: 100%;
-        background-color: rgb(57, 109, 219);
+        background-color: k
         padding: 10px 30px 10px 30px;
         /* display: flex; */
         float: left;

@@ -7,11 +7,11 @@ public class Point {
 	private String pSummary;
 	private int point;
 	private Date pDate;
-	private int userNo;
+	private String userNo;
 	
 	public Point() {}
 
-	public Point(int pNo, String pSummary, int point, Date pDate, int userNo) {
+	public Point(int pNo, String pSummary, int point, Date pDate, String userNo) {
 		super();
 		this.pNo = pNo;
 		this.pSummary = pSummary;
@@ -52,11 +52,11 @@ public class Point {
 		this.pDate = pDate;
 	}
 
-	public int getUserNo() {
+	public String getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(int userNo) {
+	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
 	

@@ -9,6 +9,7 @@ import admin.model.dao.AdminDao;
 import board.model.vo.Board;
 import board.model.vo.Report;
 import cash.model.vo.Imp;
+import point.model.vo.Point;
 import user.model.vo.Artist;
 import user.model.vo.User;
 
@@ -34,10 +35,10 @@ public class AdminService {
 	 * @param limit
 	 * @return User list
 	 */
-	public ArrayList<User> userSelectList(int currentPage, int limit) {
+	public ArrayList<User> userSelectList() {
 		Connection conn = getConnection();
 		
-		ArrayList<User> list = new AdminDao().selectList(conn, currentPage, limit);
+		ArrayList<User> list = new AdminDao().selectList(conn);
 		
 		return list;
 	}
@@ -167,6 +168,12 @@ public class AdminService {
 		Connection conn = getConnection();
 		
 		return new AdminDao().getUpdatedReportList(conn);
+	}
+
+	public ArrayList<Point> userPointList(int uno) {
+		Connection conn = getConnection();
+		
+		return new AdminDao().userPointList(conn, uno);
 	}
 
 }

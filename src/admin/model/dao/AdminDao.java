@@ -15,6 +15,7 @@ import board.model.vo.Board;
 import board.model.vo.Reply;
 import board.model.vo.Report;
 import cash.model.vo.Imp;
+import point.model.vo.Point;
 import user.model.vo.Artist;
 import user.model.vo.User;
 
@@ -68,32 +69,26 @@ public class AdminDao {
 	}
 
 
-	public ArrayList<User> selectList(Connection conn, int currentPage, int limit) {
-		PreparedStatement pstmt = null;
+	public ArrayList<User> selectList(Connection conn) {
+		Statement stmt = null;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectList");
 		
 		ArrayList<User> list = null;
 		try {
-			pstmt = conn.prepareStatement(query);
-			int startRow = (currentPage -1) * limit + 1;
-			int endRow = startRow + limit - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
 			
 			list = new ArrayList<User>();
 			
 			while(rset.next()) {
 				User u = new User(rset.getInt("UNO"), 
-									rset.getString("NICKNAME"), 
-									rset.getString("USER_NAME"), 
-									rset.getString("ARTIST"),
-									rset.getInt("USER_POINT"),
-									rset.getInt("USER_CASH"));
+						rset.getString("NICKNAME"), 
+						rset.getString("USER_NAME"), 
+						rset.getString("ARTIST"),
+						rset.getInt("USER_POINT"),
+						rset.getInt("USER_CASH"));
 				
 				list.add(u);
 			}
@@ -102,7 +97,7 @@ public class AdminDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		
 		return list;
@@ -473,6 +468,41 @@ public class AdminDao {
 		}
 		
 		return reportList;
+	}
+
+
+	public ArrayList<Point> userPointList(Connection conn, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("userPointList");
+		
+		ArrayList<Point> pointList = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			pointList = new ArrayList<>();
+			while(rset.next()) {
+				Point point = new Point(rset.getInt(1), 
+										rset.getString(2)+","+rset.getString(3),
+										rset.getInt(4),
+										rset.getDate(5),
+										rset.getInt(6)+","+rset.getString(7));
+				pointList.add(point);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return pointList;
 	}
 	
 	

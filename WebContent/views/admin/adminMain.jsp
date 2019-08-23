@@ -14,10 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 
 </head>
 
@@ -74,7 +71,7 @@
 	<div class= "section_wrap">
 	    <div class = "main_money">
 	        
-	        <table style="border-style: none" id="main_money">
+	        <table style="border: 0" id="main_money">
 	        	<caption>최근 충전내역</caption>
 	            <thead>
 	            <tr>
@@ -107,12 +104,15 @@
 	    <div class= "main_board">
 	        <table id="main_board">
 	        	<caption>최근 게시글</caption>
+	        	<thead>
 	            <tr>
 	                <th width="97.5px" height="30px">날짜</th>
 	                <th width="97.5px" height="30px">작성자</th>
 	                <th width="97.5px" height="30px">게시판</th>
 	                <th width="97.5px" height="30px">게시글 제목</th>
 	            </tr>
+	            </thead>
+	            <tbody>
 	              <% if(boardList == null || boardList.isEmpty()){ %>
 				<tr>
 					<td colspan="4">등록된 게시글이 없습니다.</td>
@@ -123,7 +123,7 @@
 					<tr>
 						<td>
 							<input type='hidden' name='bno' value='<%= b.getbNo() %>'>
-							<input type='hidden' name='bType' value='<%= b.getbType().split(",")[0] %>'>
+							<input type='hidden' name='bType' value='<%= b.getbType().split(",")[0] %>'> 
 							<%= b.getCreateDate() %>
 						</td>
 						<td><%= b.getwriter().split(",")[1] %></td>
@@ -132,18 +132,22 @@
 					</tr>
 					<% } %>
 				<% } %>
+				</tbody>
 	        </table>
 	    </div>
 	
 	    <div class= "main_report">
 	        <table id="main_report">
 	        	<caption>최근 신고내역</caption>
+	        	<thead>
 	            <tr>
 	                <th width="97.5px" height="30px">유저네임</th>
 	                <th width="97.5px" height="30px">게시판</th>
 	                <th width="97.5px" height="30px">게시글제목</th>
 	                <th width="97.5px" height="30px">신고내역</th>
 	            </tr>
+	            </thead>
+	            <tbody>
 	              <% if(reportList == null || reportList.isEmpty()){ %>
 				<tr>
 					<td colspan="4">등록된 게시글이 없습니다.</td>
@@ -163,11 +167,14 @@
 					</tr>
 					<% } %>
 				<% } %>
+				</tbody>
 	        </table>
 	    </div>
 	</div>
 	
 	<script>
+	
+
 	
 		$(document).ready( function () {
 		    $('#main_money').DataTable();
@@ -181,7 +188,7 @@
 			
 			// 유저정보 상세보기
 			$(".main_board td, .main_report td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+				$(this).parent().css({"background":"#EFDD8A", "cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).parent().css({"background":"white"});
 			}).click(function(){
@@ -194,6 +201,7 @@
 		});
 	
 	</script>
+
 
 </body>
 </html>

@@ -6,15 +6,6 @@
 <%
 	ArrayList<User> list = (ArrayList<User>)request.getAttribute("list");
 	
-	PageInfo pInf = (PageInfo)request.getAttribute("pInf");
-
-	int userCount = pInf.getBoardCount();
-	int currentPage = pInf.getCurrentPage();
-	int maxPage = pInf.getMaxPage();
-	int startPage = pInf.getStartPage();
-	int endPage = pInf.getEndPage();
-	int limit = pInf.getLimit();
-	int pagingBarSize = pInf.getPagingBarSize();
 %>      
     
     
@@ -30,26 +21,32 @@
 			/* background-color: rgb(121, 149, 232);  */
 			/* color: orangered; */
 		}
-	
-	   .page_content {
-	        width: 700px;
+
+	   .section_wrap {
+	        width: 1400px;
 	        height: 900px;
-	        padding: 40px;
 	        padding-top: 8rem;
-	        position: absloute;
+	        position: relative;
 	        margin-left: 350px;
-	    }
+	        
+	    } 
 	
 		.userListArea {
 			width: 1200px;
 			height: 800px;
-			position: absloute;
-			padding: 40px;
+			/* position: relative;  */
+			padding: 30px;
 			margin-left: 100px;
 			margin-top: 40px;
+			float: left;
 		}
+		/*  
+		.userListTable {
+			width: 1200px;
+			float: left;
+		} */
 
-		.userListTable, .userListTable td {
+		.userListTable td {
 		    border: 1px solid black;  
 		    border-collapse: collapse;
 		
@@ -63,24 +60,14 @@
 		}
 		
 		.userListTable th {
-			background-color: lightgray;
+			background-color: rgb(57, 109, 219);
 			height: 50px;
 			font-weight: bold;
 			font-size: 18px;
 			text-align: center;
+			color: white;
 		}
-		
-		.pagingArea {
-			margin: 30px;
-		}	
-		.pagingBtn{
-			text-decoration: none;
-			color : black;
-			display : inline-block;
-			width : 25px;
-			height : 25px;
-			font-size: 15px;
-		}
+	
 		
 	</style>
 
@@ -89,16 +76,19 @@
 
 	<%@ include file="../adminNav.jsp" %>
 	
-	<div class="page_content">
+	<div class="section_wrap">
 	<div class="userListArea">
 	    <table class="userListTable">
 	        <thead>
+	        <tr>
 	            <th class="nicknameArea">닉네임</td>
 	            <th class="nameArea">이름</td>
 	            <th class="statusArea">구분</td>
 	            <th class="pointArea">보유 포인트</td>
 	            <th class="cashArea">보유 캐시</td>
 	        </tr>
+	        </thead>
+	        <tbody>
 			<% if(list.isEmpty()){ %>
 			<tr>
 				<td colspan="6">가입된 유저가 없습니다.</td>
@@ -117,46 +107,9 @@
 				<% } %>
 			<% } %>
 	    
-	
+			</tbody>
 	    </table>
 	
-	
-		<!------- 페이징 바 ------->
-		<!-- 페이징 처리 시작! -->
-		<div class="pagingArea" align="center">
-			<!-- 맨 처음으로(<<) -->
-			<span class="pagingBtn clickBtn" onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=1'">&lt;&lt;</span>
-		
-			<!-- 이전 페이지로(<) -->
-			<% if(startPage <= 1) { %>
-				<span class="pagingBtn">&lt;</span>
-			<% } else{ %>
-				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= startPage-pagingBarSize %>'">&lt;</span>
-			<% } %>
-			
-			<!-- 페이지 목록 -->
-			<% for(int p = startPage; p <= endPage; p++){ %>
-				<% if(p == currentPage) { %>
-					<span class="pagingBtn selectBtn"><%= p %></span>
-				<% } else{ %>
-					<span class="pagingBtn clickBtn" 
-						onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= p %>'"><%=p%></span>
-				<% } %>
-			<%} %>
-			
-			<!-- 다음 페이지로(>) -->
-			<% if(endPage >= maxPage){ %>
-				<span class="pagingBtn"> &gt; </span>
-			<% } else{ %>
-				<span class="pagingBtn clickBtn" 
-					onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= startPage+pagingBarSize %>'">&gt;</span>
-			<% } %>
-			
-			<!-- 맨 끝으로(>>) -->
-			<span class="pagingBtn clickBtn"
-				onclick="location.href='<%= request.getContextPath() %>/userList.ad?currentPage=<%= maxPage %>'">&gt;&gt;</span>
-		</div>
 	</div>
 	
 	
@@ -164,16 +117,21 @@
 	
 	
 	<script>
+	
+		
+		$(document).ready( function () {
+		    $('.userListTable').DataTable();
+		   
+		} );
+		
 		$(function(){
-			
-			
 			
 			$("#nav_user_management a").css("color", "rgb(235, 199, 91)");
 
 			
 			// 유저정보 상세보기
 			$(".userListTable td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+				$(this).parent().css({"background":"#EFDD8A", "cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).parent().css({"background":"white"});
 			}).click(function(){
@@ -181,13 +139,13 @@
 				location.href="<%= request.getContextPath() %>/detailUser.ad?uno="+uno;
 			});
 			
-			
+			/* 
 			// 페이징바 마우스오버 이벤트
 			$(".clickBtn").mouseenter(function(){
 				$(this).css({"background":"darkgray", "cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).css({"background":"white"});
-			});
+			}); */
 		});
 		
 	</script>
