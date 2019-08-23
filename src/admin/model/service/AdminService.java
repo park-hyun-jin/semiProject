@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 import admin.model.dao.AdminDao;
 import board.model.vo.Board;
-import board.model.vo.Reply;
-import user.model.dao.UserDao;
+import board.model.vo.Report;
+import cash.model.vo.Imp;
+import point.model.vo.Point;
 import user.model.vo.Artist;
 import user.model.vo.User;
 
@@ -34,10 +35,10 @@ public class AdminService {
 	 * @param limit
 	 * @return User list
 	 */
-	public ArrayList<User> userSelectList(int currentPage, int limit) {
+	public ArrayList<User> userSelectList() {
 		Connection conn = getConnection();
 		
-		ArrayList<User> list = new AdminDao().selectList(conn, currentPage, limit);
+		ArrayList<User> list = new AdminDao().selectList(conn);
 		
 		return list;
 	}
@@ -137,6 +138,42 @@ public class AdminService {
 		ArrayList<ArrayList> list = new AdminDao().replyList(conn, uno, currentPage, limit);
 		
 		return list;
+	}
+
+	/**
+	 * 최신의 캐시충전 내역
+	 * @return Imp list
+	 */
+	public ArrayList<Imp> getUpdatedImpList() {
+		Connection conn = getConnection();
+		
+		return new AdminDao().getUpdatedImpList(conn);
+	}
+
+	/**
+	 * 최신의 게시글 내역
+	 * @return Board list
+	 */
+	public ArrayList<Board> getUpdatedBoardList() {
+		Connection conn = getConnection();
+		
+		return new AdminDao().getUpdatedBoardList(conn);
+	}
+
+	/**
+	 * 최신의 신고 내역
+	 * @return Report list
+	 */
+	public ArrayList<Report> getUpdatedReportList() {
+		Connection conn = getConnection();
+		
+		return new AdminDao().getUpdatedReportList(conn);
+	}
+
+	public ArrayList<Point> userPointList(int uno) {
+		Connection conn = getConnection();
+		
+		return new AdminDao().userPointList(conn, uno);
 	}
 
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>유저 관리</title>
 
 <%
 	request.setAttribute("user", request.getAttribute("user"));

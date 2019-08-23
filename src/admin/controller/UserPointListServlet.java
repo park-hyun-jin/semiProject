@@ -1,4 +1,4 @@
-package board.controller;
+package admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,25 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import admin.model.service.AdminService;
+import point.model.vo.Point;
 
-import board.model.service.BoardService;
-import board.model.vo.Reply;
-
-@WebServlet("/boardReply.li")
-public class playgroupReplyListServlet extends HttpServlet {
+@WebServlet("/userPointList.ad")
+public class UserPointListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public playgroupReplyListServlet() {
+       
+    public UserPointListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		ArrayList<Reply> rList = new BoardService().playgroupReplySelect(bNo);
-
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(rList,response.getWriter());
+		
+		int uno = Integer.parseInt("uno");
+		ArrayList<Point> pointList = new AdminService().userPointList(uno);
+		
 		
 	}
 

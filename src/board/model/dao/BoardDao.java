@@ -1013,6 +1013,7 @@ private Properties prop = new Properties();
 		return result;
   }
 
+
 	public int updatBoardGroup(Connection conn, Board playgroupboard) {
 		
 		PreparedStatement pstmt = null;
@@ -1168,9 +1169,7 @@ private Properties prop = new Properties();
 			close(stmt);
 		}
 		return result;
-	}
-	
-	
+		
 	
 	public ArrayList<Board> SheetList(Connection conn, String head, String keyword, int currentPage, int limit) {
 		Statement stmt = null;

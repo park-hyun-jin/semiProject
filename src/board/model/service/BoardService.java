@@ -747,11 +747,11 @@ public class BoardService {
 		return boardCount;
 	}
 
-	public ArrayList<Board> selectList() {
+	public ArrayList<Board> selectList(int currentPage, int limit) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new BoardDao().selectList(conn);
+		ArrayList<Board> list = new BoardDao().selectList(conn, currentPage,limit);
 		
 		
 		return list;
@@ -1117,7 +1117,7 @@ public class BoardService {
 
 	public int boardReplyInsert(Reply r, int userNo) {
 		Connection conn = getConnection();
-		int result = new BoardDao().boardReplyInsert(conn,r,userNo);
+		int result = new BoardDao().playgroupReplyInsert(conn,r,userNo);
 		
 		if(result>0) {
 			commit(conn);
@@ -1142,10 +1142,54 @@ public class BoardService {
 
 		return board;
 	}
-	
-	
 
-	public Board detailSheetShareBoard(int bNo) {
+	public int updatBoardGroup(Board playgroupboard) {
+	
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updatBoardGroup(conn,playgroupboard);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  public Board detailSheetShareBoard(int bNo) {
 		Connection conn = getConnection();
 		
 		Board board = new BoardDao().detailSheetShareBoard(conn, bNo);

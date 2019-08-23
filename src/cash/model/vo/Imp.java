@@ -6,6 +6,7 @@ public class Imp {
 	private String merchantUid;
 	private String receiptUrl;
 	private int amount;
+	private String chargeDate;
 	
 	public Imp() {
 		
@@ -68,11 +69,21 @@ public class Imp {
 		this.amount = amount;
 	}
 
+	public String getChargeDate() {
+		return chargeDate;
+	}
+
+	public void setChargeDate(String chargeDate) {
+		this.chargeDate = chargeDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Imp [iNo=" + iNo + ", impUid=" + impUid + ", merchantUid=" + merchantUid + ", receiptUrl=" + receiptUrl
-				+ ", amount=" + amount + "]";
+				+ ", amount=" + amount + ", chargeDate=" + chargeDate + "]";
 	}
+
+	
 	
 	
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import user.model.service.UserService;
 import user.model.vo.User;
 
-@WebServlet("/loginUser.us")
+@WebServlet(urlPatterns="/loginUser.us", name="LoginEmailUserServlet")
 public class LoginEmailUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,28 +28,25 @@ public class LoginEmailUserServlet extends HttpServlet {
 		String inputEmail = request.getParameter("inputEmail");
 		String inputPwd = request.getParameter("inputPwd");
 		String loginWay = request.getParameter("loginWay");
-		
+		String thisUrl = request.getParameter("thisUrl");
 		User loginUser = new User(inputEmail, inputPwd, loginWay);
 	
 	
 		loginUser = new UserService().loginUser(loginUser);
 	
-	
+		System.out.println(inputPwd);
+		HttpSession session = request.getSession();
+		
+		session.setMaxInactiveInterval(3600); // 단위 : per sec
 		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			
-			session.setMaxInactiveInterval(3600); // 단위 : per sec
 			
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(request.getContextPath());
 			
 		} else {
-			request.setAttribute("msg", "로그인 실패");
-
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
+			session.setAttribute("msg", "아이디 혹은 비밀번호가 잘못 입력되었습니다.");
 		}
+		response.sendRedirect(thisUrl);
 	
 	}
 

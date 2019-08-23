@@ -19,11 +19,11 @@ public class boardUpdateFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
-		Board board = new BoardService().updateBoardGroup(bNo);
+		Board board = new BoardService().boardGroup(bNo);
 		
 		String page= "";
 		if(board != null) {
-			page = "views/play_group/boardUpdate.jsp";
+			page = "views/community/boardUpdate.jsp";
 			request.setAttribute("board", board);
 		}else {
 			page = "views/common/errorPage.jsp";
