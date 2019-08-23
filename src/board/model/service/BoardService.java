@@ -1158,8 +1158,21 @@ public class BoardService {
   
   public Board detailSheetShareBoard(int bNo) {
 		Connection conn = getConnection();
+		BoardDao bDao = new BoardDao();
+		Board board = bDao.detailSheetShareBoard(conn, bNo);
 		
-		Board board = new BoardDao().detailSheetShareBoard(conn, bNo);
+		if(board != null) {
+			int result = bDao.countPlayGroup(conn,bNo);
+			
+			if(result >0) {
+				commit(conn);
+				board.setbCount(board.getbCount()+1);
+			}else {
+				
+				rollback(conn);
+				board =null; 
+			}
+		}
 				
 		return board;
 	}

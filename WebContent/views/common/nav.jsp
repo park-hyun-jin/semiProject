@@ -137,10 +137,10 @@
 
 <title>Insert title here</title>
 
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/views/style/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/views/style/bootstrap.css"></link>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    <style>
+    <style> 
         html{
             resize: both;
             width: 1910px;            
@@ -158,10 +158,10 @@
         }
         
         .sign_in_btndiv {
-           width: 10%;
+           width: 25%;
             float: right;
             /* margin-right: 2rem; */
-            
+            text-align: right;
         }
         .sign_in_btn{
             margin: 0 auto;
@@ -186,7 +186,7 @@
         .userFuncArea {
          width: 50px;
          height: 50px;
-         float: left;
+         float: right;
          margin-left: 10%;
          
       }
@@ -204,6 +204,7 @@
             bottom: 0;
             position: fixed;
             z-index: 2;
+            text-align: right;
         }
         
         .form-control{
@@ -263,6 +264,12 @@
             margin-right: 3rem;
         }
    
+   		.adminbtn{
+   		float:left;
+    		height:50px;
+    		width:100px;
+    	}
+   
         </style>
 
 
@@ -314,15 +321,7 @@
                     <a class="nav-link nav-hover " href="<%=request.getContextPath()%>/sheetShare.bo">악보공유</a>
                 </li>
                 <li class="nav-item nav-margin">
-                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>
-                    <ul class="detailList">
-                        <li><a href="<%=request.getContextPath()%>/sheetapplyWrite.li">피아노</a></li>
-                        <li><a href="#">기타</a></li>
-                        <li><a href="#">바이올린</a></li>
-                        <li><a href="#">플루트</a></li>
-                        <li><a href="#">하모니카</a></li>
-                        <li><a href="#">etc</a></li>
-                    </ul>
+                    <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/sheetapplyWrite.li">악보신청</a>                   
                 </li>
                 <li class="nav-item nav-margin">
                     <a class="nav-link nav-hover" href="#">커뮤니티</a>
@@ -336,28 +335,24 @@
                     <a class="nav-link nav-hover" href="<%=request.getContextPath()%>/playgroupSearch.bo">연주모임</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-                    <div class="sign_in_btndiv">
+            
+            <div class="sign_in_btndiv">
            <!-- 로그인 안했을 경우 -->
            <% if(loginUser == null) { %>
                <button class="sign_in_btn">sign in</button>
             <% } else { %>
             	<!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
+            	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
+            		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
+            	</div>
             	<div id="mypageDiv" class="userFuncArea" 
             		onclick="location.href='<%=request.getContextPath()%>/myPage.me'">
             		<img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>	
             	</div>
-            	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
-            		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
-            	</div>
             	
             	<% if(loginUser.getuNo() == 3) { %>
-            		<button onclick="location.href='<%=request.getContextPath()%>/updatedInfo.ad'">관리자</button>
-            	<% } %>
-
+            <button class="adminbtn" onclick="location.href='<%=request.getContextPath()%>/updatedInfo.ad'">관리자</button>
+        	<% } %>
             <% } %>
         </div>
         </div>
@@ -366,7 +361,7 @@
 
 
     <footer>
-
+		
     </footer>
     <script>
             $(window).scroll(function(){

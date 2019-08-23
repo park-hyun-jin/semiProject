@@ -4329,8 +4329,6 @@ input[type="button"].btn-block {
           justify-content: space-between;
   padding: 0rem 0.3rem;
   box-sizing: border-box;
-  font-family: sans-serif;
-  size: 50px;
 }
 
 .navbar > .container,
@@ -4356,7 +4354,6 @@ input[type="button"].btn-block {
   font-size: 1.09375rem;
   line-height: inherit;
   white-space: nowrap;
- 
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
@@ -10335,7 +10332,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .btn {
-  font-size: 0.465625rem;
+  font-size: 0.765625rem;
   text-transform: uppercase;
 }
 

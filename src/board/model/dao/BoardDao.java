@@ -1172,10 +1172,6 @@ private Properties prop = new Properties();
 	      }
 	      return result;
 	   }
-
-	}
-
-	
 	
 
 	public Board detailSheetShareBoard(Connection conn, int bNo) {
@@ -1465,7 +1461,7 @@ private Properties prop = new Properties();
 	}
 	
 	
-	
+}
 	
 
 
