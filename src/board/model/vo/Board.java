@@ -243,7 +243,7 @@ public class Board {
 
 
 
-	public Board(int bNo, String bTitle, String bContent, int bCount, Date createDate, String writer) {
+	public Board(int bNo, String bTitle, String bContent, String writer , int bCount, Date createDate) {
 		this.bNo = bNo;
 		this.bTitle = bTitle;
 		this.bContent = bContent;

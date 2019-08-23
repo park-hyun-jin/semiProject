@@ -168,7 +168,7 @@ private Properties prop = new Properties();
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, report.getRpContent());
 			pstmt.setInt(2, report.getbNo());
-			pstmt.setInt(3, report.getUserNo());
+			pstmt.setString(3, report.getUserNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -1169,7 +1169,7 @@ private Properties prop = new Properties();
 			close(stmt);
 		}
 		return result;
-		
+	}
 	
 	public ArrayList<Board> SheetList(Connection conn, String head, String keyword, int currentPage, int limit) {
 		Statement stmt = null;
@@ -1217,6 +1217,84 @@ private Properties prop = new Properties();
 		
 		return list;
 		
+	}
+	
+	public int countQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+ 		String query = prop.getProperty("countQnA");
+
+ 		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+
+ 			result = pstmt.executeUpdate();
+
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+ 		return result;
+	}
+
+ 	public Board selectQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+ 		Board board = null;
+
+ 		String query = prop.getProperty("selectQnA");
+
+ 		try {
+			pstmt=conn.prepareStatement(query);
+
+ 			pstmt.setInt(1, bNo);
+
+ 			rset = pstmt.executeQuery();
+
+ 			if(rset.next()) {
+
+ 				board = new Board(rset.getInt(1),
+								  rset.getString(2),
+								  rset.getString(3),
+								  rset.getString(4) + ","+ rset.getString(5),
+								  rset.getInt(6),
+								  rset.getDate(7)
+				);
+
+ 			}
+
+ 		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+	}
+		return board;
+	}
+ 	
+ 	
+ 	public int deleteQnA(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+ 		String query = prop.getProperty("deleteQnA");
+
+ 		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+
+ 			result=pstmt.executeUpdate();
+
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

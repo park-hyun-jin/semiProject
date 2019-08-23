@@ -456,7 +456,7 @@ public class AdminDao {
 				report.setRpContent(rset.getString(3));
 				report.setbNo(rset.getInt(4));
 				report.setbType(rset.getInt(5)+","+rset.getString(6)+","+rset.getString(7));
-				report.setUserNo(rset.getInt(8));
+				report.setUserNo(rset.getInt(8)+"");
 				report.setNickName(rset.getString(9));
 				
 				System.out.println(report);
@@ -470,40 +470,73 @@ public class AdminDao {
 		return reportList;
 	}
 
+	
+	
+	public int getReportCount(Connection conn) {
+		int reportCount = -1;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getReportCount");
 
-	public ArrayList<Point> userPointList(Connection conn, int uno) {
+ 		try {
+
+ 			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+
+ 			if(rset.next()) reportCount = rset.getInt(1);
+
+ 		} catch (SQLException e) {
+
+ 			e.printStackTrace();
+
+ 		} finally {
+
+ 			close(rset);
+			close(stmt);
+
+ 		}
+
+ 		return reportCount;
+	}
+
+
+ 	public ArrayList<Report> reportSelectList(Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		String query = prop.getProperty("userPointList");
-		
-		ArrayList<Point> pointList = null;
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, uno);
-			
-			rset = pstmt.executeQuery();
-			
-			pointList = new ArrayList<>();
-			while(rset.next()) {
-				Point point = new Point(rset.getInt(1), 
-										rset.getString(2)+","+rset.getString(3),
-										rset.getInt(4),
-										rset.getDate(5),
-										rset.getInt(6)+","+rset.getString(7));
-				pointList.add(point);
-				
-			}
-		} catch (SQLException e) {
+
+ 		ArrayList<Report> reportList = null;
+
+ 		String query = prop.getProperty("reportSelectList");
+
+ 		try {
+			pstmt= conn.prepareStatement(query);
+
+ 			int startRow = (currentPage-1)*limit+1;
+			int endRow = startRow+limit -1;
+
+ 			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+ 			rset=pstmt.executeQuery();
+
+ 			reportList = new ArrayList<Report>();
+
+ 			while(rset.next()) {
+				Report re = new Report(rset.getInt(2),
+									 rset.getString(3) + "," + rset.getString(4) + "," + rset.getString(5),
+									 rset.getInt(6)+"");
+				reportList.add(re);
+
+ 			}
+		}catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		return pointList;
+		return reportList;
 	}
+
 	
 	
 }

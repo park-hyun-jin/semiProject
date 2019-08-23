@@ -329,7 +329,7 @@
                     <ul class="detailList detailList2">
                         <li><a href="<%= request.getContextPath() %>/notice.me">공지사항</a></li>
                         <li><a href="<%= request.getContextPath() %>/freeBoard.bo">자유게시판</a></li>
-                        <li><a href="#">Q&A</a></li>
+                        <li><a href="<%= request.getContextPath() %>/qnaWrite.li">Q&A</a></li>
                     </ul>
                 </li>
                 <li class="nav-item nav-margin">

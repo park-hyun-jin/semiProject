@@ -126,7 +126,7 @@ String nickName = writer[1];
 
     	// 게시글 목록, 수정 ,삭제 이동 
         function goList(){
-        	location.href='<%= request.getContextPath() %>/playgroupWrite.li';
+        	location.href='<%= request.getContextPath() %>/playgroupSearch.bo';
         }
         function updateBoard(){
         	location.href='<%= request.getContextPath() %>/playgroupWriteForm.up?bNo=<%= b.getbNo() %>';

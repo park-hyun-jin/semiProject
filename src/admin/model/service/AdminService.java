@@ -169,11 +169,25 @@ public class AdminService {
 		
 		return new AdminDao().getUpdatedReportList(conn);
 	}
-
-	public ArrayList<Point> userPointList(int uno) {
+	
+	
+	/**
+	 * 신고게시판 전체 개수 
+	 * @return
+	 */
+	public int getReportCount() {
 		Connection conn = getConnection();
-		
-		return new AdminDao().userPointList(conn, uno);
+		int result = new AdminDao().getReportCount(conn);
+
+ 		return result;
 	}
 
+ 	public ArrayList<Report> reportSelectList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Report> reportList = new AdminDao().reportSelectList(conn,currentPage,limit);
+		return reportList;
+	}
+	
+
+	
 }
