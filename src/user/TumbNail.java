@@ -13,7 +13,7 @@ import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 public class TumbNail {
 	
 	public void tumbnail() throws IOException{
-		String pdfFilename = "C:\\dev\\m54667_Paint_Your_World.pdf";
+		String pdfFilename = "mp-54667-장난감_숲_minor_ver._-_JayM.pdf";
 
 		PDDocument document = PDDocument.load( new File( pdfFilename ) );
 

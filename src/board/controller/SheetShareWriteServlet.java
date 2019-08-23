@@ -49,7 +49,6 @@ public class SheetShareWriteServlet extends HttpServlet {
 
 			int nPrice = 0;
 			String nDivide = null;
-			System.out.println(price);
 			if(price.equals("point")) {
 				nPrice = 150;
 				nDivide = "P";

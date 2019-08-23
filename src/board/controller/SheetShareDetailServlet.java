@@ -48,8 +48,8 @@ public class SheetShareDetailServlet extends HttpServlet {
 		BoardService bService = new BoardService();
 		Note note = bService.selectSheetSharePdf(bNo);
 		
-		String pdfFilename = request.getContextPath()+"/sheetPdf/"+note.getChangeName();
-
+		String pdfFilename = "C:\\git\\semiProjectLocal\\semiProject\\WebContent\\sheetPdf\\"+note.getChangeName();
+		System.out.println(pdfFilename);
 		PDDocument document = PDDocument.load( new File( pdfFilename ) );
 
 		PDFRenderer pdfRenderer = new PDFRenderer( document );
@@ -66,10 +66,8 @@ public class SheetShareDetailServlet extends HttpServlet {
 		
 		Board board = bService.detailSheetShareBoard(bNo);
 		
-		
 		RequestDispatcher view = null;
 		String page = "";
-		System.out.println(pdfFilename);
 		if(request.getSession().getAttribute("loginUser") == null) {
 			request.getSession().setAttribute("msg", "로그인을 해주세요");
 			response.sendRedirect(request.getContextPath());
@@ -79,7 +77,6 @@ public class SheetShareDetailServlet extends HttpServlet {
 				page = "views/sheet_share/sheetShareDetail.jsp";
 				request.setAttribute("board", board);
 				request.setAttribute("note", note);
-				request.setAttribute("pdfFilename", pdfFilename);
 				request.setAttribute("loginUser", loginUser);
 			} else {
 				page = "views/common/errorPage.jsp";

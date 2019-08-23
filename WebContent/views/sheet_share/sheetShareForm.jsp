@@ -283,12 +283,6 @@
     </div> 
   
   <script>
-  	$(document).ready(function(){
-  		var cash = $("#price_cash").val(); 
-  		console.log(cash);
-		 $("#radio_cash").val(cash);
-	 
-  	});
   function radioCheck(){
 	  if(!$("input[type=radio]").is(":checked")){
 		  alert("가격을 결정해주세요.")
@@ -298,6 +292,8 @@
 	  }
   }
   function goSubmit(){
+	  var cash = $("#price_cash").val();
+	  $("#radio_cash").val(cash);
 	  document.writeForm.target="_parent";
 	  document.writeForm.submit();
   }
