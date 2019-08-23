@@ -289,12 +289,12 @@
 
 
 <script>
-   var msg = "<%= msg%>";
-   
-   if(msg != "null") { // msg 값이 있을 경우
-      alert(msg);   
-      <% session.removeAttribute("msg"); %>
-   }
+	var msg = "<%= msg%>";
+	
+	if(msg != "null") { // msg 값이 있을 경우
+		alert(msg, "noreduck message");	
+		<% session.removeAttribute("msg"); %>
+	}
 </script>
 
 
@@ -353,15 +353,19 @@
            <% if(loginUser == null) { %>
                <button class="sign_in_btn">sign in</button>
             <% } else { %>
-               <!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
-               <div id="mypageDiv" class="userFuncArea" 
-                  onclick="location.href='<%=request.getContextPath()%>/myPage.me'">
-                  <img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>   
-               </div>
-               <div id="logoutDiv" class="userFuncArea" onclick="logout()">
-                  <img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
-               </div>
-            
+            	<!-- 로그인 했을 경우. 마이페이지 이동, 로그아웃 가능  -->
+            	<div id="mypageDiv" class="userFuncArea" 
+            		onclick="location.href='<%=request.getContextPath()%>/myPage.me'">
+            		<img src="<%=request.getContextPath() %>/views/image/mypage_w.png"/>	
+            	</div>
+            	<div id="logoutDiv" class="userFuncArea" onclick="logout()">
+            		<img src="<%=request.getContextPath() %>/views/image/logout_w.png"/>
+            	</div>
+            	
+            	<% if(loginUser.getuNo() == 3) { %>
+            		<button onclick="location.href='<%=request.getContextPath()%>/updatedInfo.ad'">관리자</button>
+            	<% } %>
+
             <% } %>
         </div>
         </div>
