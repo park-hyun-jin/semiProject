@@ -38,7 +38,7 @@
     #admin_nav_wrap .main_nav_aside {
         width: 20%;
         height: 100%;
-        background-color: k
+        background-color:  rgb(57, 109, 219);
         padding: 10px 30px 10px 30px;
         /* display: flex; */
         float: left;
